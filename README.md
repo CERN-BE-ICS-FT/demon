@@ -19,5 +19,5 @@ FRONTEND
 
 - `npm start` to run the project on localhost
 - `npm test` to run tests #TODO
-- `npm run lint` to run the linter
-- `npm run lint:fix` to fix simple linting problems
+- `yarn eslint .` (in demon directory) to run the linter
+- `yarn eslint --fix .` to fix simple linting problems

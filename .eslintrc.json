@@ -18,7 +18,6 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["postcss.config.js"],
-
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": [
