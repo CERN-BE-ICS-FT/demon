@@ -3,7 +3,7 @@ import Footer from '../footer/Footer';
 
 export default function RootLayout() {
   return (
-    <div className="root-layout min-h-screen bg-gray-100">
+    <div className="root-layout min-h-screen min-w-screen bg-gray-100">
       <header>
         <nav className="bg-blue-700 p-4 flex justify-between items-center">
           <NavLink
@@ -28,12 +28,12 @@ export default function RootLayout() {
           </div>
         </nav>
       </header>
-      <div className="container flex h-[calc(100vh-156px)]">
-        <aside className="w-1/4 bg-gray-200 h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
+      <div className="container flex h-[calc(100vh-156px)] w-screen">
+        <aside className="w-42 bg-gray-200 h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
           {/* Add your content here */}
-          <h1 className="p-8">Tree</h1>
+          <h1 className="p-16">Tree</h1>
         </aside>
-        <main className="p-4 w-3/4">
+        <main className="p-4 w-screen">
           <Outlet />
         </main>
       </div>

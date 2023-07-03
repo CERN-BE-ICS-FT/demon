@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,8 +10,6 @@ import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import NotFound from './pages/NotFound/NotFound';
 import RootLayout from './app/global/layouts/RootLayout';
-import Layout from './app/global/layouts/layout';
-import Navbar from './app/global/navbar/Navbar';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
