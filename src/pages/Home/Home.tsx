@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className="h-full w-full space-y-1">
       <h1>Home</h1>
-      <Button>{'Add new group'}</Button>
+      <Button>{'Add new group 123'}</Button>
       <br></br>
       <PropositionGroup></PropositionGroup>
     </div>
