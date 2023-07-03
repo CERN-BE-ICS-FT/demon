@@ -3,17 +3,17 @@ FRONTEND
 
 1. Cloning and installing packages
 
-- run `git clone [URL HERE]`
+- run `git clone https://github.com/CERN-BE-ICS-FT/demon.git`
 - run `npm install`
-- create .env file and paste variables given to you in private #TODO
 - if you're using VSCode:
   - add Prettier extension
   - go to settings, add Prettier as the default formatter and enable formatting on save
+- #TODO create .env file and paste variables given to you in private
 
 2. After checkout
 
 - run `npm install`
-- remember to check whether contents of .env need to be updated #TODO
+- #TODO remember to check whether contents of .env need to be updated
 
 3. Useful scripts
 
