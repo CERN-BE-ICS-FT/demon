@@ -1,5 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import Footer from '../footer/Footer';
+import Tree from '../../../pages/Tree/Tree';
 
 export default function RootLayout() {
   return (
@@ -31,7 +32,9 @@ export default function RootLayout() {
       <div className="container flex h-[calc(100vh-156px)] w-screen">
         <aside className="w-42 bg-gray-200 h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
           {/* Add your content here */}
-          <h1 className="p-16">Tree</h1>
+          <h1 className="p-16">
+            <Tree></Tree>
+          </h1>
         </aside>
         <main className="p-4 w-screen">
           <Outlet />

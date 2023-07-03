@@ -38,10 +38,10 @@ const SelectButton = ({ text, options, onChange }: SelectButtonProps) => {
   };
 
   return (
-    <div className="relative inline-flex min-w-48 w-44" ref={wrapperRef}>
+    <div className="relative inline-flex min-w-fit" ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex justify-center min-w-fit w-36 h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 "
+        className="inline-flex justify-center min-w-fit w-36 h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4"
       >
         {selectedOption}
       </button>
@@ -57,7 +57,7 @@ const SelectButton = ({ text, options, onChange }: SelectButtonProps) => {
               <button
                 key={index}
                 onClick={() => handleSelect(option.value, option.label)}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 right-24"
                 role="menuitem"
               >
                 {option.label}
