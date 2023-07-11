@@ -38,15 +38,16 @@ const SelectButton = ({ text, options, onChange }: SelectButtonProps) => {
   };
 
   return (
-    <div className="relative inline-flex min-w-fit" ref={wrapperRef}>
+    <div className="relative inline-flex min-w-fit w-fit" ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex justify-center min-w-fit w-36 h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4"
+        className="inline-flex justify-center min-w-fit h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4"
       >
-        {selectedOption}
+        {selectedOption} {isOpen && <p>&nbsp; ▲ </p>}{' '}
+        {!isOpen && <p>&nbsp; ▼ </p>}
       </button>
       {isOpen && (
-        <div className="absolute z-10 mt-12 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute z-10 mt-12 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div
             className="py-1"
             role="menu"
@@ -57,7 +58,7 @@ const SelectButton = ({ text, options, onChange }: SelectButtonProps) => {
               <button
                 key={index}
                 onClick={() => handleSelect(option.value, option.label)}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 right-24"
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 role="menuitem"
               >
                 {option.label}

@@ -1,5 +1,31 @@
 import React, { useState } from 'react';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
+import Separator from '../elements/Separator';
+import Cross from '../elements/Cross';
+import VerticalSeparator from '../elements/VerticalSeparator';
+
+const opts: SelectOption[] = [
+  { label: '🟩 Green', value: '0' },
+  { label: '🟥 Red', value: '1' },
+  { label: '🟨 Yellow', value: '2' }
+];
+
+const handleCross = (event: React.MouseEvent<HTMLButtonElement>) => {
+  console.log('Button clicked!', event);
+};
+
+const operators: SelectOption[] = [
+  { label: 'AND', value: 'and' },
+  { label: 'OR', value: 'or' }
+];
+
+const states: SelectOption[] = [
+  { label: '0', value: '0' },
+  { label: '1', value: '1' },
+  { label: '2', value: '2' },
+  { label: '3', value: '3' },
+  { label: '4', value: '0' }
+];
 
 const fields: SelectOption[] = [
   { label: 'CPU Status', value: 'CPU' },
@@ -40,26 +66,19 @@ const RuleRow = () => {
       setValue(selectedOption.label);
     }
   };
+
   return (
-    <div className="flex border-2 border-sky-500 rounded-xl p-4 px-16 w-auto space-x-6">
-      <h1 className="flex-1 text-center text-3xl">AND</h1>
-      <SelectButton
-        text={'Field'}
-        options={quantifiers}
-        onChange={handleFieldSelect}
-      />
-      <div className="m-auto"> with state </div>
-      <SelectButton
-        text={'Field'}
-        options={fields}
-        onChange={handleFieldSelect}
-      />
-      <div className="m-auto"> == </div>
-      <SelectButton
-        text={'Value'}
-        options={values}
-        onChange={handleValueSelect}
-      />
+    <div className="">
+      <Separator></Separator>
+      <div className="flex items-center p-2 min-w-fit">
+        <h1 className="pl-8 text-2xl align-middle pl-24 min-w-fit"></h1>
+        <Cross onClick={handleCross}></Cross>
+        <VerticalSeparator></VerticalSeparator>
+        <SelectButton text={'Output state'} options={opts} />
+        <h1 className="pl-0 text-2xl align-middle pl-24">state</h1>
+        <SelectButton text={'Output state'} options={opts} />
+        <SelectButton text={'Output state'} options={states} />
+      </div>
     </div>
   );
 };
