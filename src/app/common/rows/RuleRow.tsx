@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
+import Separator from '../elements/Separator';
+import Cross from '../elements/Cross';
+import VerticalSeparator from '../elements/VerticalSeparator';
 
-const fields: SelectOption[] = [
-  { label: 'CPU Status', value: 'CPU' },
-  { label: 'MEM Status', value: 'MEM' },
-  { label: 'NET Status', value: 'NET' },
-  { label: 'RAM Status', value: 'RAM' }
+interface RuleRowProps {
+  handleDelete: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const operators: SelectOption[] = [
+  { label: '==', value: '==' },
+  { label: '!=', value: 'or' },
+  { label: '<', value: 'or' },
+  { label: '>', value: 'or' }
+];
+
+const inputs: SelectOption[] = [
+  { label: 'All of inputs', value: 'all' },
+  { label: 'None of inputs', value: 'none' },
+  { label: 'Any of inputs', value: 'any' },
+  { label: 'Current group', value: 'c_group' }
 ];
 
 const values: SelectOption[] = [
@@ -16,50 +30,19 @@ const values: SelectOption[] = [
   { label: '4', value: '0' }
 ];
 
-const quantifiers: SelectOption[] = [
-  { label: 'Any', value: 'any' },
-  { label: 'All', value: 'all' },
-  { label: 'At least _', value: 'at least' }
-];
-
-const RuleRow = () => {
-  const [field, setField] = useState('');
-  const [value, setValue] = useState('');
-
-  const handleFieldSelect = (value: string) => {
-    const selectedOption = fields.find((option) => option.value === value);
-    if (selectedOption) {
-      setField(selectedOption.label);
-    }
-  };
-
-  const handleValueSelect = (value: string) => {
-    const selectedOption = values.find((option) => option.value === value);
-    if (selectedOption) {
-      setValue(selectedOption.label);
-      setValue(selectedOption.label);
-    }
-  };
+const RuleRow = ({ handleDelete }: RuleRowProps) => {
   return (
-    <div className="flex border-2 border-sky-500 rounded-xl p-4 px-16 w-auto space-x-6">
-      <h1 className="flex-1 text-center text-3xl">AND</h1>
-      <SelectButton
-        text={'Field'}
-        options={quantifiers}
-        onChange={handleFieldSelect}
-      />
-      <div className="m-auto"> with state </div>
-      <SelectButton
-        text={'Field'}
-        options={fields}
-        onChange={handleFieldSelect}
-      />
-      <div className="m-auto"> == </div>
-      <SelectButton
-        text={'Value'}
-        options={values}
-        onChange={handleValueSelect}
-      />
+    <div className="">
+      <Separator></Separator>
+      <div className="flex items-center p-2 min-w-fit">
+        <h1 className="pl-8 text-2xl align-middle pl-24 min-w-fit"></h1>
+        <Cross onClick={handleDelete}></Cross>
+        <VerticalSeparator></VerticalSeparator>
+        <SelectButton text={'Input'} options={inputs} />
+        <h1 className="pl-0 text-2xl align-middle pl-12 pr-12">state</h1>
+        <SelectButton text={'Operator'} options={operators} />
+        <SelectButton text={'Output'} options={values} />
+      </div>
     </div>
   );
 };
