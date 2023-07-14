@@ -1,13 +1,12 @@
-import { useState, MouseEvent } from 'react';
+import { useState } from 'react';
 import Button from '../buttons/Button';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
 import Cross from '../elements/Cross';
-import Separator from '../elements/Separator';
-import VerticalSeparator from '../elements/VerticalSeparator';
 import RuleRow from '../rows/RuleRow';
 
 interface GroupProps {
-  handleDelete?: (id: number) => void;
+  id: string;
+  handleDelete: (id: string) => void;
 }
 
 const operators: SelectOption[] = [
@@ -15,43 +14,70 @@ const operators: SelectOption[] = [
   { label: 'OR', value: 'or' }
 ];
 
-const Group = ({ handleDelete }: GroupProps) => {
-  const [ruleRows, setRuleRows] = useState([
-    { id: 0, component: <RuleRow key={0} /> }
-  ]);
+const colors = [
+  'bg-sky-300',
+  'bg-green-300',
+  'bg-red-300',
+  'bg-purple-300',
+  'bg-teal-400'
+];
+
+const determineColor = (id: string) => {
+  const depth = id.split('.').length - 1;
+  return colors[depth % colors.length];
+};
+
+const Group = ({ id, handleDelete }: GroupProps) => {
+  const [ruleRows, setRuleRows] = useState<number[]>([0]);
+  const [subGroups, setSubGroups] = useState<string[]>([]);
 
   const addRuleRow = () => {
-    setRuleRows((currentRows) => [
-      ...currentRows,
-      {
-        id: currentRows.length,
-        component: <RuleRow key={currentRows.length} />
-      }
-    ]);
+    const newId = ruleRows.length;
+    setRuleRows((currentRows) => [...currentRows, newId]);
   };
 
   const handleCross = (id: number) => {
-    setRuleRows((currentRows) => currentRows.filter((row) => row.id !== id));
+    setRuleRows((currentRows) => currentRows.filter((rowId) => rowId !== id));
   };
 
+  const addSubGroup = () => {
+    const newId = `${id}.${subGroups.length + 1}`;
+    setSubGroups((currentSubGroups) => [...currentSubGroups, newId]);
+  };
+
+  const handleDeleteSubGroup = (subGroupId: string) => {
+    setSubGroups((currentSubGroups) =>
+      currentSubGroups.filter((groupId) => groupId !== subGroupId)
+    );
+  };
+
+  const color = determineColor(id);
+
   return (
-    <div className="bg-sky-300 rounded-xl ml-24 border-2 border-black min-w-fit">
-      <div className="flex items-center p-2 space-x-8 w-full min-w-fit">
-        {/* Uncomment the line below to use handleDelete */}
-        {/* <Cross onClick={handleDelete}></Cross> */}
-        <Button>+ Subgroup</Button>
-        <Button onClick={addRuleRow}>+ Rule</Button>
-        <div className="flex items-center justify-end w-full min-w-fit">
-          <h1 className="pl-0 text-2xl align-middle min-w-fit">Group 1</h1>
-          <SelectButton text={'Operators'} options={operators}></SelectButton>
+    <div className="flex ml-8 p-2">
+      <Cross onClick={() => handleDelete(id)} />
+      <div
+        className={`rounded-xl ml-8 border-2 border-black min-w-fit ${color}`}
+      >
+        <div className="flex items-center p-2 space-x-8 w-full min-w-fit">
+          <Button onClick={addSubGroup}>+ Subgroup</Button>
+          <Button onClick={addRuleRow}>+ Rule</Button>
+          <div className="flex items-center justify-end w-full min-w-fit">
+            <h1 className="pl-0 text-2xl align-middle min-w-fit">Group {id}</h1>
+            <SelectButton text={'Operators'} options={operators} />
+          </div>
         </div>
+        {ruleRows.map((id) => (
+          <div key={id}>
+            <RuleRow handleDelete={() => handleCross(id)} />
+          </div>
+        ))}
+        {subGroups.map((groupId) => (
+          <div key={groupId}>
+            <Group id={groupId} handleDelete={handleDeleteSubGroup} />
+          </div>
+        ))}
       </div>
-      {ruleRows.map(({ id, component }) => (
-        <div key={id}>
-          <Cross onClick={() => handleCross(id)} />
-          {component}
-        </div>
-      ))}
     </div>
   );
 };
