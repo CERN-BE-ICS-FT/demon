@@ -8,7 +8,7 @@ interface CrossProps {
 const Cross: FC<CrossProps> = ({ onClick }) => {
   return (
     <button
-      className="bg-black rounded-full flex items-center justify-center text-black font-bold text-md w-8 h-8"
+      className="bg-black rounded-full flex items-center justify-center text-black font-bold text-md w-8 h-8 mr-2"
       onClick={onClick}
     >
       <CloseIcon className="w-8 h-8" />

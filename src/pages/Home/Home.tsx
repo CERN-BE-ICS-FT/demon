@@ -9,12 +9,13 @@ interface PropositionGroupProps {
   handleDelete: (id: number) => void;
 }
 
-export const handleSave = () => {
-  console.log('saving', myData);
-};
+// export const handleSave = () => {
+//   console.log(propositionGroups);
+// };
 
 const Home = () => {
-  const [propositionGroups, setPropositionGroups] = useState([0]);
+  const [propositionGroups, setPropositionGroups] = useState<number[]>([0]);
+  const [propositionGroupCount, setPropositionGroupCount] = useState<number>(1); // add a propositionGroupCount state
 
   const handleDeletePropositionGroup = (id: number) => {
     setPropositionGroups((currentPropositionGroups) =>
@@ -23,10 +24,15 @@ const Home = () => {
   };
 
   const handleAddPropositionGroup = () => {
+    setPropositionGroupCount(propositionGroupCount + 1); // increment propositionGroupCount by 1 whenever a new group is created
     setPropositionGroups((currentPropositionGroups) => [
       ...currentPropositionGroups,
-      currentPropositionGroups.length
+      propositionGroupCount
     ]);
+  };
+
+  const handleSave = () => {
+    console.log(propositionGroups);
   };
 
   const groupName = 'group-1.1';
@@ -41,7 +47,7 @@ const Home = () => {
         <Button onClick={handleAddPropositionGroup}>
           {'Add new proposition'}
         </Button>
-        <Button onClick={saveRule}>Save Rules</Button>
+        <Button onClick={handleSave}>Save Rules</Button>
       </div>
 
       <br />

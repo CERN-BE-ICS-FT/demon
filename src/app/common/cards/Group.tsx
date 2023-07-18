@@ -3,10 +3,13 @@ import Button from '../buttons/Button';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
 import Cross from '../elements/Cross';
 import RuleRow from '../rows/RuleRow';
+import VerticalSeparator from '../elements/VerticalSeparator';
+import Separator from '../elements/Separator';
 
 interface GroupProps {
   id: string;
   handleDelete: (id: string) => void;
+  isRoot?: boolean;
 }
 
 const operators: SelectOption[] = [
@@ -27,9 +30,10 @@ const determineColor = (id: string) => {
   return colors[depth % colors.length];
 };
 
-const Group = ({ id, handleDelete }: GroupProps) => {
+const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
   const [ruleRows, setRuleRows] = useState<number[]>([0]);
   const [subGroups, setSubGroups] = useState<string[]>([]);
+  const [subGroupCount, setSubGroupCount] = useState<number>(0); // add a subGroupCount state
 
   const addRuleRow = () => {
     const newId = ruleRows.length;
@@ -41,7 +45,8 @@ const Group = ({ id, handleDelete }: GroupProps) => {
   };
 
   const addSubGroup = () => {
-    const newId = `${id}.${subGroups.length + 1}`;
+    setSubGroupCount(subGroupCount + 1); // increment subGroupCount by 1 whenever a new subgroup is created
+    const newId = `${id}.${subGroupCount + 1}`;
     setSubGroups((currentSubGroups) => [...currentSubGroups, newId]);
   };
 
@@ -55,7 +60,7 @@ const Group = ({ id, handleDelete }: GroupProps) => {
 
   return (
     <div className="flex ml-8 p-2">
-      <Cross onClick={() => handleDelete(id)} />
+      {!isRoot && <Cross onClick={() => handleDelete(id)} />}
       <div
         className={`rounded-xl ml-8 border-2 border-black min-w-fit ${color}`}
       >
@@ -64,9 +69,10 @@ const Group = ({ id, handleDelete }: GroupProps) => {
           <Button onClick={addRuleRow}>+ Rule</Button>
           <div className="flex items-center justify-end w-full min-w-fit">
             <h1 className="pl-0 text-2xl align-middle min-w-fit">Group {id}</h1>
-            <SelectButton text={'Operators'} options={operators} />
+            <SelectButton text={'Logical'} options={operators} />
           </div>
         </div>
+        {/* <Separator></Separator> */}
         {ruleRows.map((id) => (
           <div key={id}>
             <RuleRow handleDelete={() => handleCross(id)} />

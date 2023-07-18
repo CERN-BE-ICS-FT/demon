@@ -29,15 +29,14 @@ export default function RootLayout() {
           </div>
         </nav>
       </header>
-      {/* Old height: h-[calc(screen-156px)] */}
-      <div className="container flex h-fit w-screen min-h-[calc(screen-156px)]">
-        <aside className="w-42 bg-gray-200 h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
+      <div className="container flex-grow flex w-screen min-h-[calc(82vh)]">
+        <aside className="w-42 bg-gray-200 min-h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
           {/* Add your content here */}
           <h1 className="p-16">
             <Tree></Tree>
           </h1>
         </aside>
-        <main className="p-4 w-screen">
+        <main className="p-4 flex-grow">
           <Outlet />
         </main>
       </div>
