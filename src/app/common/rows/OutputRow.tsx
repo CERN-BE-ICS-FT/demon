@@ -1,10 +1,9 @@
-import React from 'react';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
 
 const opts: SelectOption[] = [
-  { label: '🟩 Green', value: '0' },
-  { label: '🟥 Red', value: '1' },
-  { label: '🟨 Yellow', value: '2' }
+  { label: '🟩 OK', value: '0' },
+  { label: '🟥 Error', value: '1' },
+  { label: '🟨 Warning', value: '2' }
 ];
 
 const OutputRow = () => (
