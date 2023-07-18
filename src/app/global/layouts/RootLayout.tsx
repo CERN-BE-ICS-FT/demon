@@ -1,8 +1,21 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import Footer from '../footer/Footer';
 import Tree from '../../../pages/Tree/Tree';
+import { treeData } from '../../../pages/Tree/TreeData';
+import { useState } from 'react';
 
 export default function RootLayout() {
+  const [selectedItem, setSelectedItem] = useState('');
+
+  // interface itemProp {
+  //   itemName: string;
+  // }
+
+  const handleItemClick = (itemName: string) => {
+    console.log(itemName);
+    setSelectedItem(itemName);
+  };
+
   return (
     <div className="root-layout min-h-screen min-w-screen bg-gray-100">
       <header>
@@ -33,7 +46,7 @@ export default function RootLayout() {
         <aside className="w-42 bg-gray-200 min-h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
           {/* Add your content here */}
           <h1 className="p-16">
-            <Tree></Tree>
+            <Tree item={treeData} onItemNameClick={handleItemClick}></Tree>
           </h1>
         </aside>
         <main className="p-4 flex-grow">
