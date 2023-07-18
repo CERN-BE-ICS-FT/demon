@@ -7,7 +7,7 @@ const opts: SelectOption[] = [
 ];
 
 const OutputRow = () => (
-  <div className="flex items-center p-2 ml-24 bg-amber-300 rounded-xl border-2 border-black">
+  <div className="flex items-center p-2 ml-19 bg-amber-300 rounded-xl border-2 border-black">
     <h1 className="pl-8 text-2xl align-middle">Output state is</h1>
     <SelectButton text={'Output state'} options={opts} />
   </div>
