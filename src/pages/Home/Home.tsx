@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import saveRule from '../../app/actions/saveRule';
 import Button from '../../app/common/buttons/Button';
 import PropositionGroup from '../../app/common/cards/PropositionGroup';
-import myData from '../../data/tree.json';
+import ImportRulesModal from '../Popups/ImportRulesModal';
 
 interface PropositionGroupProps {
   id: number;
   handleDelete: (id: number) => void;
 }
 
-// export const handleSave = () => {
-//   console.log(propositionGroups);
-// };
-
 const Home = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [propositionGroups, setPropositionGroups] = useState<number[]>([0]);
   const [propositionGroupCount, setPropositionGroupCount] = useState<number>(1); // add a propositionGroupCount state
 
@@ -35,30 +31,46 @@ const Home = () => {
     console.log(propositionGroups);
   };
 
+  const handleImport = () => {
+    setModalOpen(true);
+    console.log('trying to import rules/popups');
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    console.log('trying to import rules/popups');
+  };
+
   const groupName = 'group-1.1';
 
   return (
-    <div className="h-full w-full space-y-4 min-w-fit mb-20">
-      <h1 className="text-3xl">
-        Rule for <span className="font-bold">{groupName}</span>
-      </h1>
+    <>
+      <ImportRulesModal open={modalOpen} handleClose={closeModal} />
+      <div className="h-full w-full space-y-4 min-w-fit mb-20">
+        <h1 className="text-3xl">
+          Rule for <span className="font-bold">{groupName}</span>
+        </h1>
 
-      <div className="flex justify-between text-center px-12">
-        <Button onClick={handleAddPropositionGroup}>
-          {'Add new proposition'}
-        </Button>
-        <Button onClick={handleSave}>Save Rules</Button>
+        <div className="flex justify-end px-12">
+          <Button onClick={handleAddPropositionGroup}>
+            {'Add new proposition'}
+          </Button>
+          <div className="ml-auto flex space-x-4">
+            <Button onClick={handleImport}>Import Rules</Button>
+            <Button onClick={handleSave}>Save Rules</Button>
+          </div>
+        </div>
+
+        <br />
+        {propositionGroups.map((id) => (
+          <PropositionGroup
+            key={id}
+            id={id}
+            handleDelete={handleDeletePropositionGroup}
+          />
+        ))}
       </div>
-
-      <br />
-      {propositionGroups.map((id) => (
-        <PropositionGroup
-          key={id}
-          id={id}
-          handleDelete={handleDeletePropositionGroup}
-        />
-      ))}
-    </div>
+    </>
   );
 };
 

@@ -25,42 +25,29 @@ const Tree: React.FC<TreeProps> = ({ item, onItemNameClick }) => {
   };
 
   return (
-    <li style={{ listStyleType: 'none' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <span
+    <li className="list-none">
+      <div className="flex items-center">
+        <div
           onClick={handleSymbolClick}
-          style={{
-            cursor: 'pointer',
-            display: 'inline-block',
-            width: '20px',
-            height: '20px',
-            lineHeight: '20px',
-            borderRadius: '50%',
-            textAlign: 'center',
-            border: '1px solid black',
-            marginRight: '5px',
-            fontSize: '16px' // Added this line to increase the font size
-          }}
+          className={
+            'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-lg bg-black text-white rounded-full pb-1'
+          }
         >
           {isOpen ? '-' : '+'}
-        </span>
+        </div>
         <span
-          style={{
-            display: 'inline-block',
-            width: '30px',
-            height: '20px',
-            backgroundColor:
-              item.status.toLowerCase() === 'active' ? 'green' : 'red',
-            marginRight: '5px',
-            flex: 'none' // add this line
-          }}
+          className={`inline-block w-5 h-5 mr-1 rounded ${
+            item.status.toLowerCase() === 'active'
+              ? 'bg-green-500'
+              : 'bg-red-500'
+          }`}
         ></span>
-        <span onClick={handleNameClick} style={{ cursor: 'pointer' }}>
+        <span onClick={handleNameClick} className="cursor-pointer">
           {item.name}
         </span>
       </div>
       {isOpen && item.children && (
-        <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
+        <ul className="list-none pl-5">
           {item.children.map((child, index) => (
             <Tree key={index} item={child} onItemNameClick={onItemNameClick} />
           ))}
