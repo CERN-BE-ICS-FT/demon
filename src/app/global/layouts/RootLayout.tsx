@@ -7,10 +7,6 @@ import { useState } from 'react';
 export default function RootLayout() {
   const [selectedItem, setSelectedItem] = useState('');
 
-  // interface itemProp {
-  //   itemName: string;
-  // }
-
   const handleItemClick = (itemName: string) => {
     console.log(itemName);
     setSelectedItem(itemName);
@@ -43,9 +39,9 @@ export default function RootLayout() {
         </nav>
       </header>
       <div className="container flex-grow flex w-screen min-h-[calc(82vh)]">
-        <aside className="w-42 bg-gray-200 min-h-full border-r-2 border-gray-300 p-4 flex flex-col items-start">
+        <aside className="flex-grow bg-gray-200 min-w-[250px] min-w-fit border-r-2 border-gray-300 p-4 flex flex-col items-start">
           {/* Add your content here */}
-          <h1 className="p-16">
+          <h1 className="p-2 w-fit">
             <Tree item={treeData} onItemNameClick={handleItemClick}></Tree>
           </h1>
         </aside>

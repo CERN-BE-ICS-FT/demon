@@ -3,8 +3,6 @@ import Button from '../buttons/Button';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
 import Cross from '../elements/Cross';
 import RuleRow from '../rows/RuleRow';
-import VerticalSeparator from '../elements/VerticalSeparator';
-import Separator from '../elements/Separator';
 
 interface GroupProps {
   id: string;
@@ -62,7 +60,7 @@ const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
     <div className="flex ml-8 p-2">
       {!isRoot && <Cross onClick={() => handleDelete(id)} />}
       <div
-        className={`rounded-xl ml-8 border-2 border-black min-w-fit ${color}`}
+        className={`rounded-xl ml-4 border-2 border-black min-w-fit ${color}`}
       >
         <div className="flex items-center p-2 space-x-8 w-full min-w-fit">
           <Button onClick={addSubGroup}>+ Subgroup</Button>
@@ -72,7 +70,6 @@ const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
             <SelectButton text={'Logical'} options={operators} />
           </div>
         </div>
-        {/* <Separator></Separator> */}
         {ruleRows.map((id) => (
           <div key={id}>
             <RuleRow handleDelete={() => handleCross(id)} />
