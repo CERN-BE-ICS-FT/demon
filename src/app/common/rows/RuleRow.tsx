@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SelectButton, { SelectOption } from '../buttons/SelectButton';
-import Separator from '../elements/Separator';
 import Cross from '../elements/Cross';
-import VerticalSeparator from '../elements/VerticalSeparator';
 
 interface RuleRowProps {
   handleDelete: (event: React.MouseEvent<HTMLButtonElement>) => void;

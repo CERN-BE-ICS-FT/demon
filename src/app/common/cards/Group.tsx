@@ -31,7 +31,7 @@ const determineColor = (id: string) => {
 const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
   const [ruleRows, setRuleRows] = useState<number[]>([0]);
   const [subGroups, setSubGroups] = useState<string[]>([]);
-  const [subGroupCount, setSubGroupCount] = useState<number>(0); // add a subGroupCount state
+  const [subGroupCount, setSubGroupCount] = useState<number>(0);
 
   const addRuleRow = () => {
     const newId = ruleRows.length;
@@ -43,7 +43,7 @@ const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
   };
 
   const addSubGroup = () => {
-    setSubGroupCount(subGroupCount + 1); // increment subGroupCount by 1 whenever a new subgroup is created
+    setSubGroupCount(subGroupCount + 1);
     const newId = `${id}.${subGroupCount + 1}`;
     setSubGroups((currentSubGroups) => [...currentSubGroups, newId]);
   };
