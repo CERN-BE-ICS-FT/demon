@@ -26,8 +26,8 @@ export default function RootLayout() {
             <NavLink to="/" className="text-white mr-4 hover:underline">
               Home
             </NavLink>
-            <NavLink to="about" className="text-white mr-4 hover:underline">
-              About
+            <NavLink to="catalog" className="text-white mr-4 hover:underline">
+              Catalog
             </NavLink>
             <NavLink to="help" className="text-white mr-4 hover:underline">
               Help
@@ -39,7 +39,7 @@ export default function RootLayout() {
         </nav>
       </header>
       <div className="container flex-grow flex w-screen min-h-[calc(82vh)]">
-        <aside className="flex-grow bg-gray-200 min-w-[250px] min-w-fit border-r-2 border-gray-300 p-4 flex flex-col items-start">
+        <aside className="flex-grow bg-gray-200 min-w-[250px] min-w-fit border-r-2 border-gray-300 p-4 flex flex-col items-start max-w-[250px] w-[250px]">
           {/* Add your content here */}
           <h1 className="p-2 w-fit">
             <Tree item={treeData} onItemNameClick={handleItemClick}></Tree>
