@@ -2,6 +2,7 @@ import newFileIcon from './new-file.png';
 import newFolderIcon from './new-folder.png';
 import hardDiskIcon from './hard-disk.png';
 import deleteIcon from './delete.png';
+import saveIcon from './save.png';
 import { useNavigate } from 'react-router-dom';
 import Separator from '../elements/Separator';
 
@@ -35,7 +36,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
   return (
     <>
       <Separator></Separator>
-      <div className="flex justify-center space-x-4 mx-4 w-full">
+      <div className="flex justify-center space-x-4 mx-4 w-[300px]">
         <button
           onClick={handleFileClick}
           disabled={!isActive}
@@ -89,6 +90,17 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
             src={hardDiskIcon}
             alt="hard disk"
             className="filter-none"
+            onClick={resetSelectedItem}
+          />
+        </button>
+        <button
+          onClick={handleHardDiskClick}
+          className="p-2 bg-green-400 rounded text-black"
+        >
+          <img
+            src={saveIcon}
+            alt="hard disk"
+            className="filter-none w-6"
             onClick={resetSelectedItem}
           />
         </button>

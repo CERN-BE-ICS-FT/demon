@@ -9,9 +9,15 @@ export type SelectButtonProps = {
   text: string;
   options: SelectOption[];
   onChange?: (value: string) => void;
+  width?: string;
 };
 
-const SelectButton = ({ text, options, onChange }: SelectButtonProps) => {
+const SelectButton = ({
+  text,
+  options,
+  onChange,
+  width = 'w-44'
+}: SelectButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(text);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -41,13 +47,16 @@ const SelectButton = ({ text, options, onChange }: SelectButtonProps) => {
     <div className="relative inline-flex" ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex justify-between h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4 w-44 "
+        className={`inline-flex justify-between h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4 ${width}`}
       >
         {selectedOption} {isOpen && <p>&nbsp; ▲ </p>}{' '}
         {!isOpen && <p>&nbsp; ▼ </p>}
       </button>
       {isOpen && (
-        <div className="absolute ml-4 z-10 mt-12 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div
+          className="absolute ml-4 z-10 mt-12 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          style={{ width: '100%' }}
+        >
           <div
             className="py-1"
             role="menu"

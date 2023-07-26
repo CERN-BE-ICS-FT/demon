@@ -57,12 +57,12 @@ const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
   const color = determineColor(id);
 
   return (
-    <div className="flex ml-8 p-2">
+    <div className="flex ml-2 p-2">
       {!isRoot && <Cross onClick={() => handleDelete(id)} />}
       <div
-        className={`rounded-xl ml-4 border-2 border-black min-w-fit ${color}`}
+        className={`rounded-xl ml-2 border-2 border-black min-w-fit ${color}`}
       >
-        <div className="flex items-center p-2 space-x-8 w-full min-w-fit">
+        <div className="flex items-center p-2 space-x-4 w-full min-w-fit">
           <Button onClick={addSubGroup}>+ Subgroup</Button>
           <Button onClick={addRuleRow}>+ Rule</Button>
           <div className="flex items-center justify-end w-full min-w-fit">
