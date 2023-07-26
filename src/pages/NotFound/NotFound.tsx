@@ -4,7 +4,8 @@ const NotFound = () => {
   return (
     <div
       data-testid="not-found-1"
-      className="flex items-center justify-center h-full"
+      // className="fixed inset-0 flex items-center justify-center"
+      // style={{ zIndex: 9999, backdropFilter: 'blur(4px)' }}
     >
       <div>
         <h1 className="text-9xl font-bold text-gray-800">404 &nbsp;</h1>
