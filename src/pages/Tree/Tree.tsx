@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
 
-interface TreeNode {
+export interface TreeNode {
   name: string;
   status: string;
   children?: TreeNode[];
@@ -9,9 +9,10 @@ interface TreeNode {
 interface TreeProps {
   item: TreeNode;
   onItemNameClick: (name: string) => void;
+  activeNode: string;
 }
 
-const Tree: React.FC<TreeProps> = ({ item, onItemNameClick }) => {
+const Tree: React.FC<TreeProps> = ({ item, onItemNameClick, activeNode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSymbolClick = (e: MouseEvent) => {
@@ -21,39 +22,57 @@ const Tree: React.FC<TreeProps> = ({ item, onItemNameClick }) => {
 
   const handleNameClick = (e: MouseEvent) => {
     e.stopPropagation();
-    onItemNameClick(item.name);
+    if (item.name === activeNode) {
+      onItemNameClick('');
+    } else {
+      onItemNameClick(item.name);
+    }
   };
 
   return (
-    <li className="list-none">
-      <div className="flex items-center">
-        <div
-          onClick={handleSymbolClick}
-          className={
-            'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-xl bg-black text-white font-bold rounded-full pb-1'
-          }
-        >
-          {isOpen ? '-' : '+'}
+    <div>
+      <li className="list-none">
+        <div className="flex items-center">
+          <div
+            onClick={handleSymbolClick}
+            className={
+              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-xl bg-black text-white font-bold rounded-full pb-1'
+            }
+          >
+            {isOpen ? '-' : '+'}
+          </div>
+          <span
+            className={`inline-block w-8 h-6 mr-1 rounded ${
+              item.status.toLowerCase() === 'active'
+                ? 'bg-green-500'
+                : 'bg-red-500'
+            }`}
+          ></span>
+          <span
+            onClick={handleNameClick}
+            className={`cursor-pointer text-lg ${
+              activeNode === item.name
+                ? 'bg-blue-500 rounded p-1 text-white'
+                : ''
+            }`}
+          >
+            {item.name}
+          </span>
         </div>
-        <span
-          className={`inline-block w-8 h-6 mr-1 rounded ${
-            item.status.toLowerCase() === 'active'
-              ? 'bg-green-500'
-              : 'bg-red-500'
-          }`}
-        ></span>
-        <span onClick={handleNameClick} className="cursor-pointer text-lg">
-          {item.name}
-        </span>
-      </div>
-      {isOpen && item.children && (
-        <ul className="list-none pl-5">
-          {item.children.map((child, index) => (
-            <Tree key={index} item={child} onItemNameClick={onItemNameClick} />
-          ))}
-        </ul>
-      )}
-    </li>
+        {isOpen && item.children && (
+          <ul className="list-none pl-5">
+            {item.children.map((child, index) => (
+              <Tree
+                key={index}
+                item={child}
+                onItemNameClick={onItemNameClick}
+                activeNode={activeNode}
+              />
+            ))}
+          </ul>
+        )}
+      </li>
+    </div>
   );
 };
 
