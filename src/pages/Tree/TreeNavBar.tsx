@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../../app/common/buttons/Button';
 import SelectTreeModal from '../Popups/SelectTreeModal';
 import { treeData } from './TreeData';
 import arrowDown from './arrow-down.png';
@@ -30,14 +29,13 @@ const TreeNavBar: React.FC = () => {
       )}
       <div className="inline-flex justify-between">
         <img
-          className={`w-8 transition-transform duration-200 ease-in-out transform ${
-            isModalOpen ? 'rotate-180' : ''
-          }`}
+          className={`w-8 transform ${isModalOpen ? 'rotate-180' : ''}`}
           src={arrowDown}
           alt="Arrow"
           onClick={toggleModal}
         />
       </div>
+
       <div className="absolute left-[-10px]">
         <SelectTreeModal
           open={isModalOpen}
