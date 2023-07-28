@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState, MouseEvent } from 'react';
 
 export interface TreeNode {
@@ -10,9 +11,15 @@ interface TreeProps {
   item: TreeNode;
   onItemNameClick: (name: string) => void;
   activeNode: string;
+  useMonoColor?: boolean;
 }
 
-const Tree: React.FC<TreeProps> = ({ item, onItemNameClick, activeNode }) => {
+const Tree: React.FC<TreeProps> = ({
+  item,
+  onItemNameClick,
+  activeNode,
+  useMonoColor = false
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSymbolClick = (e: MouseEvent) => {
@@ -43,7 +50,9 @@ const Tree: React.FC<TreeProps> = ({ item, onItemNameClick, activeNode }) => {
           </div>
           <span
             className={`inline-block w-8 h-6 mr-1 rounded ${
-              item.status.toLowerCase() === 'active'
+              useMonoColor
+                ? 'bg-white border border-black'
+                : item.status.toLowerCase() === 'active'
                 ? 'bg-green-500'
                 : 'bg-red-500'
             }`}
@@ -67,6 +76,7 @@ const Tree: React.FC<TreeProps> = ({ item, onItemNameClick, activeNode }) => {
                 item={child}
                 onItemNameClick={onItemNameClick}
                 activeNode={activeNode}
+                useMonoColor={useMonoColor}
               />
             ))}
           </ul>
