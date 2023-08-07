@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../app/common/buttons/Button';
 import PropositionGroup from '../../app/common/cards/PropositionGroup';
 import ImportRulesModal from '../Popups/ImportRulesModal';
+import { useParams, matchRoutes, useLocation } from 'react-router-dom';
 
 interface PropositionGroupProps {
   id: number;
@@ -12,6 +13,27 @@ const Rules = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [propositionGroups, setPropositionGroups] = useState<number[]>([0]);
   const [propositionGroupCount, setPropositionGroupCount] = useState<number>(1);
+  const [groupName, setGroupName] = useState('');
+
+  const location = useLocation();
+
+  const pathParts = location.pathname.split('/');
+
+  useEffect(() => {
+    const pathParts = location.pathname.split('/');
+
+    setGroupName(decodeURIComponent(pathParts[3]));
+  }, [location.pathname]);
+
+  if (!pathParts[3]) {
+    return (
+      <div>
+        <p className="mt-4 text-xl">
+          To edit rules, select a node on the tree view.
+        </p>
+      </div>
+    );
+  }
 
   const handleDeletePropositionGroup = (id: number) => {
     setPropositionGroups((currentPropositionGroups) =>
@@ -41,8 +63,6 @@ const Rules = () => {
     console.log('trying to import rules/popups');
   };
 
-  const groupName = 'group-1.1';
-
   return (
     <>
       <ImportRulesModal open={modalOpen} handleClose={closeModal} />
@@ -52,12 +72,9 @@ const Rules = () => {
         </h1>
 
         <div className="flex justify-end px-12">
-          <Button onClick={handleAddPropositionGroup}>
-            {'Add new proposition'}
-          </Button>
+          <Button onClick={handleAddPropositionGroup}>{'+ Proposition'}</Button>
           <div className="ml-auto flex space-x-4">
             <Button onClick={handleImport}>Import Rules</Button>
-            <Button onClick={handleSave}>Save Rules</Button>
           </div>
         </div>
 
