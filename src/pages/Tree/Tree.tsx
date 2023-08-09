@@ -43,13 +43,13 @@ const Tree: React.FC<TreeProps> = ({
           <div
             onClick={handleSymbolClick}
             className={
-              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-xl bg-black text-white font-bold rounded-full pb-1'
+              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 bg-black text-white font-bold rounded-full pb-1'
             }
           >
             {isOpen ? '-' : '+'}
           </div>
           <span
-            className={`inline-block w-8 h-6 mr-1 rounded ${
+            className={`inline-block w-8 h-5 mr-1 rounded ${
               useMonoColor
                 ? 'bg-white border border-black'
                 : item.status.toLowerCase() === 'active'
@@ -59,10 +59,8 @@ const Tree: React.FC<TreeProps> = ({
           ></span>
           <span
             onClick={handleNameClick}
-            className={`cursor-pointer text-lg ${
-              activeNode === item.name
-                ? 'bg-blue-500 rounded p-1 text-white'
-                : ''
+            className={`cursor-pointer ${
+              activeNode === item.name ? 'bg-blue-500 rounded text-white' : ''
             }`}
           >
             {item.name}

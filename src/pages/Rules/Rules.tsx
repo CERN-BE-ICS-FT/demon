@@ -67,18 +67,14 @@ const Rules = () => {
     <>
       <ImportRulesModal open={modalOpen} handleClose={closeModal} />
       <div className="h-full w-full space-y-4 min-w-fit">
-        <h1 className="text-3xl">
-          Rule for <span className="font-bold">{groupName}</span>
+        <h1 className="text-lg text-left p-4">
+          Rules of <span className="font-bold">{groupName}</span>
         </h1>
 
-        <div className="flex justify-end px-12">
+        <div className="flex px-8 space-x-4">
           <Button onClick={handleAddPropositionGroup}>{'+ Proposition'}</Button>
-          <div className="ml-auto flex space-x-4">
-            <Button onClick={handleImport}>Import Rules</Button>
-          </div>
+          <Button onClick={handleImport}>Import Rules</Button>
         </div>
-
-        <br />
         {propositionGroups.map((id) => (
           <PropositionGroup
             key={id}

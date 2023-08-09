@@ -47,18 +47,18 @@ const SelectButton = ({
     <div className="relative inline-flex" ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`inline-flex justify-between h-12 px-4 py-3 bg-white font-bold text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4 ${width}`}
+        className={`inline-flex items-center justify-between h-8 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4 ${width}`}
       >
-        {selectedOption} {isOpen && <p>&nbsp; ▲ </p>}{' '}
-        {!isOpen && <p>&nbsp; ▼ </p>}
+        {selectedOption}
+        {isOpen && <span>&nbsp; ▲ </span>}
+        {!isOpen && <span>&nbsp; ▼ </span>}
       </button>
       {isOpen && (
         <div
-          className="absolute ml-4 z-10 mt-12 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="absolute ml-4 z-10 mt-8 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
           style={{ width: '100%' }}
         >
           <div
-            className="py-1"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
@@ -67,7 +67,7 @@ const SelectButton = ({
               <button
                 key={index}
                 onClick={() => handleSelect(option.value, option.label)}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                className="block w-full text-left px-4 hover:bg-gray-100 hover:text-gray-900"
                 role="menuitem"
               >
                 {option.label}
