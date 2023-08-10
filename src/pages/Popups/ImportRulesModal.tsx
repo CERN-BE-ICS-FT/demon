@@ -49,10 +49,10 @@ const ImportRulesModal: React.FC<ImportRulesModalProps> = ({
                     key={index}
                     className="flex justify-between items-center bg-gray-200 p-3 rounded mt-4 w-[400px]"
                   >
-                    <div className="text-lg font-medium">{rule}</div>
+                    <div className="font-medium">{rule}</div>
                     <button
                       onClick={handleClose}
-                      className="bg-green-500 text-white py-1 px-3 rounded"
+                      className="bg-green-500 text-white px-3 rounded"
                     >
                       Add
                     </button>

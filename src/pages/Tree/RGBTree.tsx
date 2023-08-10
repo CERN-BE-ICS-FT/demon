@@ -43,7 +43,7 @@ const RGBTree: React.FC<TreeProps> = ({
           <div
             onClick={handleSymbolClick}
             className={
-              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-xl bg-black text-white font-bold rounded-full pb-1'
+              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 bg-black text-white font-bold rounded-full pb-1'
             }
           >
             {isOpen ? '-' : '+'}

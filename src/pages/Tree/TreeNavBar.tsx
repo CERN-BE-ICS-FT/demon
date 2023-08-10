@@ -23,9 +23,7 @@ const TreeNavBar: React.FC = () => {
   return (
     <div className="relative flex justify-between items-center w-[170px] space-x-2 border-2 border-black rounded-md my-1 ml-4">
       {selectedTree && (
-        <p className="text-lg font-bold flex-grow text-left pl-2">
-          {selectedTree}
-        </p>
+        <p className="font-bold flex-grow text-left pl-2">{selectedTree}</p>
       )}
       <div className="inline-flex justify-between">
         <img

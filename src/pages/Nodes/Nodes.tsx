@@ -130,11 +130,10 @@ const Nodes = () => {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl pt-4">{nodeName}</h1>
-      <div className="text-gray-600 text-lg mb-4">Device</div>
-
-      <ToggleButton onChange={handleToggleChange} />
+    <div className="space-y-4">
+      <h1 className="text-lg text-left p-4">
+        Properties of <span className="font-bold">{nodeName}</span>
+      </h1>
 
       <form className="space-y-4">
         <div className="flex items-center space-x-2">

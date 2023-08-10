@@ -29,9 +29,9 @@ const PropositionGroup: React.FC<PropositionGroupProps> = ({
   return (
     <div className="main-container flex my-4">
       <Cross onClick={() => deletePropositionGroup(id)} />
-      <div className="container w-fit rounded-lg border-2 border-black text-left p-4 space-y-2 min-w-fit mb-4">
-        <h1 className="text-2xl font-bold">Proposition {id + 1}</h1>
-        <h1 className="text-2xl">IF:</h1>
+      <div className="container w-fit rounded-lg border-2 border-black text-left p-4 space-y-1 min-w-fit mb-4">
+        <h1 className="font-bold">Proposition {id + 1}</h1>
+        <h1>If:</h1>
         {groups.map((groupId, index) => (
           <Group
             key={groupId}
@@ -40,7 +40,7 @@ const PropositionGroup: React.FC<PropositionGroupProps> = ({
             isRoot={index === 0}
           />
         ))}
-        <h1 className="text-2xl">THEN:</h1>
+        <h1>Then:</h1>
         <OutputRow></OutputRow>
       </div>
     </div>
