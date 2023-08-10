@@ -47,7 +47,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFileClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-1 ${
               isActive
                 ? 'bg-blue-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
@@ -62,7 +62,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFolderClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-1 ${
               isActive
                 ? 'bg-blue-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
@@ -77,7 +77,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-1 ${
               isActive
                 ? 'bg-red-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
@@ -93,7 +93,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
         <div className="flex space-x-4">
           <button
             onClick={handleHardDiskClick}
-            className="p-2 bg-green-400 rounded text-black"
+            className="p-1 bg-green-400 rounded text-black"
           >
             <img
               src={downloadIcon}
@@ -104,7 +104,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           </button>
           <button
             onClick={handleHardDiskClick}
-            className="p-2 bg-green-400 rounded text-black"
+            className="p-1 bg-green-400 rounded text-black"
           >
             <img
               src={uploadIcon}
