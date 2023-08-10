@@ -66,10 +66,9 @@ const Rules = () => {
   return (
     <>
       <ImportRulesModal open={modalOpen} handleClose={closeModal} />
-      <div className="h-full w-full space-y-4 min-w-fit">
-        <h1 className="text-3xl">
-          Rule for <span className="font-bold">{groupName}</span>
-        </h1>
+      <div className="h-full w-full min-w-fit">
+        <h1 className="text-3xl pt-4">{groupName}</h1>
+        <div className="text-gray-600 text-lg mb-4">Device</div>
 
         <div className="flex justify-end px-12">
           <Button onClick={handleAddPropositionGroup}>{'+ Proposition'}</Button>

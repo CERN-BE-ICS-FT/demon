@@ -4,6 +4,7 @@ import React, { useState, MouseEvent } from 'react';
 export interface TreeNode {
   name: string;
   status: string;
+  type?: string;
   children?: TreeNode[];
 }
 
@@ -40,16 +41,20 @@ const Tree: React.FC<TreeProps> = ({
     <div>
       <li className="list-none">
         <div className="flex items-center">
-          <div
-            onClick={handleSymbolClick}
-            className={
-              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-xl bg-black text-white font-bold rounded-full pb-1'
-            }
-          >
-            {isOpen ? '-' : '+'}
-          </div>
+          {item.type !== 'device' && ( // Check if it's not a device before showing expansion symbol
+            <div
+              onClick={handleSymbolClick}
+              className={
+                'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 text-xl bg-black text-white font-bold rounded-full pb-1'
+              }
+            >
+              {isOpen ? '-' : '+'}
+            </div>
+          )}
           <span
-            className={`inline-block w-8 h-6 mr-1 rounded ${
+            className={`inline-block mr-1 rounded ${
+              item.type === 'device' ? 'ml-6 w-8 h-6 rounded-full' : 'w-8 h-6'
+            } ${
               useMonoColor
                 ? 'bg-white border border-black'
                 : item.status.toLowerCase() === 'active'
@@ -70,15 +75,19 @@ const Tree: React.FC<TreeProps> = ({
         </div>
         {isOpen && item.children && (
           <ul className="list-none pl-5">
-            {item.children.map((child, index) => (
-              <Tree
-                key={index}
-                item={child}
-                onItemNameClick={onItemNameClick}
-                activeNode={activeNode}
-                useMonoColor={useMonoColor}
-              />
-            ))}
+            {item.children
+              .sort((a, b) =>
+                a.type === 'group' ? -1 : b.type === 'group' ? 1 : 0
+              )
+              .map((child, index) => (
+                <Tree
+                  key={index}
+                  item={child}
+                  onItemNameClick={onItemNameClick}
+                  activeNode={activeNode}
+                  useMonoColor={useMonoColor}
+                />
+              ))}
           </ul>
         )}
       </li>

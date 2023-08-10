@@ -35,7 +35,7 @@ const Configure = () => {
           }`}
           onClick={() => handleTabClick('nodes')}
         >
-          Node
+          Properties
         </button>
       </div>
 
