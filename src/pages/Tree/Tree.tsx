@@ -41,16 +41,20 @@ const Tree: React.FC<TreeProps> = ({
     <div>
       <li className="list-none">
         <div className="flex items-center">
-          <div
-            onClick={handleSymbolClick}
-            className={
-              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 bg-black text-white font-bold rounded-full pb-1'
-            }
-          >
-            {isOpen ? '-' : '+'}
-          </div>
+          {item.type !== 'device' && ( // Check if it's not a device before showing expansion symbol
+            <div
+              onClick={handleSymbolClick}
+              className={
+                'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 bg-black text-white font-bold rounded-full pb-1'
+              }
+            >
+              {isOpen ? '-' : '+'}
+            </div>
+          )}
           <span
-            className={`inline-block w-8 h-5 mr-1 rounded ${
+            className={`inline-block mr-1 rounded ${
+              item.type === 'device' ? 'ml-6 w-8 h-5 rounded-full' : 'w-8 h-5'
+            } ${
               useMonoColor
                 ? 'bg-white border border-black'
                 : item.status.toLowerCase() === 'active'
