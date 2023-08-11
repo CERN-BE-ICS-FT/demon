@@ -1,6 +1,5 @@
-import newFileIcon from './new-file.png';
-import newFolderIcon from './new-folder.png';
-import deleteIcon from './delete.png';
+import newDeviceIcon from './add-device.png';
+import newGroupIcon from './add-group.png';
 import { useNavigate } from 'react-router-dom';
 import Separator from '../elements/Separator';
 import { useState } from 'react';
@@ -62,14 +61,14 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFileClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-1 w-10 ${
               isActive
                 ? 'bg-green-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
             }`}
           >
             <img
-              src={newFileIcon}
+              src={newDeviceIcon}
               alt="new file"
               className={isActive ? 'filter-none' : 'filter grayscale'}
             />
@@ -77,14 +76,14 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFolderClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-1 w-10 ${
               isActive
                 ? 'bg-green-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
             }`}
           >
             <img
-              src={newFolderIcon}
+              src={newGroupIcon}
               alt="new folder"
               className={isActive ? 'filter-none' : 'filter grayscale'}
             />
@@ -92,7 +91,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-2 w-10 ${
               isActive
                 ? 'bg-red-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
@@ -109,7 +108,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-2 ${
+            className={`p-2 w-10 ${
               isActive
                 ? 'bg-yellow-400 rounded text-black'
                 : 'text-gray-400 cursor-not-allowed'
@@ -127,7 +126,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
         <div className="flex space-x-2">
           <button
             onClick={handleDownloadClick}
-            className="p-2 bg-blue-400 rounded text-black"
+            className="p-2 w-10 bg-blue-400 rounded text-black"
           >
             <img
               src={downloadIcon}
@@ -138,7 +137,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           </button>
           <button
             onClick={handleUploadClick}
-            className="p-2 bg-blue-400 rounded text-black"
+            className="p-2 w-10 bg-blue-400 rounded text-black"
           >
             <img
               src={uploadIcon}
