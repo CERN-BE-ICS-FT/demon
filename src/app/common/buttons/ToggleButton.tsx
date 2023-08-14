@@ -25,7 +25,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onChange }) => {
       <label
         htmlFor="toggle"
         className={`block overflow-hidden h-7 rounded-full cursor-pointer ${
-          isActive ? 'bg-zinc-800' : 'bg-gray-300'
+          isActive ? 'bg-zinc-800' : 'bg-zinc-200'
         }`}
       >
         <span

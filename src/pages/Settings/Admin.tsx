@@ -47,7 +47,7 @@ const Admin = () => {
         Accessibility Slider:
         <input type="range" className="slider-input" min="1" max="100" />
       </label>
-      <button className="bg-blue-500 text-white rounded px-4 py-2">Save</button>
+      <button className="bg-zinc-800 text-white rounded px-4 py-2">Save</button>
       <div className="table">
         <table className="table-auto w-full">
           <thead>

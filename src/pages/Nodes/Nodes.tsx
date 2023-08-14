@@ -146,7 +146,7 @@ const Nodes = () => {
   return (
     <div>
       <h1 className="text-lg pt-4 font-bold">{nodeName}</h1>
-      <div className="text-gray-600  mb-4">Device</div>
+      <div className="text-zinc-600  mb-4">Device</div>
 
       <form className="space-y-4">
         <div className="flex items-center space-x-2">
@@ -158,7 +158,7 @@ const Nodes = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-blue-400"
+            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
           />
         </div>
         <div className="flex items-center space-x-2">
@@ -177,7 +177,7 @@ const Nodes = () => {
             id="type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-blue-400"
+            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
           >
             <option value="Device">Device</option>
             <option value="Group">Group</option>
@@ -219,7 +219,7 @@ const Nodes = () => {
                 style={{ width: '50%' }}
                 value={agent}
                 onChange={(e) => setAgent(e.target.value)}
-                className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-blue-400"
+                className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
               />
             </div>
             <div className="flex items-center space-x-2">
@@ -231,7 +231,7 @@ const Nodes = () => {
                 type="text"
                 value={ipAddress}
                 onChange={(e) => setIpAddress(e.target.value)}
-                className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-blue-400"
+                className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
               />
             </div>
           </>
@@ -249,18 +249,18 @@ const Nodes = () => {
             <h1 className="text-2xl mb-4">Devices:</h1>
             <div className="flex sm:mt-0 sm:ml-4 sm:text-left w-full space-x-4">
               <input
-                className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="appearance-none border rounded py-2 px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
                 id="tableSearch"
                 type="text"
                 placeholder="Search in table..."
                 onChange={(e) => setTableSearch(e.target.value)}
                 value={tableSearch}
-                style={{ width: '60%' }}
+                style={{ width: '40%' }}
               />
               <div className="flex space-x-2">
                 <select
                   onChange={(e) => setTagFilter(e.target.value)}
-                  className="border rounded px-2 py-1"
+                  className="border rounded px-2 py-1 focus:outline-none focus:border-zinc-800"
                 >
                   <option value="">Filter by tag</option>
                   <option value="kryo">Kryo</option>
@@ -291,9 +291,9 @@ const Nodes = () => {
               </div>
             </div>
 
-            <table className="w-full mt-4 divide-y divide-gray-200">
+            <table className="w-full mt-4 divide-y divide-zinc-200">
               <thead>
-                <tr className="border-b border-gray-300">
+                <tr className="border-b border-zinc-200">
                   <th className="px-4 py-2">ID</th>
                   <th className="px-4 py-2">Name</th>
                   <th className="px-4 py-2">Tag</th>
@@ -310,7 +310,7 @@ const Nodes = () => {
               </thead>
               <tbody>
                 {filteredData.map((item) => (
-                  <tr key={item.id} className="border-b border-gray-200">
+                  <tr key={item.id} className="border-b border-zinc-200">
                     <td className="px-4 py-2">{item.id}</td>
                     <td className="px-4 py-2">{item.name}</td>
                     <td className="px-4 py-2">{item.tag}</td>

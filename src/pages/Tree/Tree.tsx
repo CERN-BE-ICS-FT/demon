@@ -45,7 +45,7 @@ const Tree: React.FC<TreeProps> = ({
             <div
               onClick={handleSymbolClick}
               className={
-                'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 bg-black text-white font-bold rounded-full pb-1'
+                'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-zinc-800 mr-1 bg-zinc-800 text-white font-bold rounded-full pb-1'
               }
             >
               {isOpen ? '-' : '+'}
@@ -56,7 +56,7 @@ const Tree: React.FC<TreeProps> = ({
               item.type === 'device' ? 'ml-6 w-8 h-5 rounded-full' : 'w-8 h-5'
             } ${
               useMonoColor
-                ? 'bg-white border border-black'
+                ? 'bg-white border border-zinc-800'
                 : item.status.toLowerCase() === 'active'
                 ? 'bg-green-500'
                 : 'bg-red-500'

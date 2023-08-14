@@ -64,7 +64,7 @@ const Rules = () => {
       <ImportRulesModal open={modalOpen} handleClose={closeModal} />
       <div className="h-full w-full min-w-fit">
         <h1 className="text-lg pt-4 font-bold">{groupName}</h1>
-        <div className="text-gray-600  mb-4">Device</div>
+        <div className="text-zinc-600  mb-4">Device</div>
 
         <div className="flex px-8 space-x-4">
           <Button onClick={handleAddPropositionGroup}>{'+ Proposition'}</Button>

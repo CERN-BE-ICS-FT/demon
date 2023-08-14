@@ -43,7 +43,7 @@ const RGBTree: React.FC<TreeProps> = ({
           <div
             onClick={handleSymbolClick}
             className={
-              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-black mr-1 bg-black text-white font-bold rounded-full pb-1'
+              'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-zinc-800 mr-1 bg-zinc-800 text-white font-bold rounded-full pb-1'
             }
           >
             {isOpen ? '-' : '+'}
@@ -51,7 +51,7 @@ const RGBTree: React.FC<TreeProps> = ({
           <span
             className={`inline-block w-8 h-6 mr-1 rounded ${
               useMonoColor
-                ? 'bg-white border border-black'
+                ? 'bg-white border border-zinc-800'
                 : item.status.toLowerCase() === 'active'
                 ? 'bg-green-500'
                 : 'bg-red-500'
@@ -61,7 +61,7 @@ const RGBTree: React.FC<TreeProps> = ({
             onClick={handleNameClick}
             className={`cursor-pointer text-lg ${
               activeNode === item.name
-                ? 'bg-blue-500 rounded p-1 text-white'
+                ? 'bg-zinc-800 rounded p-1 text-white'
                 : ''
             }`}
           >

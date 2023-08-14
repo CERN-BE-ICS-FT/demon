@@ -8,8 +8,8 @@ const NotFound = () => {
       // style={{ zIndex: 9999, backdropFilter: 'blur(4px)' }}
     >
       <div>
-        <h1 className="text-9xl font-bold text-gray-800">404 &nbsp;</h1>
-        <h2 className="text-5xl font-medium text-gray-600">Page not found</h2>
+        <h1 className="text-9xl font-bold text-black">404 &nbsp;</h1>
+        <h2 className="text-5xl font-medium text-black">Page not found</h2>
       </div>
     </div>
   );

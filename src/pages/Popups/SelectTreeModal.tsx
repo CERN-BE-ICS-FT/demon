@@ -79,7 +79,7 @@ const SelectTreeModal: React.FC<ImportTreesModalProps> = ({
       >
         <div className="p-4">
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
             id="username"
             type="text"
             placeholder="Search..."
@@ -91,7 +91,7 @@ const SelectTreeModal: React.FC<ImportTreesModalProps> = ({
             <div
               key={index}
               onClick={() => onAddTree(tree)}
-              className="cursor-pointer flex justify-between items-center bg-gray-200 p-2 rounded mt-2"
+              className="cursor-pointer flex justify-between items-center bg-zinc-200 p-2 rounded mt-2"
             >
               <div className="text-md font-medium">{tree}</div>
               <div
@@ -112,7 +112,7 @@ const SelectTreeModal: React.FC<ImportTreesModalProps> = ({
 
           <div className="mt-2 flex justify-between space-x-2">
             <input
-              className="shadow appearance-none border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-3/5 py-2 px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
               id="newTreeName"
               type="text"
               placeholder="New Tree..."
@@ -121,7 +121,7 @@ const SelectTreeModal: React.FC<ImportTreesModalProps> = ({
             />
 
             <button
-              className="bg-green-500 text-white py-1 px-3 rounded w-2/5"
+              className="bg-zinc-800 text-white py-1 px-3 rounded w-2/5"
               onClick={handleCreateTree}
             >
               Create

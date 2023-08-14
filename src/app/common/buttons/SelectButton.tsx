@@ -47,13 +47,13 @@ const SelectButton = ({
     <div className={`relative inline-flex ${width}`} ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`inline-flex items-center justify-between h-8 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 ${width}`}
+        className={`inline-flex items-center justify-between h-8 px-4 bg-white border border-zinc-200 rounded-md shadow-sm hover:bg-zinc-200 ${width}`}
       >
         {selectedOption}
         {isOpen ? <span>&nbsp; ▲ </span> : <span>&nbsp; ▼ </span>}
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-0 w-full z-10 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute top-full mt-0 w-full z-10 rounded-md shadow-lg bg-white ring-1 ring-zinc-800 ring-opacity-5 focus:outline-none">
           <div
             role="menu"
             aria-orientation="vertical"
@@ -63,7 +63,7 @@ const SelectButton = ({
               <button
                 key={index}
                 onClick={() => handleSelect(option.value, option.label)}
-                className="block w-full text-left px-4 hover:bg-gray-100 hover:text-gray-900"
+                className="block w-full text-left px-4 hover:bg-zinc-200 hover:text-gray-900"
                 role="menuitem"
               >
                 {option.label}

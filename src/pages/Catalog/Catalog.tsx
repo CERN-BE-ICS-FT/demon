@@ -100,7 +100,7 @@ const Catalog = () => {
       {/* Table view */}
       <div className="flex sm:mt-0 sm:ml-4 sm:text-left mt-24 pt-16 w-full">
         <input
-          className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="appearance-none border rounded py-2 px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
           id="tableSearch"
           type="text"
           placeholder="Search in table..."
@@ -116,9 +116,9 @@ const Catalog = () => {
         </button>
       </div>
 
-      <table className="w-full mt-4 divide-y divide-gray-200">
+      <table className="w-full mt-4 divide-y divide-zinc-200">
         <thead>
-          <tr className="border-b border-gray-300">
+          <tr className="border-b border-zinc-200">
             <th className="px-4 py-2">ID</th>
             <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">Type</th>
@@ -135,7 +135,7 @@ const Catalog = () => {
         </thead>
         <tbody>
           {filteredData.map((item) => (
-            <tr key={item.id} className="border-b border-gray-200">
+            <tr key={item.id} className="border-b border-zinc-200">
               <td className="px-4 py-2">{item.id}</td>
               <td className="px-4 py-2">{item.name}</td>
               <td className="px-4 py-2">{item.type}</td>

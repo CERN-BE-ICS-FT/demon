@@ -64,7 +64,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
             className={`p-1 w-10 ${
               isActive
                 ? 'bg-green-400 rounded text-black'
-                : 'text-gray-400 cursor-not-allowed'
+                : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
             <img
@@ -79,7 +79,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
             className={`p-1 w-10 ${
               isActive
                 ? 'bg-green-400 rounded text-black'
-                : 'text-gray-400 cursor-not-allowed'
+                : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
             <img
@@ -94,7 +94,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
             className={`p-2 w-10 ${
               isActive
                 ? 'bg-red-400 rounded text-black'
-                : 'text-gray-400 cursor-not-allowed'
+                : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
             <img
@@ -111,7 +111,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
             className={`p-2 w-10 ${
               isActive
                 ? 'bg-yellow-400 rounded text-black'
-                : 'text-gray-400 cursor-not-allowed'
+                : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
             <img
