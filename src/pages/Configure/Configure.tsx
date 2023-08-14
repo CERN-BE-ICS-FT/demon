@@ -23,7 +23,7 @@ const Configure = () => {
       <div className="flex border-b">
         <button
           className={`py-2 px-4 ${
-            currentTab === 0 ? 'border-b-2 border-blue-500' : ''
+            currentTab === 0 ? 'border-b-2 border-zinc-900' : ''
           }`}
           onClick={() => handleTabClick('rules')}
         >
@@ -31,7 +31,7 @@ const Configure = () => {
         </button>
         <button
           className={`py-2 px-4 ${
-            currentTab === 1 ? 'border-b-2 border-blue-500' : ''
+            currentTab === 1 ? 'border-b-2 border-zinc-900' : ''
           }`}
           onClick={() => handleTabClick('nodes')}
         >

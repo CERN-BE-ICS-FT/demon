@@ -49,10 +49,6 @@ const Rules = () => {
     ]);
   };
 
-  const handleSave = () => {
-    console.log(propositionGroups);
-  };
-
   const handleImport = () => {
     setModalOpen(true);
     console.log('trying to import rules/popups');
@@ -66,10 +62,9 @@ const Rules = () => {
   return (
     <>
       <ImportRulesModal open={modalOpen} handleClose={closeModal} />
-      <div className="h-full w-full space-y-4 min-w-fit">
-        <h1 className="text-lg text-left p-4">
-          Rules of <span className="font-bold">{groupName}</span>
-        </h1>
+      <div className="h-full w-full min-w-fit">
+        <h1 className="text-lg pt-4 font-bold">{groupName}</h1>
+        <div className="text-gray-600  mb-4">Device</div>
 
         <div className="flex px-8 space-x-4">
           <Button onClick={handleAddPropositionGroup}>{'+ Proposition'}</Button>

@@ -65,7 +65,9 @@ const Tree: React.FC<TreeProps> = ({
           <span
             onClick={handleNameClick}
             className={`cursor-pointer ${
-              activeNode === item.name ? 'bg-blue-500 rounded text-white' : ''
+              activeNode === item.name
+                ? 'bg-zinc-800 px-1 rounded text-white'
+                : ''
             }`}
           >
             {item.name}

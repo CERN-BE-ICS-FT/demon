@@ -7,7 +7,7 @@ import editIcon from './edit.png';
 const Navbar = () => {
   return (
     <header>
-      <nav className="bg-blue-700 p-4 flex justify-between items-center min-w-full">
+      <nav className="bg-zinc-800 p-4 flex justify-between items-center min-w-full">
         <NavLink
           to="/"
           className="text-white text-2xl font-bold hover:underline"
