@@ -1,13 +1,13 @@
-import newDeviceIcon from './add-device.png';
-import newGroupIcon from './add-group.png';
+import newDeviceIcon from './add-device-wh.png';
+import newGroupIcon from './add-group-wh.png';
 import { useNavigate } from 'react-router-dom';
 import Separator from '../elements/Separator';
 import { useState } from 'react';
 import DeletePopup from '../../../pages/Popups/DeletePopup';
-import uploadIcon from './upload.png';
-import downloadIcon from './download.png';
-import moveIcon from './move.png';
-import removeIcon from './remove.png';
+import uploadIcon from './upload-wh.png';
+import downloadIcon from './download-wh.png';
+import moveIcon from './box-move-wh.png';
+import removeIcon from './remove-wh.png';
 import UploadDownloadPopup from '../../../pages/Popups/UploadDownloadModal';
 
 interface TreeIconsRowProps {
@@ -61,9 +61,9 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFileClick}
             disabled={!isActive}
-            className={`p-1 w-10 ${
+            className={`p-1 w-8 h-8 ${
               isActive
-                ? 'bg-green-400 rounded text-black'
+                ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
@@ -76,9 +76,9 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFolderClick}
             disabled={!isActive}
-            className={`p-1 w-10 ${
+            className={`p-1 w-8 h-8 ${
               isActive
-                ? 'bg-green-400 rounded text-black'
+                ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
@@ -91,58 +91,54 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-2 w-10 ${
+            className={`p-1 w-8 h-8 ${
               isActive
-                ? 'bg-red-400 rounded text-black'
+                ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
             <img
               src={removeIcon}
               alt="Remove"
-              className={
-                isActive ? 'filter-none w-6 h-6' : 'filter grayscale w-6 h-6'
-              }
+              className={isActive ? 'filter-none' : 'filter grayscale'}
             />
           </button>
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-2 w-10 ${
+            className={`p-1 w-8 h-8 ${
               isActive
-                ? 'bg-yellow-400 rounded text-black'
+                ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
             }`}
           >
             <img
               src={moveIcon}
               alt="Move"
-              className={
-                isActive ? 'filter-none w-6 h-6' : 'w-6 h-6 filter grayscale'
-              }
+              className={isActive ? 'filter-none' : 'filter grayscale'}
             />
           </button>
         </div>
         <div className="flex space-x-2">
           <button
             onClick={handleDownloadClick}
-            className="p-2 w-10 bg-blue-400 rounded text-black"
+            className="p-1 w-8 h-8 bg-zinc-800 rounded text-black"
           >
             <img
               src={downloadIcon}
               alt="Download changes"
-              className="filter-none w-6"
+              className="filter-none"
               onClick={resetSelectedItem}
             />
           </button>
           <button
             onClick={handleUploadClick}
-            className="p-2 w-10 bg-blue-400 rounded text-black"
+            className="p-1 w-8 h-8 bg-zinc-800 rounded text-black"
           >
             <img
               src={uploadIcon}
               alt="Upload changes"
-              className="filter-none w-6"
+              className="filter-none"
               onClick={resetSelectedItem}
             />
           </button>
