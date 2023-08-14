@@ -31,7 +31,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onChange }) => {
         <span
           className={`${
             isActive ? 'translate-x-6' : ''
-          } inline-block h-6 w-6 rounded-full bg-white shadow transform transition-transform duration-200 ease-in ml-[-24px] mt-[2px]`}
+          } inline-block h-6 w-6 rounded-full bg-white transform transition-transform duration-200 ease-in ml-[-24px] mt-[2px]`}
         />
       </label>
     </div>

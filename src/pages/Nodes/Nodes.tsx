@@ -158,7 +158,7 @@ const Nodes = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
+            className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
           />
         </div>
         <div className="flex items-center space-x-2">
@@ -177,7 +177,7 @@ const Nodes = () => {
             id="type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
+            className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
           >
             <option value="Device">Device</option>
             <option value="Group">Group</option>
@@ -219,7 +219,7 @@ const Nodes = () => {
                 style={{ width: '50%' }}
                 value={agent}
                 onChange={(e) => setAgent(e.target.value)}
-                className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
+                className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
               />
             </div>
             <div className="flex items-center space-x-2">
@@ -231,7 +231,7 @@ const Nodes = () => {
                 type="text"
                 value={ipAddress}
                 onChange={(e) => setIpAddress(e.target.value)}
-                className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-zinc-800"
+                className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
               />
             </div>
           </>
