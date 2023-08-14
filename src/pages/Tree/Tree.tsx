@@ -45,7 +45,7 @@ const Tree: React.FC<TreeProps> = ({
             <div
               onClick={handleSymbolClick}
               className={
-                'cursor-pointer inline-flex justify-center items-center w-5 h-5 border border-zinc-800 mr-1 bg-zinc-800 text-white font-bold rounded-full pb-1'
+                'cursor-pointer inline-flex justify-center items-center w-4 h-4 border border-zinc-800 mr-1 bg-zinc-800 text-white text-sm rounded-full pb-0.5'
               }
             >
               {isOpen ? '-' : '+'}
@@ -53,7 +53,7 @@ const Tree: React.FC<TreeProps> = ({
           )}
           <span
             className={`inline-block mr-1 rounded ${
-              item.type === 'device' ? 'ml-6 w-8 h-5 rounded-full' : 'w-8 h-5'
+              item.type === 'device' ? 'ml-5 w-5 h-4 rounded-full' : 'w-5 h-4'
             } ${
               useMonoColor
                 ? 'bg-white border border-zinc-800'

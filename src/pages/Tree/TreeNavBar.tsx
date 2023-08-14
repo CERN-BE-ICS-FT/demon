@@ -21,13 +21,13 @@ const TreeNavBar: React.FC = () => {
   };
 
   return (
-    <div className="relative flex justify-between items-center w-[170px] space-x-2 border border-zinc-800 rounded-md my-1 ml-4">
+    <div className="relative flex justify-between items-center w-[170px] space-x-2 border border-zinc-800 rounded-md my-2 ml-4 text-sm">
       {selectedTree && (
         <p className="font-bold flex-grow text-left pl-2">{selectedTree}</p>
       )}
       <div className="inline-flex justify-between">
         <img
-          className={`w-8 transform ${isModalOpen ? 'rotate-180' : ''}`}
+          className={`w-7 transform ${isModalOpen ? 'rotate-180' : ''}`}
           src={arrowDown}
           alt="Arrow"
           onClick={toggleModal}

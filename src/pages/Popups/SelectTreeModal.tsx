@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import deleteIcon from '../../app/common/rows/delete.png';
+import deleteIcon from '../../app/common/rows/remove-wh.png';
 import DeletePopup from './DeletePopup';
 
 interface ImportTreesModalProps {
@@ -91,20 +91,20 @@ const SelectTreeModal: React.FC<ImportTreesModalProps> = ({
             <div
               key={index}
               onClick={() => onAddTree(tree)}
-              className="cursor-pointer flex justify-between items-center bg-zinc-200 p-2 rounded mt-2"
+              className="cursor-pointer flex justify-between items-center bg-zinc-200 p-1 rounded mt-2"
             >
-              <div className="text-md font-medium">{tree}</div>
+              <div className="font-medium">{tree}</div>
               <div
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDeleteTree(tree);
                 }}
-                className="delete-button  bg-red-400 rounded p-1 "
+                className="delete-button bg-zinc-800 rounded p-1"
               >
                 <img
                   src={deleteIcon}
                   alt="delete"
-                  className="rounded-full h-6 w-6"
+                  className="rounded-full h-4 w-4"
                 />
               </div>
             </div>

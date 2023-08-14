@@ -28,9 +28,7 @@ const Rules = () => {
   if (!pathParts[3]) {
     return (
       <div>
-        <p className="mt-4 text-xl">
-          To edit rules, select a node on the tree view.
-        </p>
+        <p className="mt-4">To edit rules, select a node on the tree view.</p>
       </div>
     );
   }

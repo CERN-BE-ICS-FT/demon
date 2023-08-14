@@ -61,7 +61,7 @@ export default function RootLayout() {
             ) : (
               <br></br>
             )}
-            <h1 className="pl-2 pt-2 w-fit">
+            <h1 className="pl-2 w-fit">
               {pathParts[1] !== 'monitor' ? (
                 <Tree
                   item={treeData}

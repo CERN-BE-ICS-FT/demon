@@ -61,7 +61,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFileClick}
             disabled={!isActive}
-            className={`p-1 w-8 h-8 ${
+            className={`p-1 w-6 h-6 ${
               isActive
                 ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
@@ -76,7 +76,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFolderClick}
             disabled={!isActive}
-            className={`p-1 w-8 h-8 ${
+            className={`p-1 w-6 h-6 ${
               isActive
                 ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
@@ -91,7 +91,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-1 w-8 h-8 ${
+            className={`p-1 w-6 h-6 ${
               isActive
                 ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
@@ -106,7 +106,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-1 w-8 h-8 ${
+            className={`p-1 w-6 h-6 ${
               isActive
                 ? 'bg-zinc-800 rounded text-black'
                 : 'text-zinc-400 cursor-not-allowed'
@@ -122,7 +122,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
         <div className="flex space-x-2">
           <button
             onClick={handleDownloadClick}
-            className="p-1 w-8 h-8 bg-zinc-800 rounded text-black"
+            className="p-1 w-6 h-6 bg-zinc-800 rounded text-black"
           >
             <img
               src={downloadIcon}
@@ -133,7 +133,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           </button>
           <button
             onClick={handleUploadClick}
-            className="p-1 w-8 h-8 bg-zinc-800 rounded text-black"
+            className="p-1 w-6 h-6 bg-zinc-800 rounded text-black"
           >
             <img
               src={uploadIcon}
