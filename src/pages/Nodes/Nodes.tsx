@@ -5,6 +5,11 @@ import { useLocation } from 'react-router-dom';
 import AddDevicesModal from '../Popups/AddDevicesModal';
 import DeleteDevicesModal from '../Popups/DeleteDevicesModal';
 import ToggleButton from '../../app/common/buttons/ToggleButton';
+import SwitchTab from '../../app/common/buttons/SwitchTab';
+import hideIcon from './hide.png';
+import moveIcon from './box-move-wh.png';
+import removeIconWhite from './remove-wh.png';
+import showIcon from './show.png';
 
 const Nodes = () => {
   const [search, setSearch] = useState('');
@@ -21,6 +26,9 @@ const Nodes = () => {
   const [tableSearch, setTableSearch] = useState('');
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [activeTab, setActiveTab] = useState<'members' | 'outsiders'>(
+    'members'
+  );
 
   const pathParts = location.pathname.split('/');
 
@@ -71,11 +79,17 @@ const Nodes = () => {
     }
   ];
 
-  const filteredData = mockData.filter(
-    (data) =>
-      data.name.toLowerCase().includes(tableSearch.toLowerCase()) &&
-      (!tagFilter || data.tag === tagFilter)
-  );
+  const filteredData = mockData
+    .filter(
+      (data) =>
+        (activeTab === 'members' && data.name.includes('2')) ||
+        (activeTab === 'outsiders' && !data.name.includes('2'))
+    )
+    .filter(
+      (data) =>
+        data.name.toLowerCase().includes(tableSearch.toLowerCase()) &&
+        (!tagFilter || data.tag === tagFilter)
+    );
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -130,10 +144,9 @@ const Nodes = () => {
   }
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-lg text-left p-4">
-        Properties of <span className="font-bold">{nodeName}</span>
-      </h1>
+    <div>
+      <h1 className="text-lg pt-4 font-bold">{nodeName}</h1>
+      <div className="text-gray-600  mb-4">Device</div>
 
       <form className="space-y-4">
         <div className="flex items-center space-x-2">
@@ -150,15 +163,11 @@ const Nodes = () => {
         </div>
         <div className="flex items-center space-x-2">
           <label htmlFor="name" className="w-24 font-medium">
-            Hide:
+            Disable:
           </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded shadow-sm focus:outline-none focus:border-blue-400"
-          />
+          <ToggleButton onChange={handleToggleChange} />
+          {/* <img src={showIcon} alt="new file" className="w-6 h-6" /> */}
+          <img src={hideIcon} alt="new file" className="w-6 h-6 opacity-50" />
         </div>
         <div className="flex items-center space-x-2">
           <label htmlFor="type" className="w-24 font-medium">
@@ -231,94 +240,108 @@ const Nodes = () => {
 
       {/* Table view */}
       {type !== 'Device' && (
-        <div className="mt-12 pt-8 ">
-          <h1 className="text-2xl mb-4">Devices:</h1>
-          <div className="flex sm:mt-0 sm:ml-4 sm:text-left w-full space-x-4">
-            <input
-              className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="tableSearch"
-              type="text"
-              placeholder="Search in table..."
-              onChange={(e) => setTableSearch(e.target.value)}
-              value={tableSearch}
-              style={{ width: '60%' }}
-            />
-            <div className="flex space-x-2">
-              <select
-                onChange={(e) => setTagFilter(e.target.value)}
-                className="border rounded px-2 py-1"
-              >
-                <option value="">Filter by tag</option>
-                <option value="kryo">Kryo</option>
-                <option value="plc">PLC</option>
-                <option value="scada">SCADA</option>
-                <option value="automation">Automation</option>
-              </select>
-              <button
-                className="ml-2 rounded p-2 bg-red-400"
-                onClick={handleDeleteClick}
-              >
-                <img src={deleteIcon} alt="Delete" className="w-8 h-8" />
-              </button>
-              <button
-                className="ml-2 rounded p-2 bg-bluet-400"
-                onClick={handleAddClick}
-              >
-                <img src={addIcon} alt="Add" className="w-8 h-8" />
-              </button>
-            </div>
+        <>
+          <div className="mt-16">
+            <SwitchTab onChange={setActiveTab} />
           </div>
 
-          <table className="w-full mt-4 divide-y divide-gray-200">
-            <thead>
-              <tr className="border-b border-gray-300">
-                <th className="px-4 py-2">ID</th>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Tag</th>
-                <th className="px-4 py-2">Link</th>
-                <th className="px-4 py-2">
-                  <div className="mb-2">Selected: {selectedIds.length}</div>
-                  <input
-                    type="checkbox"
-                    onChange={handleSelectAll}
-                    checked={selectAll}
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((item) => (
-                <tr key={item.id} className="border-b border-gray-200">
-                  <td className="px-4 py-2">{item.id}</td>
-                  <td className="px-4 py-2">{item.name}</td>
-                  <td className="px-4 py-2">{item.tag}</td>
-                  <td className="px-4 py-2">{item.link}</td>
-                  <td className="px-4 py-2">
+          <div className="mt-2">
+            <h1 className="text-2xl mb-4">Devices:</h1>
+            <div className="flex sm:mt-0 sm:ml-4 sm:text-left w-full space-x-4">
+              <input
+                className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="tableSearch"
+                type="text"
+                placeholder="Search in table..."
+                onChange={(e) => setTableSearch(e.target.value)}
+                value={tableSearch}
+                style={{ width: '60%' }}
+              />
+              <div className="flex space-x-2">
+                <select
+                  onChange={(e) => setTagFilter(e.target.value)}
+                  className="border rounded px-2 py-1"
+                >
+                  <option value="">Filter by tag</option>
+                  <option value="kryo">Kryo</option>
+                  <option value="plc">PLC</option>
+                  <option value="scada">SCADA</option>
+                  <option value="automation">Automation</option>
+                </select>
+                {activeTab === 'members' && (
+                  <button
+                    className="ml-2 rounded p-2 bg-zinc-800"
+                    onClick={handleDeleteClick}
+                  >
+                    <img
+                      src={removeIconWhite}
+                      alt="Delete"
+                      className="w-8 h-8"
+                    />
+                  </button>
+                )}
+                {activeTab === 'outsiders' && (
+                  <button
+                    className="ml-2 rounded p-2 bg-zinc-800"
+                    onClick={handleAddClick}
+                  >
+                    <img src={moveIcon} alt="Add" className="w-8 h-8" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <table className="w-full mt-4 divide-y divide-gray-200">
+              <thead>
+                <tr className="border-b border-gray-300">
+                  <th className="px-4 py-2">ID</th>
+                  <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">Tag</th>
+                  <th className="px-4 py-2">Link</th>
+                  <th className="px-4 py-2">
+                    <div className="mb-2">Selected: {selectedIds.length}</div>
                     <input
                       type="checkbox"
-                      checked={selectedIds.includes(item.id)}
-                      onChange={() => handleSelect(item.id)}
+                      onChange={handleSelectAll}
+                      checked={selectAll}
                     />
-                  </td>
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <AddDevicesModal
-            open={showAddPopup}
-            numberOfItems={selectedIds.length}
-            groupName={nodeName}
-            handleClose={handleAddClose}
-            handleConfirm={handleAddConfirm}
-          />
-          <DeleteDevicesModal
-            open={showDeletePopup}
-            numberOfItems={selectedIds.length}
-            groupName={nodeName}
-            handleClose={handleDeleteClose}
-            handleConfirm={handleDeleteConfirm}
-          />
-        </div>
+              </thead>
+              <tbody>
+                {filteredData.map((item) => (
+                  <tr key={item.id} className="border-b border-gray-200">
+                    <td className="px-4 py-2">{item.id}</td>
+                    <td className="px-4 py-2">{item.name}</td>
+                    <td className="px-4 py-2">{item.tag}</td>
+                    <td className="px-4 py-2">{item.link}</td>
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.includes(item.id)}
+                        onChange={() => handleSelect(item.id)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <AddDevicesModal
+              open={showAddPopup}
+              numberOfItems={selectedIds.length}
+              groupName={nodeName}
+              handleClose={handleAddClose}
+              handleConfirm={handleAddConfirm}
+            />
+            <DeleteDevicesModal
+              open={showDeletePopup}
+              numberOfItems={selectedIds.length}
+              groupName={nodeName}
+              handleClose={handleDeleteClose}
+              handleConfirm={handleDeleteConfirm}
+            />
+          </div>
+        </>
       )}
     </div>
   );

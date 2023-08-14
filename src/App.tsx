@@ -2,7 +2,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider
+  RouterProvider,
+  useNavigate // Add this import
 } from 'react-router-dom';
 import './App.css';
 import Rules from './pages/Rules/Rules';
@@ -15,10 +16,17 @@ import { treeData } from '../src/pages/Tree/TreeData';
 import Configure from './pages/Configure/Configure';
 import Nodes from './pages/Nodes/Nodes';
 
+const RedirectToMonitor = () => {
+  const navigate = useNavigate();
+  navigate('/monitor');
+  return null;
+};
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
-      <Route index element={<Dashboard />} />
+      <Route index element={<RedirectToMonitor />} />{' '}
+      {/* This line is changed */}
       <Route path="/monitor" element={<Dashboard />} />
       <Route path="/monitor/:deviceName" element={<Dashboard />} />
       <Route path="rules" element={<Rules />} />

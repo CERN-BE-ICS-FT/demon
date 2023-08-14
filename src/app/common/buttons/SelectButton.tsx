@@ -44,20 +44,16 @@ const SelectButton = ({
   };
 
   return (
-    <div className="relative inline-flex" ref={wrapperRef}>
+    <div className={`relative inline-flex ${width}`} ref={wrapperRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`inline-flex items-center justify-between h-8 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 mx-4 ${width}`}
+        className={`inline-flex items-center justify-between h-8 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 ${width}`}
       >
         {selectedOption}
-        {isOpen && <span>&nbsp; ▲ </span>}
-        {!isOpen && <span>&nbsp; ▼ </span>}
+        {isOpen ? <span>&nbsp; ▲ </span> : <span>&nbsp; ▼ </span>}
       </button>
       {isOpen && (
-        <div
-          className="absolute ml-4 z-10 mt-8 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-          style={{ width: '100%' }}
-        >
+        <div className="absolute top-full mt-0 w-full z-10 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div
             role="menu"
             aria-orientation="vertical"

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../footer/Footer';
 import Tree from '../../../pages/Tree/Tree';
 import { treeData } from '../../../pages/Tree/TreeData';
@@ -32,7 +32,7 @@ export default function RootLayout() {
   const handleItemClick = (itemName: string) => {
     const encodedItemName = encodeURIComponent(itemName);
 
-    if (pathParts[1] === 'monitor') {
+    if (pathParts[1] === 'monitor' || !pathParts[1]) {
       navigate(`/monitor/${encodedItemName}`);
       setSelectedItem(itemName);
     } else if (pathParts[2] === 'rules') {
@@ -45,11 +45,12 @@ export default function RootLayout() {
   };
 
   return (
-    <div className="root-layout min-h-screen min-w-screen bg-gray-100">
+    <div className="root-layout min-h-screen min-w-screen bg-white">
       <Navbar></Navbar>
       <div className="container flex-grow flex w-screen min-h-[calc(88vh)]">
         {!isInSettings && (
-          <aside className="flex-grow bg-gray-200 min-w-[340px] border-r-2 border-gray-300 p-2 flex flex-col items-start w-fit max-w-[300px]">
+          // <aside className="flex-grow bg-zinc-200 min-w-[340px] border-r-2 border-zinc-800 p-2 flex flex-col items-start w-fit max-w-[300px]">
+          <aside className="flex-grow bg-zinc-200 min-w-[340px]  p-2 flex flex-col items-start w-fit max-w-[300px]">
             <TreeNavBar />
             {pathParts[1] !== 'monitor' ? (
               <TreeIconsRow
@@ -78,14 +79,11 @@ export default function RootLayout() {
             </h1>
           </aside>
         )}
-        <main className="p-4 flex-grow">
+        <main className="p-4 flex-grow bg-white">
           <Outlet />
         </main>
       </div>
       <Footer />
     </div>
   );
-}
-function useRouteMatch(arg0: string) {
-  throw new Error('Function not implemented.');
 }
