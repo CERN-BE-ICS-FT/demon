@@ -31,13 +31,13 @@ const values: SelectOption[] = [
 const RuleRow = ({ handleDelete }: RuleRowProps) => {
   return (
     <div className="">
-      <div className="flex items-center p-1 pb-2 min-w-fit">
+      <div className="flex items-center p-1 pb-2 min-w-fit space-x-2">
         <h1 className="pl-2 align-middle min-w-fit"></h1>
         <Cross onClick={handleDelete}></Cross>
         <SelectButton text={'Input'} options={inputs} />
         <h1 className="align-middle pl-2 pr-2">state</h1>
-        <SelectButton text={'Relation'} width="w-26" options={operators} />
-        <SelectButton text={'Output'} width="w-26" options={values} />
+        <SelectButton text={'Relation'} width="w-28" options={operators} />
+        <SelectButton text={'Output'} width="w-28" options={values} />
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const Nodes = () => {
   const location = useLocation();
   const [nodeName, setGroupName] = useState('');
   const [name, setName] = useState('');
-  const [type, setType] = useState('');
+  const [type, setType] = useState('Group');
   const [tags, setTags] = useState<string[]>([]);
   const [tagFilter, setTagFilter] = useState<string>('');
   const [tableSearch, setTableSearch] = useState('');
@@ -148,7 +148,7 @@ const Nodes = () => {
       <h1 className="text-lg pt-4 font-bold">{nodeName}</h1>
       <div className="text-zinc-600  mb-4">Device</div>
 
-      <form className="space-y-2">
+      <form className="space-y-4">
         <div className="flex items-center space-x-2">
           <label htmlFor="name" className="w-24 font-medium">
             Name:
@@ -156,26 +156,45 @@ const Nodes = () => {
           <input
             id="name"
             type="text"
-            style={{ width: '50%' }}
+            style={{ width: '25%' }}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
           />
         </div>
-        {/* <div className="flex items-center space-x-2">
-          <label htmlFor="type" className="w-24 font-medium">
-            Type:
+
+        <div className="flex items-center space-x-2">
+          <label htmlFor="name" className="w-24 font-medium">
+            Disable:
           </label>
-          <select
-            id="type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
-          >
-            <option value="Device">Device</option>
-            <option value="Group">Group</option>
-          </select>
-        </div> */}
+          <ToggleButton onChange={handleToggleChange} />
+          {/* <img src={showIcon} alt="new file" className="w-6 h-6" /> */}
+          <img src={hideIcon} alt="new file" className="w-6 h-6 opacity-75" />
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <label className="w-24 font-medium">Tags:</label>
+          <div className="flex space-x-4">
+            <label>
+              <input
+                type="checkbox"
+                value="tag1"
+                checked={tags.includes('tag1')}
+                onChange={() => handleCheckboxChange(setTags, 'tag1')}
+              />{' '}
+              Tag 1
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="tag2"
+                checked={tags.includes('tag2')}
+                onChange={() => handleCheckboxChange(setTags, 'tag2')}
+              />{' '}
+              Tag 2{/* More checkboxes as needed */}
+            </label>
+          </div>
+        </div>
 
         {type !== 'Group' && (
           <>
@@ -204,41 +223,6 @@ const Nodes = () => {
                 onChange={(e) => setIpAddress(e.target.value)}
                 className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
               />
-            </div>
-            <div className="flex items-center space-x-2">
-              <label htmlFor="name" className="w-24 font-medium">
-                Disable:
-              </label>
-              <ToggleButton onChange={handleToggleChange} />
-              {/* <img src={showIcon} alt="new file" className="w-6 h-6" /> */}
-              {/* <img
-                src={hideIcon}
-                alt="new file"
-                className="w-6 h-6 opacity-50"
-              /> */}
-            </div>
-            <div className="flex items-center space-x-2">
-              <label className="w-24 font-medium">Tags:</label>
-              <div className="flex space-x-4">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="tag1"
-                    checked={tags.includes('tag1')}
-                    onChange={() => handleCheckboxChange(setTags, 'tag1')}
-                  />{' '}
-                  Tag 1
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="tag2"
-                    checked={tags.includes('tag2')}
-                    onChange={() => handleCheckboxChange(setTags, 'tag2')}
-                  />{' '}
-                  Tag 2{/* More checkboxes as needed */}
-                </label>
-              </div>
             </div>
           </>
         )}

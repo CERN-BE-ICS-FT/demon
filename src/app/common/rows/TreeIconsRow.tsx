@@ -61,10 +61,8 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFileClick}
             disabled={!isActive}
-            className={`p-1 w-6 h-6 ${
-              isActive
-                ? 'bg-zinc-800 rounded text-black'
-                : 'text-zinc-400 cursor-not-allowed'
+            className={`p-1 w-6 h-6 bg-zinc-800 rounded text-black ${
+              !isActive ? 'cursor-not-allowed' : ''
             }`}
           >
             <img
@@ -76,10 +74,8 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleFolderClick}
             disabled={!isActive}
-            className={`p-1 w-6 h-6 ${
-              isActive
-                ? 'bg-zinc-800 rounded text-black'
-                : 'text-zinc-400 cursor-not-allowed'
+            className={`p-1 w-6 h-6 bg-zinc-800 rounded text-black ${
+              !isActive ? 'cursor-not-allowed' : ''
             }`}
           >
             <img
@@ -91,10 +87,8 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-1 w-6 h-6 ${
-              isActive
-                ? 'bg-zinc-800 rounded text-black'
-                : 'text-zinc-400 cursor-not-allowed'
+            className={`p-1 w-6 h-6 bg-zinc-800 rounded text-black ${
+              !isActive ? 'cursor-not-allowed' : ''
             }`}
           >
             <img
@@ -106,10 +100,8 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
           <button
             onClick={handleDeleteClick}
             disabled={!isActive}
-            className={`p-1 w-6 h-6 ${
-              isActive
-                ? 'bg-zinc-800 rounded text-black'
-                : 'text-zinc-400 cursor-not-allowed'
+            className={`p-1 w-6 h-6 bg-zinc-800 rounded text-black ${
+              !isActive ? 'cursor-not-allowed' : ''
             }`}
           >
             <img

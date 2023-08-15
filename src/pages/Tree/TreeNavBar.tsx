@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SelectTreeModal from '../Popups/SelectTreeModal';
 import { treeData } from './TreeData';
 import arrowDown from './arrow-down.png';
+import arrowIcon from '../../app/common/buttons/arrow-zinc-800.png';
 
 const TreeNavBar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,7 @@ const TreeNavBar: React.FC = () => {
       <div className="inline-flex justify-between">
         <img
           className={`w-7 transform ${isModalOpen ? 'rotate-180' : ''}`}
-          src={arrowDown}
+          src={arrowIcon}
           alt="Arrow"
           onClick={toggleModal}
         />
