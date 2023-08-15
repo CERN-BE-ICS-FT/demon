@@ -148,7 +148,7 @@ const Nodes = () => {
       <h1 className="text-lg pt-4 font-bold">{nodeName}</h1>
       <div className="text-zinc-600  mb-4">Device</div>
 
-      <form className="space-y-4">
+      <form className="space-y-2">
         <div className="flex items-center space-x-2">
           <label htmlFor="name" className="w-24 font-medium">
             Name:
@@ -156,20 +156,13 @@ const Nodes = () => {
           <input
             id="name"
             type="text"
+            style={{ width: '50%' }}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
+            className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
           />
         </div>
-        <div className="flex items-center space-x-2">
-          <label htmlFor="name" className="w-24 font-medium">
-            Disable:
-          </label>
-          <ToggleButton onChange={handleToggleChange} />
-          {/* <img src={showIcon} alt="new file" className="w-6 h-6" /> */}
-          <img src={hideIcon} alt="new file" className="w-6 h-6 opacity-50" />
-        </div>
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <label htmlFor="type" className="w-24 font-medium">
             Type:
           </label>
@@ -177,36 +170,13 @@ const Nodes = () => {
             id="type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
+            className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
           >
             <option value="Device">Device</option>
             <option value="Group">Group</option>
           </select>
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-2">
-          <label className="w-24 font-medium">Tags:</label>
-          <div className="flex space-x-4">
-            <label>
-              <input
-                type="checkbox"
-                value="tag1"
-                checked={tags.includes('tag1')}
-                onChange={() => handleCheckboxChange(setTags, 'tag1')}
-              />{' '}
-              Tag 1
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="tag2"
-                checked={tags.includes('tag2')}
-                onChange={() => handleCheckboxChange(setTags, 'tag2')}
-              />{' '}
-              Tag 2{/* More checkboxes as needed */}
-            </label>
-          </div>
-        </div>
         {type !== 'Group' && (
           <>
             <div className="flex items-center space-x-2">
@@ -219,7 +189,7 @@ const Nodes = () => {
                 style={{ width: '50%' }}
                 value={agent}
                 onChange={(e) => setAgent(e.target.value)}
-                className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
+                className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
               />
             </div>
             <div className="flex items-center space-x-2">
@@ -229,10 +199,46 @@ const Nodes = () => {
               <input
                 id="ip-address"
                 type="text"
+                style={{ width: '50%' }}
                 value={ipAddress}
                 onChange={(e) => setIpAddress(e.target.value)}
-                className="flex-grow px-2 py-1 border rounded focus:outline-none focus:border-zinc-800"
+                className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
               />
+            </div>
+            <div className="flex items-center space-x-2">
+              <label htmlFor="name" className="w-24 font-medium">
+                Disable:
+              </label>
+              <ToggleButton onChange={handleToggleChange} />
+              {/* <img src={showIcon} alt="new file" className="w-6 h-6" /> */}
+              {/* <img
+                src={hideIcon}
+                alt="new file"
+                className="w-6 h-6 opacity-50"
+              /> */}
+            </div>
+            <div className="flex items-center space-x-2">
+              <label className="w-24 font-medium">Tags:</label>
+              <div className="flex space-x-4">
+                <label>
+                  <input
+                    type="checkbox"
+                    value="tag1"
+                    checked={tags.includes('tag1')}
+                    onChange={() => handleCheckboxChange(setTags, 'tag1')}
+                  />{' '}
+                  Tag 1
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="tag2"
+                    checked={tags.includes('tag2')}
+                    onChange={() => handleCheckboxChange(setTags, 'tag2')}
+                  />{' '}
+                  Tag 2{/* More checkboxes as needed */}
+                </label>
+              </div>
             </div>
           </>
         )}
@@ -241,26 +247,22 @@ const Nodes = () => {
       {/* Table view */}
       {type !== 'Device' && (
         <>
-          <div className="mt-16">
-            <SwitchTab onChange={setActiveTab} />
-          </div>
-
           <div className="mt-2">
-            <h1 className="text-2xl mb-4">Devices:</h1>
+            <h1 className="text-lg font-bold my-4">Device collection</h1>
             <div className="flex sm:mt-0 sm:ml-4 sm:text-left w-full space-x-4">
               <input
-                className="appearance-none border rounded py-2 px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
+                className="appearance-none border rounded px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
                 id="tableSearch"
                 type="text"
+                style={{ width: '30%' }}
                 placeholder="Search in table..."
                 onChange={(e) => setTableSearch(e.target.value)}
                 value={tableSearch}
-                style={{ width: '40%' }}
               />
               <div className="flex space-x-2">
                 <select
                   onChange={(e) => setTagFilter(e.target.value)}
-                  className="border rounded px-2 py-1 focus:outline-none focus:border-zinc-800"
+                  className="border rounded px-2 focus:outline-none focus:border-zinc-800"
                 >
                   <option value="">Filter by tag</option>
                   <option value="kryo">Kryo</option>
@@ -268,24 +270,25 @@ const Nodes = () => {
                   <option value="scada">SCADA</option>
                   <option value="automation">Automation</option>
                 </select>
+              </div>
+              <div style={{ width: '30%' }}>
+                <SwitchTab onChange={setActiveTab} />
+              </div>
+              <div className="flex">
                 {activeTab === 'members' && (
                   <button
-                    className="ml-2 rounded p-2 bg-zinc-800"
+                    className="rounded bg-zinc-800 w-8 h-8 p-1"
                     onClick={handleDeleteClick}
                   >
-                    <img
-                      src={removeIconWhite}
-                      alt="Delete"
-                      className="w-8 h-8"
-                    />
+                    <img src={removeIconWhite} alt="Delete" />
                   </button>
                 )}
                 {activeTab === 'outsiders' && (
                   <button
-                    className="ml-2 rounded p-2 bg-zinc-800"
+                    className="rounded bg-zinc-800  w-8 h-8 p-1"
                     onClick={handleAddClick}
                   >
-                    <img src={moveIcon} alt="Add" className="w-8 h-8" />
+                    <img src={moveIcon} alt="Add" />
                   </button>
                 )}
               </div>

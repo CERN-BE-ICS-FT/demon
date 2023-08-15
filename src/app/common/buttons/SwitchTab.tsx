@@ -17,7 +17,7 @@ const SwitchTab: React.FC<SwitchTabProps> = ({ onChange }) => {
   return (
     <div className="border rounded px-1 py-1 flex">
       <button
-        className={`flex-1 text-center py-2 rounded-l ${
+        className={`flex-1 text-center rounded-l ${
           activeTab === 'members' ? 'bg-zinc-800 text-white' : 'bg-zinc-200'
         }`}
         onClick={() => switchTab('members')}
@@ -25,7 +25,7 @@ const SwitchTab: React.FC<SwitchTabProps> = ({ onChange }) => {
         Members
       </button>
       <button
-        className={`flex-1 text-center py-2 rounded-r ${
+        className={`flex-1 text-center rounded-r ${
           activeTab === 'outsiders' ? 'bg-zinc-800 text-white' : 'bg-zinc-200'
         }`}
         onClick={() => switchTab('outsiders')}

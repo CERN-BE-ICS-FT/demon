@@ -13,7 +13,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onChange }) => {
   };
 
   return (
-    <div className="relative inline-block w-14 align-middle select-none transition duration-200 ease-in">
+    <div className="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
       <input
         type="checkbox"
         name="toggle"
@@ -24,14 +24,14 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onChange }) => {
       />
       <label
         htmlFor="toggle"
-        className={`block overflow-hidden h-7 rounded-full cursor-pointer ${
+        className={`block overflow-hidden h-6 rounded-full cursor-pointer ${
           isActive ? 'bg-zinc-800' : 'bg-zinc-200'
         }`}
       >
         <span
           className={`${
             isActive ? 'translate-x-6' : ''
-          } inline-block h-6 w-6 rounded-full bg-white transform transition-transform duration-200 ease-in ml-[-24px] mt-[2px]`}
+          } inline-block h-4 w-4 rounded-full bg-white transform transition-transform duration-200 ease-in ml-[-24px] mt-[4px]`}
         />
       </label>
     </div>
