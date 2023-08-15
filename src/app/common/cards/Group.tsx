@@ -57,17 +57,15 @@ const Group = ({ id, handleDelete, isRoot = false }: GroupProps) => {
   const color = determineColor(id);
 
   return (
-    <div className="flex ml-8 p-2">
+    <div className="flex ml-4 p-1 pr-2">
       {!isRoot && <Cross onClick={() => handleDelete(id)} />}
-      <div
-        className={`rounded-xl ml-4 border-2 border-black min-w-fit ${color}`}
-      >
-        <div className="flex items-center p-2 space-x-8 w-full min-w-fit">
+      <div className={`rounded-xl border border-zinc-800 min-w-fit ${color}`}>
+        <div className="flex items-center p-2 space-x-4 w-full min-w-fit">
           <Button onClick={addSubGroup}>+ Subgroup</Button>
           <Button onClick={addRuleRow}>+ Rule</Button>
-          <div className="flex items-center justify-end w-full min-w-fit">
-            <h1 className="pl-0 text-2xl align-middle min-w-fit">Group {id}</h1>
-            <SelectButton text={'Logical'} options={operators} />
+          <div className="flex items-center space w-full min-w-fit mb-4 space-x-4">
+            <h1 className="min-w-fit font-bold">Group {id}</h1>
+            <SelectButton text={'Logical'} options={operators} width="w-28" />
           </div>
         </div>
         {ruleRows.map((id) => (

@@ -1,36 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import playButton from './play.png';
+import settingsIcon from './settings.png';
+import helpIcon from './help.png';
+import editIcon from './edit.png';
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-800 py-4">
-      <ul className="flex justify-center space-x-4">
-        <li>
-          <Link
-            to="/"
-            className="text-white hover:text-gray-300 px-2 py-1 rounded"
+    <header>
+      <nav className="bg-zinc-800 p-4 flex justify-between items-center min-w-full">
+        <NavLink
+          to="/"
+          className="text-white text-2xl font-bold hover:underline"
+        >
+          DeMon++
+        </NavLink>
+        <div className="flex">
+          {' '}
+          <NavLink to="/monitor" className="text-white mr-4 hover:underline">
+            <img src={playButton} alt="Liveview" className="w-7 h-7" />
+          </NavLink>
+          <NavLink
+            to="/configure/rules"
+            className="text-white mr-4 hover:underline"
           >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/rules"
-            className="text-white hover:text-gray-300 px-2 py-1 rounded"
+            <img src={editIcon} alt="Configure" className="w-7 h-7" />
+          </NavLink>
+          <NavLink
+            to="settings/admin"
+            className="text-white mr-4 hover:underline"
           >
-            Rules
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/about"
-            className="text-white hover:text-gray-300 px-2 py-1 rounded"
-          >
-            About
-          </Link>
-        </li>
-      </ul>
-    </nav>
+            <img src={settingsIcon} alt="Settings" className="w-7 h-7" />
+          </NavLink>
+        </div>
+      </nav>
+    </header>
   );
 };
 

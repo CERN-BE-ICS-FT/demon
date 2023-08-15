@@ -28,7 +28,7 @@ const ImportRulesModal: React.FC<ImportRulesModalProps> = ({
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity">
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+          <div className="absolute inset-0 bg-zinc-800 opacity-75"></div>
         </div>
 
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
@@ -36,7 +36,7 @@ const ImportRulesModal: React.FC<ImportRulesModalProps> = ({
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:border-zinc-800"
                   id="username"
                   type="text"
                   placeholder="Search..."
@@ -47,12 +47,12 @@ const ImportRulesModal: React.FC<ImportRulesModalProps> = ({
                 {filteredRules.map((rule, index) => (
                   <div
                     key={index}
-                    className="flex justify-between items-center bg-gray-200 p-3 rounded mt-4 w-[400px]"
+                    className="flex justify-between items-center bg-zinc-200 p-3 rounded mt-4 w-[400px]"
                   >
-                    <div className="text-lg font-medium">{rule}</div>
+                    <div className="font-medium">{rule}</div>
                     <button
                       onClick={handleClose}
-                      className="bg-green-500 text-white py-1 px-3 rounded"
+                      className="bg-zinc-800 text-white px-3 rounded"
                     >
                       Add
                     </button>
