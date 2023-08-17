@@ -246,7 +246,7 @@ const Nodes = () => {
               <div className="flex space-x-2">
                 <select
                   onChange={(e) => setTagFilter(e.target.value)}
-                  className="border rounded px-2 focus:outline-none focus:border-zinc-800"
+                  className="border rounded px-2 focus:outline-none focus:border-zinc-800 w-48"
                 >
                   <option value="">Filter by tag</option>
                   <option value="kryo">Kryo</option>
@@ -255,7 +255,7 @@ const Nodes = () => {
                   <option value="automation">Automation</option>
                 </select>
               </div>
-              <div style={{ width: '30%' }}>
+              <div style={{ width: '20%' }}>
                 <SwitchTab onChange={setActiveTab} />
               </div>
               <div className="flex">

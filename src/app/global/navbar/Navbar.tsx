@@ -16,20 +16,20 @@ const Navbar = () => {
         </NavLink>
         <div className="flex">
           {' '}
-          <NavLink to="/monitor" className="text-white mr-4 hover:underline">
-            <img src={playButton} alt="Liveview" className="w-7 h-7" />
+          <NavLink to="/monitor" className="text-white mr-3 hover:underline">
+            <img src={playButton} alt="Liveview" className="w-5 h-5" />
           </NavLink>
           <NavLink
             to="/configure/rules"
-            className="text-white mr-4 hover:underline"
+            className="text-white mr-3 hover:underline"
           >
-            <img src={editIcon} alt="Configure" className="w-7 h-7" />
+            <img src={editIcon} alt="Configure" className="w-5 h-5" />
           </NavLink>
           <NavLink
             to="settings/admin"
-            className="text-white mr-4 hover:underline"
+            className="text-white mr-3 hover:underline"
           >
-            <img src={settingsIcon} alt="Settings" className="w-7 h-7" />
+            <img src={settingsIcon} alt="Settings" className="w-5 h-5" />
           </NavLink>
         </div>
       </nav>

@@ -8,7 +8,7 @@ import TreeIconsRow from '../../common/rows/TreeIconsRow';
 import Navbar from '../navbar/Navbar';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 
-const DEFAULT_LEFT_PANEL_SIZE = 21;
+const DEFAULT_LEFT_PANEL_SIZE = 15;
 
 import React from 'react';
 
@@ -21,10 +21,20 @@ const ResizeHandle: React.FC<ResizeHandleProps> = ({
   collapsed,
   expandPanel
 }) => {
+  const initialPos = useRef(0);
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    const dx = e.clientX - initialPos.current;
+    if (dx > 15) {
+      // Assuming a drag of more than 20 pixels to the right is needed to expand
+      expandPanel();
+    }
+  };
+
   if (collapsed) {
     return (
       <div
-        onClick={expandPanel}
+        onClick={handleMouseUp}
         className="relative cursor-e-resize flex h-screen w-5 ml-5 flex-row items-center justify-center gap-px rounded-sm hover:bg-zinc-200 transition duration-200 text-transparent hover:text-black font-bold"
       >
         <span>&gt;</span>
@@ -94,7 +104,7 @@ export default function RootLayout() {
     >
       <Navbar />
       <div
-        className="container flex-grow flex flex-col h-full"
+        className="container flex-grow flex flex-col min-w-full"
         style={{ height: 'calc(100vh - 80px)' }}
       >
         <PanelGroup direction="horizontal" className="relative">
@@ -152,7 +162,7 @@ export default function RootLayout() {
           </PanelResizeHandle>
           <Panel order={2}>
             <main
-              className="p-4 flex-grow bg-white overflow-y-auto w-[69vw]"
+              className="p-4 flex-grow bg-white overflow-y-auto"
               style={{ maxHeight: 'calc(100vh - 83px)' }}
             >
               <Outlet />
