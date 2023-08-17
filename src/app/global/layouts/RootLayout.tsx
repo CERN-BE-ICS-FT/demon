@@ -88,9 +88,15 @@ export default function RootLayout() {
   };
 
   return (
-    <div className="root-layout min-h-screen min-w-screen bg-white">
-      <Navbar></Navbar>
-      <div className="container flex-grow flex w-screen h-screen">
+    <div
+      className="root-layout min-h-screen min-w-screen bg-white h-full"
+      style={{ height: '100vh' }}
+    >
+      <Navbar />
+      <div
+        className="container flex-grow flex flex-col h-full"
+        style={{ height: 'calc(100vh - 80px)' }}
+      >
         <PanelGroup direction="horizontal" className="relative">
           <Panel
             ref={panelRef}
@@ -113,23 +119,26 @@ export default function RootLayout() {
             ) : (
               <br></br>
             )}
-            <h1 className="pl-2 w-fit">
-              {pathParts[1] !== 'monitor' ? (
-                <Tree
-                  item={treeData}
-                  onItemNameClick={handleItemClick}
-                  activeNode={selectedItem}
-                  useMonoColor={true}
-                ></Tree>
-              ) : (
-                <Tree
-                  item={treeData}
-                  onItemNameClick={handleItemClick}
-                  activeNode={selectedItem}
-                ></Tree>
-              )}
-            </h1>
+            <div className="h-[calc(100vh-180px)] overflow-y-auto my-4">
+              <h1 className="pl-2 w-fit">
+                {pathParts[1] !== 'monitor' ? (
+                  <Tree
+                    item={treeData}
+                    onItemNameClick={handleItemClick}
+                    activeNode={selectedItem}
+                    useMonoColor={true}
+                  ></Tree>
+                ) : (
+                  <Tree
+                    item={treeData}
+                    onItemNameClick={handleItemClick}
+                    activeNode={selectedItem}
+                  ></Tree>
+                )}
+              </h1>
+            </div>
           </Panel>
+
           <PanelResizeHandle
             className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
@@ -142,7 +151,10 @@ export default function RootLayout() {
             />
           </PanelResizeHandle>
           <Panel order={2}>
-            <main className="p-4 flex-grow bg-white">
+            <main
+              className="p-4 flex-grow bg-white overflow-y-auto w-[69vw]"
+              style={{ maxHeight: 'calc(100vh - 83px)' }}
+            >
               <Outlet />
             </main>
           </Panel>

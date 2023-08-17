@@ -56,7 +56,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
   return (
     <>
       <Separator></Separator>
-      <div className="flex justify-between mx-2 w-[300px]">
+      <div className="min-w-[220px] flex justify-between mx-2 flex-grow">
         <div className="flex space-x-2">
           <button
             onClick={handleFileClick}

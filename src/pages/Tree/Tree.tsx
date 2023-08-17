@@ -38,7 +38,7 @@ const Tree: React.FC<TreeProps> = ({
   };
 
   return (
-    <div>
+    <div className="max-h-screen ">
       <li className="list-none">
         <div className="flex items-center">
           {item.type !== 'device' && ( // Check if it's not a device before showing expansion symbol
