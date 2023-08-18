@@ -91,8 +91,8 @@ const Nodes = () => {
         </div>
       </form>
 
-      <div className="pt-5 flex items-center">
-        <label className="w-24 font-medium">Tags:</label>
+      <div className="flex mt-5 space-x-2">
+        <label className="w-24 mt-1 font-medium">Tags:</label>
         <ReactTags
           tags={tags}
           suggestions={suggestions}
@@ -103,16 +103,18 @@ const Nodes = () => {
           inputFieldPosition="inline"
           autocomplete={true}
           allowDragDrop={false}
+          placeholder="Add properties"
           classNames={{
-            tags: 'bg-zinc-200 p-2 rounded',
-            tagInput: 'flex my-2',
+            tags: 'flex',
+            tagInput: 'ml-2',
             tagInputField:
-              'px-2 py-0 border rounded focus:outline-none focus:border-zinc-800',
-            // selected: 'flex flex-wrap',
-            tag: 'bg-zinc-800 text-white rounded p-1 mr-2',
-            remove: 'cursor-pointer ml-2 pr-1',
-            suggestions: 'flex bg-zinc-800 text-white rounded p-1 mr-2'
-            // activeSuggestion: 'bg-gray-300'
+              'h-8 border rounded focus:outline-none focus:border-zinc-800',
+            tag: 'h-8 bg-zinc-800 text-white rounded-full px-4 mr-2',
+            remove: 'cursor-pointer ml-2 font-bold text-xl',
+            selected: 'flex flex-wrap',
+            suggestions:
+              'bg-zinc-200 border border-black border-t-0 p-1 text-base text-black rounded'
+            // activeSuggestion: 'font-bold'
           }}
         />
       </div>
