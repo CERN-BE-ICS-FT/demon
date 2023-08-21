@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import playButton from './play.png';
-import settingsIcon from './settings.png';
-import helpIcon from './help.png';
-import editIcon from './edit.png';
+import playButton from '../../../assets/icons/play.png';
+import settingsIcon from '../../../assets/icons/settings.png';
+import helpIcon from '../../../assets/icons/help.png';
+import editIcon from '../../../assets/icons/edit.png';
 
 const Navbar = () => {
   return (

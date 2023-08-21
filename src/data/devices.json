@@ -1,0 +1,100 @@
+[
+  {
+    "id": 3,
+    "name": "Device A1",
+    "labels": ["cryo", "scada"],
+    "agent": "AgentA1",
+    "ipaddress": "192.168.1.3"
+  },
+  {
+    "id": 4,
+    "name": "Device A2",
+    "labels": ["automation", "plc"],
+    "agent": "AgentA2",
+    "ipaddress": "192.168.1.4"
+  },
+  {
+    "id": 6,
+    "name": "Device B1",
+    "labels": ["cryo", "plc"],
+    "agent": "AgentB1",
+    "ipaddress": "192.168.1.6"
+  },
+  {
+    "id": 8,
+    "name": "Device B2A",
+    "labels": ["scada", "automation"],
+    "agent": "AgentB2A",
+    "ipaddress": "192.168.1.8"
+  },
+  {
+    "id": 9,
+    "name": "Device B2B",
+    "labels": ["cryo", "automation"],
+    "agent": "AgentB2B",
+    "ipaddress": "192.168.1.9"
+  },
+  {
+    "id": 11,
+    "name": "Device C1",
+    "labels": ["scada", "plc"],
+    "agent": "AgentC1",
+    "ipaddress": "192.168.1.11"
+  },
+  {
+    "id": 12,
+    "name": "Device C2",
+    "labels": ["automation", "plc"],
+    "agent": "AgentC2",
+    "ipaddress": "192.168.1.12"
+  },
+  {
+    "id": 13,
+    "name": "Device C3",
+    "labels": ["scada", "automation"],
+    "agent": "AgentC3",
+    "ipaddress": "192.168.1.13"
+  },
+  {
+    "id": 14,
+    "name": "Device D",
+    "labels": ["cryo", "scada"],
+    "agent": "AgentD",
+    "ipaddress": "192.168.1.14"
+  },
+  {
+    "id": 15,
+    "name": "Device E",
+    "labels": ["automation", "plc"],
+    "agent": "AgentE",
+    "ipaddress": "192.168.1.15"
+  },
+  {
+    "id": 17,
+    "name": "Device F1",
+    "labels": ["cryo", "scada"],
+    "agent": "AgentF1",
+    "ipaddress": "192.168.1.17"
+  },
+  {
+    "id": 18,
+    "name": "Device F2",
+    "labels": ["scada", "automation", "plc"],
+    "agent": "AgentF2",
+    "ipaddress": "192.168.1.18"
+  },
+  {
+    "id": 19,
+    "name": "Device G",
+    "labels": ["automation", "plc"],
+    "agent": "AgentG",
+    "ipaddress": "192.168.1.19"
+  },
+  {
+    "id": 20,
+    "name": "Device H",
+    "labels": ["scada", "automation", "plc"],
+    "agent": "AgentH",
+    "ipaddress": "192.168.1.20"
+  }
+]

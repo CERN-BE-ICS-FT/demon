@@ -4,6 +4,7 @@ import React, { useState, MouseEvent } from 'react';
 export interface TreeNode {
   name: string;
   status: string;
+  hidden: boolean;
   type?: string;
   children?: TreeNode[];
 }
