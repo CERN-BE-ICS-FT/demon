@@ -1,0 +1,144 @@
+{
+  "propositions": [
+    {
+      "id": 1,
+      "groups": [
+        {
+          "id": "1",
+          "logical": "and",
+          "rules": [
+            {
+              "input": "All of inputs",
+              "operator": "==",
+              "state": "0"
+            }
+          ],
+          "subGroups": [
+            {
+              "id": "1.1",
+              "logical": "or",
+              "rules": [
+                {
+                  "input": "Any of inputs",
+                  "operator": "!=",
+                  "state": "1"
+                }
+              ],
+              "subGroups": []
+            },
+            {
+              "id": "1.2",
+              "logical": "and",
+              "rules": [
+                {
+                  "input": "None of inputs",
+                  "operator": ">",
+                  "state": "2"
+                }
+              ],
+              "subGroups": []
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "logical": "or",
+          "rules": [
+            {
+              "input": "Current group",
+              "operator": "<",
+              "state": "3"
+            }
+          ],
+          "subGroups": []
+        },
+        {
+          "id": "3",
+          "logical": "and",
+          "rules": [
+            {
+              "input": "All of inputs",
+              "operator": "!=",
+              "state": "1"
+            }
+          ],
+          "subGroups": []
+        }
+      ],
+      "output": "ok"
+    },
+    {
+      "id": 2,
+      "groups": [
+        {
+          "id": "4",
+          "logical": "or",
+          "rules": [
+            {
+              "input": "None of inputs",
+              "operator": "<",
+              "state": "2"
+            }
+          ],
+          "subGroups": [
+            {
+              "id": "4.1",
+              "logical": "and",
+              "rules": [
+                {
+                  "input": "Any of inputs",
+                  "operator": "==",
+                  "state": "0"
+                }
+              ],
+              "subGroups": []
+            },
+            {
+              "id": "4.2",
+              "logical": "or",
+              "rules": [
+                {
+                  "input": "Current group",
+                  "operator": ">",
+                  "state": "3"
+                }
+              ],
+              "subGroups": []
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "logical": "and",
+          "rules": [
+            {
+              "input": "All of inputs",
+              "operator": "!=",
+              "state": "1"
+            }
+          ],
+          "subGroups": []
+        }
+      ],
+      "output": "error"
+    },
+    {
+      "id": 3,
+      "groups": [
+        {
+          "id": "6",
+          "logical": "or",
+          "rules": [
+            {
+              "input": "Current group",
+              "operator": "<",
+              "state": "2"
+            }
+          ],
+          "subGroups": []
+        }
+      ],
+      "output": "warning"
+    }
+  ]
+}

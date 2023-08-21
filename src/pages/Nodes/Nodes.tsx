@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import addIcon from '../Catalog/add.png';
-import deleteIcon from '../../app/common/rows/delete.png';
+import addIcon from '../../assets/icons/add.png';
+import deleteIcon from '../../assets/icons/delete.png';
 import { useLocation } from 'react-router-dom';
 import AddDevicesModal from '../Popups/AddDevicesModal';
 import DeleteDevicesModal from '../Popups/DeleteDevicesModal';
 import ToggleButton from '../../app/common/buttons/ToggleButton';
 import SwitchTab from '../../app/common/buttons/SwitchTab';
-import hideIcon from './hide.png';
-import moveIcon from './box-move-wh.png';
-import removeIconWhite from './remove-wh.png';
-import showIcon from './show.png';
+import hideIcon from '../../assets/icons/hide.png';
+import moveIcon from '../../assets/icons/box-move-wh.png';
+import removeIconWhite from '../../assets/icons/remove-wh.png';
+import showIcon from '../../assets/icons/show.png';
 
 const Nodes = () => {
   const [search, setSearch] = useState('');

@@ -1,12 +1,13 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../footer/Footer';
-import Tree from '../../../pages/Tree/Tree';
-import { treeData } from '../../../pages/Tree/TreeData';
+import Tree, { TreeNode } from '../../../pages/Tree/Tree';
 import { useEffect, useState, useRef } from 'react';
 import TreeNavBar from '../../../pages/Tree/TreeNavBar';
 import TreeIconsRow from '../../common/rows/TreeIconsRow';
 import Navbar from '../navbar/Navbar';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
+import { loadTreeData } from '../../utils/loadTreeData';
+import { convertDataToTreeNode } from '../../utils/convertDataToTreeNode';
 
 const DEFAULT_LEFT_PANEL_SIZE = 21;
 
@@ -44,7 +45,7 @@ export default function RootLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedItem, setSelectedItem] = useState('');
 
-  const panelRef = useRef<any>(null); // Reference to Panel
+  const panelRef = useRef<any>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,6 +53,34 @@ export default function RootLayout() {
   const pathParts = location.pathname.split('/');
 
   const isInSettings = location.pathname.startsWith('/settings');
+
+  const [treeData, setTreeData] = useState<TreeNode | null>(null);
+
+  async function fetchDataAndSetTree() {
+    const rawData = await loadTreeData();
+
+    let parsedData;
+    if (typeof rawData !== 'string') {
+      parsedData = rawData;
+      console.log(rawData);
+    } else {
+      parsedData = JSON.parse(rawData);
+    }
+
+    const convertedData = convertDataToTreeNode(parsedData.tree);
+
+    setTreeData(convertedData);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const rawData = await loadTreeData();
+      const convertedData = convertDataToTreeNode(rawData.tree);
+      setTreeData(convertedData);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (
@@ -89,12 +118,12 @@ export default function RootLayout() {
 
   return (
     <div
-      className="root-layout min-h-screen min-w-screen bg-white h-full"
+      className="root-layout min-h-screen min-w-screen bg-white h-full w-full"
       style={{ height: '100vh' }}
     >
       <Navbar />
       <div
-        className="container flex-grow flex flex-col h-full"
+        className="container flex-grow flex flex-col h-full min-w-full"
         style={{ height: 'calc(100vh - 80px)' }}
       >
         <PanelGroup direction="horizontal" className="relative">
@@ -122,19 +151,21 @@ export default function RootLayout() {
             <div className="h-[calc(100vh-180px)] overflow-y-auto my-4">
               <h1 className="pl-2 w-fit">
                 {pathParts[1] !== 'monitor' ? (
+                  treeData && (
+                    <Tree
+                      item={treeData}
+                      onItemNameClick={handleItemClick}
+                      activeNode={selectedItem}
+                      useMonoColor={true}
+                    />
+                  )
+                ) : treeData ? (
                   <Tree
                     item={treeData}
                     onItemNameClick={handleItemClick}
                     activeNode={selectedItem}
-                    useMonoColor={true}
-                  ></Tree>
-                ) : (
-                  <Tree
-                    item={treeData}
-                    onItemNameClick={handleItemClick}
-                    activeNode={selectedItem}
-                  ></Tree>
-                )}
+                  />
+                ) : null}
               </h1>
             </div>
           </Panel>
@@ -152,8 +183,8 @@ export default function RootLayout() {
           </PanelResizeHandle>
           <Panel order={2}>
             <main
-              className="p-4 flex-grow bg-white overflow-y-auto w-[69vw]"
-              style={{ maxHeight: 'calc(100vh - 83px)' }}
+              className="p-4 flex-grow bg-white overflow-y-auto w-full"
+              style={{ maxHeight: 'calc(100vh - 83px)', width: '100%' }}
             >
               <Outlet />
             </main>

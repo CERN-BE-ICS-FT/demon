@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SelectTreeModal from '../Popups/SelectTreeModal';
 import { treeData } from './TreeData';
-import arrowDown from './arrow-down.png';
-import arrowIcon from '../../app/common/buttons/arrow-zinc-800.png';
+import arrowDown from '../../assets/icons/arrow-down.png';
+import arrowIcon from '../../assets/icons/arrow-zinc-800.png';
 
 const TreeNavBar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

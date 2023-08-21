@@ -13,18 +13,12 @@ const PropositionGroup: React.FC<PropositionGroupProps> = ({
   handleDelete: deletePropositionGroup
 }) => {
   const [groups, setGroups] = useState<string[]>(['1']);
-  // const [groupCount, setGroupCount] = useState<number>(1);
 
   const handleDeleteGroup = (groupId: string) => {
     setGroups((currentGroups) =>
       currentGroups.filter((group) => group !== groupId)
     );
   };
-
-  // const addGroup = () => {
-  //   setGroupCount(groupCount + 1);
-  //   setGroups((currentGroups) => [...currentGroups, `${groupCount + 1}`]);
-  // };
 
   return (
     <div className="main-container flex my-4">
