@@ -1,14 +1,15 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../footer/Footer';
-import Tree from '../../../pages/Tree/Tree';
-import { treeData } from '../../../pages/Tree/TreeData';
+import Tree, { TreeNode } from '../../../pages/Tree/Tree';
 import { useEffect, useState, useRef } from 'react';
 import TreeNavBar from '../../../pages/Tree/TreeNavBar';
 import TreeIconsRow from '../../common/rows/TreeIconsRow';
 import Navbar from '../navbar/Navbar';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
+import { loadTreeData } from '../../utils/loadTreeData';
+import { convertDataToTreeNode } from '../../utils/convertDataToTreeNode';
 
-const DEFAULT_LEFT_PANEL_SIZE = 21;
+const DEFAULT_LEFT_PANEL_SIZE = 15;
 
 import React from 'react';
 
@@ -21,10 +22,20 @@ const ResizeHandle: React.FC<ResizeHandleProps> = ({
   collapsed,
   expandPanel
 }) => {
+  const initialPos = useRef(0);
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    const dx = e.clientX - initialPos.current;
+    if (dx > 15) {
+      // Assuming a drag of more than 20 pixels to the right is needed to expand
+      expandPanel();
+    }
+  };
+
   if (collapsed) {
     return (
       <div
-        onClick={expandPanel}
+        onClick={handleMouseUp}
         className="relative cursor-e-resize flex h-screen w-5 ml-5 flex-row items-center justify-center gap-px rounded-sm hover:bg-zinc-200 transition duration-200 text-transparent hover:text-black font-bold"
       >
         <span>&gt;</span>
@@ -44,7 +55,7 @@ export default function RootLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedItem, setSelectedItem] = useState('');
 
-  const panelRef = useRef<any>(null); // Reference to Panel
+  const panelRef = useRef<any>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,6 +63,34 @@ export default function RootLayout() {
   const pathParts = location.pathname.split('/');
 
   const isInSettings = location.pathname.startsWith('/settings');
+
+  const [treeData, setTreeData] = useState<TreeNode | null>(null);
+
+  async function fetchDataAndSetTree() {
+    const rawData = await loadTreeData();
+
+    let parsedData;
+    if (typeof rawData !== 'string') {
+      parsedData = rawData;
+      console.log(rawData);
+    } else {
+      parsedData = JSON.parse(rawData);
+    }
+
+    const convertedData = convertDataToTreeNode(parsedData.tree);
+
+    setTreeData(convertedData);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const rawData = await loadTreeData();
+      const convertedData = convertDataToTreeNode(rawData.tree);
+      setTreeData(convertedData);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (
@@ -88,9 +127,15 @@ export default function RootLayout() {
   };
 
   return (
-    <div className="root-layout min-h-screen min-w-screen bg-white">
-      <Navbar></Navbar>
-      <div className="container flex-grow flex w-screen h-screen">
+    <div
+      className="root-layout min-h-screen min-w-screen bg-white h-full w-full"
+      style={{ height: '100vh' }}
+    >
+      <Navbar />
+      <div
+        className="container flex-grow flex flex-col h-full min-w-full"
+        style={{ height: 'calc(100vh - 80px)' }}
+      >
         <PanelGroup direction="horizontal" className="relative">
           <Panel
             ref={panelRef}
@@ -113,23 +158,28 @@ export default function RootLayout() {
             ) : (
               <br></br>
             )}
-            <h1 className="pl-2 w-fit">
-              {pathParts[1] !== 'monitor' ? (
-                <Tree
-                  item={treeData}
-                  onItemNameClick={handleItemClick}
-                  activeNode={selectedItem}
-                  useMonoColor={true}
-                ></Tree>
-              ) : (
-                <Tree
-                  item={treeData}
-                  onItemNameClick={handleItemClick}
-                  activeNode={selectedItem}
-                ></Tree>
-              )}
-            </h1>
+            <div className="h-[calc(100vh-180px)] overflow-y-auto my-4">
+              <h1 className="pl-2 w-fit">
+                {pathParts[1] !== 'monitor' ? (
+                  treeData && (
+                    <Tree
+                      item={treeData}
+                      onItemNameClick={handleItemClick}
+                      activeNode={selectedItem}
+                      useMonoColor={true}
+                    />
+                  )
+                ) : treeData ? (
+                  <Tree
+                    item={treeData}
+                    onItemNameClick={handleItemClick}
+                    activeNode={selectedItem}
+                  />
+                ) : null}
+              </h1>
+            </div>
           </Panel>
+
           <PanelResizeHandle
             className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
@@ -142,7 +192,10 @@ export default function RootLayout() {
             />
           </PanelResizeHandle>
           <Panel order={2}>
-            <main className="p-4 flex-grow bg-white">
+            <main
+              className="p-4 flex-grow bg-white overflow-y-auto w-full"
+              style={{ maxHeight: 'calc(100vh - 83px)', width: '100%' }}
+            >
               <Outlet />
             </main>
           </Panel>

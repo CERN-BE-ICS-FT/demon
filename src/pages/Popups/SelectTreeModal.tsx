@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import deleteIcon from '../../app/common/rows/remove-wh.png';
+import deleteIcon from '../../assets/icons/remove-wh.png';
 import DeletePopup from './DeletePopup';
 
 interface ImportTreesModalProps {

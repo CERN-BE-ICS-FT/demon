@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import arrowIcon from './arrow-zinc-800.png';
+import arrowIcon from '../../../assets/icons/arrow-zinc-800.png';
 
 export type SelectOption = {
   label: string;

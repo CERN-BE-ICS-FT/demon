@@ -1,13 +1,13 @@
-import newDeviceIcon from './add-device-wh.png';
-import newGroupIcon from './add-group-wh.png';
+import newDeviceIcon from '../../../assets/icons/add-device-wh.png';
+import newGroupIcon from '../../../assets/icons/add-group-wh.png';
 import { useNavigate } from 'react-router-dom';
 import Separator from '../elements/Separator';
 import { useState } from 'react';
 import DeletePopup from '../../../pages/Popups/DeletePopup';
-import uploadIcon from './upload-wh.png';
-import downloadIcon from './download-wh.png';
-import moveIcon from './box-move-wh.png';
-import removeIcon from './remove-wh.png';
+import uploadIcon from '../../../assets/icons/upload-wh.png';
+import downloadIcon from '../../../assets/icons/download-wh.png';
+import moveIcon from '../../../assets/icons/box-move-wh.png';
+import removeIcon from '../../../assets/icons/remove-wh.png';
 import UploadDownloadPopup from '../../../pages/Popups/UploadDownloadModal';
 
 interface TreeIconsRowProps {
@@ -56,7 +56,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
   return (
     <>
       <Separator></Separator>
-      <div className="flex justify-between mx-2 w-[300px]">
+      <div className="min-w-[220px] flex justify-between mx-2 flex-grow">
         <div className="flex space-x-2">
           <button
             onClick={handleFileClick}

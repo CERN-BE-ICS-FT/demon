@@ -4,6 +4,7 @@ import React, { useState, MouseEvent } from 'react';
 export interface TreeNode {
   name: string;
   status: string;
+  hidden: boolean;
   type?: string;
   children?: TreeNode[];
 }
@@ -38,7 +39,7 @@ const Tree: React.FC<TreeProps> = ({
   };
 
   return (
-    <div>
+    <div className="max-h-screen ">
       <li className="list-none">
         <div className="flex items-center">
           {item.type !== 'device' && ( // Check if it's not a device before showing expansion symbol

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import addIcon from './add.png';
-import deleteIcon from '../../app/common/rows/delete.png';
+import addIcon from '../../assets/icons/add.png';
+import deleteIcon from '../../assets/icons/delete.png';
 
 const Catalog = () => {
   const [search, setSearch] = useState('');
