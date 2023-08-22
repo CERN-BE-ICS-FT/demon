@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 
 interface ToggleButtonProps {
   onChange: (isActive: boolean) => void;
+  initialState?: boolean;
 }
 
-const ToggleButton: React.FC<ToggleButtonProps> = ({ onChange }) => {
-  const [isActive, setIsActive] = useState(false);
+const ToggleButton: React.FC<ToggleButtonProps> = ({
+  onChange,
+  initialState = false
+}) => {
+  const [isActive, setIsActive] = useState(initialState);
 
   const toggleActive = () => {
     setIsActive(!isActive);

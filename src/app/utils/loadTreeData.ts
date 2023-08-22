@@ -1,7 +1,6 @@
 export const loadTreeData = async () => {
-  localStorage.removeItem('treeData');
+  localStorage.removeItem('treeData'); // Not sure about this, without it changes are not seen instantly
   const storedData = localStorage.getItem('treeData');
-  console.log('Stored Data:', storedData);
 
   if (storedData) {
     try {
@@ -17,7 +16,7 @@ export const loadTreeData = async () => {
     }
     const data = await response.json();
     localStorage.setItem('treeData', JSON.stringify(data));
-    console.log(data);
+    // console.log(data);
     return data;
   }
 };

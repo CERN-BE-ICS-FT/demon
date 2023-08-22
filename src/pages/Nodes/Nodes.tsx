@@ -10,12 +10,6 @@ const Nodes = () => {
   const [nodeName, setGroupName] = useState('');
   const [type, setType] = useState('Device');
 
-  const [tags, setTags] = useState([
-    { id: 'PLC', text: 'PLC' },
-    { id: 'SCADA', text: 'SCADA' },
-    { id: 'Siemens', text: 'Siemens' }
-  ]);
-
   const pathParts = location.pathname.split('/');
 
   useEffect(() => {
@@ -49,8 +43,8 @@ const Nodes = () => {
 
   return (
     <div>
-      <h1 className="text-lg pt-4 font-bold">{nodeName}</h1>
-      <div className="text-zinc-600  mb-4">Device</div>
+      {/* <h1 className="text-lg pt-4 font-bold">{nodeName}</h1> */}
+      <div className="text-zinc-600  mb-4">{type}</div>
 
       <form className="space-y-4">
         {/* Tree fields form */}
@@ -59,7 +53,7 @@ const Nodes = () => {
         <Separator></Separator>
 
         {/* Device details form */}
-        <DeviceDetails />
+        {type === 'Device' && <DeviceDetails />}
       </form>
 
       {/* Table view */}

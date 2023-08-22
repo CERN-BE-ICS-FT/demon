@@ -1,8 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { loadDeviceData } from '../../app/utils/loadDeviceData';
+
+type Device = {
+  id: number;
+  name: string;
+  labels: string[];
+  agent: string;
+  ipaddress: string;
+};
 
 const DeviceDetails = () => {
   const [agent, setAgent] = useState('');
   const [ipAddress, setIpAddress] = useState('');
+
+  const location = useLocation();
+  const pathParts = location.pathname.split('/');
+  const id = pathParts[pathParts.length - 1];
+  //   console.log(id);
+
+  useEffect(() => {
+    const fetchDeviceDetails = async () => {
+      const devices = await loadDeviceData();
+
+      if (!Array.isArray(devices)) {
+        console.error('Expected an array of devices, but got:', devices);
+        return;
+      }
+
+      const device = devices.find(
+        (device: Device) => device.id === parseInt(id)
+      );
+      if (device) {
+        setAgent(device.agent);
+        setIpAddress(device.ipaddress);
+      }
+    };
+
+    fetchDeviceDetails();
+  }, [id]);
 
   return (
     <>

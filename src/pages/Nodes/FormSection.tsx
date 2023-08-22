@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToggleButton from '../../app/common/buttons/ToggleButton';
 import hideIcon from '../../assets/icons/hide.png';
 import ICSTAGS from './icsTags';
 import { WithContext as ReactTags } from 'react-tag-input';
+import { loadTreeData } from '../../app/utils/loadTreeData';
+import { useLocation } from 'react-router-dom';
 
 const suggestions = ICSTAGS.map((tag) => {
   return {
@@ -16,6 +18,17 @@ const KeyCodes = {
   enter: 13
 };
 
+type Node = {
+  id: number;
+  name: string;
+  type: number;
+  rule_id: number;
+  state: string;
+  hidden: number;
+  tags: string[];
+  children: Node[];
+};
+
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const FormSection = () => {
@@ -25,6 +38,41 @@ const FormSection = () => {
     { id: 'SCADA', text: 'SCADA' },
     { id: 'Siemens', text: 'Siemens' }
   ]);
+  const location = useLocation();
+  const pathParts = location.pathname.split('/');
+  const id = pathParts[pathParts.length - 1];
+  const [isHidden, setIsHidden] = useState(false);
+
+  const findNodeById = (tree: Node[], id: number): Node | null => {
+    for (let i = 0; i < tree.length; i++) {
+      if (tree[i].id === id) {
+        return tree[i];
+      } else if (tree[i].children) {
+        const childResult = findNodeById(tree[i].children, id);
+        if (childResult) return childResult;
+      }
+    }
+    return null;
+  };
+
+  const [treeData, setTreeData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await loadTreeData();
+      setTreeData(data);
+
+      // Use the findNodeById function to find the node using the id from the URL
+      const node = findNodeById(data.tree.children, parseInt(id));
+      if (node) {
+        setName(node.name);
+        setTags(node.tags.map((tag) => ({ id: tag, text: tag })));
+        // You can also set other fields like 'hidden' and so on...
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const handleTagClick = (index: number) => {
     console.log('The tag at index ' + index + ' was clicked');
@@ -62,7 +110,7 @@ const FormSection = () => {
         <label htmlFor="name" className="w-24 font-medium">
           Disable:
         </label>
-        <ToggleButton onChange={handleToggleChange} />
+        <ToggleButton onChange={handleToggleChange} initialState={isHidden} />
         <img src={hideIcon} alt="new file" className="w-6 h-6 opacity-75" />
       </div>
 

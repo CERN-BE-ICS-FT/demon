@@ -98,7 +98,7 @@ const TableSection = () => {
 
   return (
     <>
-      <div className="mt-2">
+      <div className="mt-12">
         <h1 className="text-lg font-bold my-4">Device collection</h1>
         <div className="flex sm:mt-0 sm:ml-4 sm:text-left w-full space-x-4">
           <input
@@ -122,7 +122,7 @@ const TableSection = () => {
               <option value="automation">Automation</option>
             </select>
           </div>
-          <div style={{ width: '20%' }}>
+          <div style={{ width: '30%' }}>
             <SwitchTab onChange={setActiveTab} />
           </div>
           <div className="flex">

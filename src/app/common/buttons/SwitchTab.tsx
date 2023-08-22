@@ -15,7 +15,7 @@ const SwitchTab: React.FC<SwitchTabProps> = ({ onChange }) => {
   };
 
   return (
-    <div className="border hover:border-zinc-800 rounded px-1 py-1 flex">
+    <div className="border hover:border-zinc-800 rounded px-1 py-1 flex min-w-fit">
       <button
         className={`flex-1 text-center rounded-l ${
           activeTab === 'members' ? 'bg-zinc-800 text-white' : 'bg-zinc-200'
