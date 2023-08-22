@@ -12,7 +12,7 @@ const Configure = () => {
 
   const handleTabClick = (tabName: string) => {
     if (pathParts[3]) {
-      navigate(`${tabName}/${pathParts[3]}`);
+      navigate(`${tabName}/${pathParts[3]}/${pathParts[4]}`);
     } else {
       navigate(tabName);
     }

@@ -1,7 +1,9 @@
 /* eslint-disable indent */
 import React, { useState, MouseEvent } from 'react';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 export interface TreeNode {
+  id: number;
   name: string;
   status: string;
   hidden: boolean;
@@ -9,9 +11,14 @@ export interface TreeNode {
   children?: TreeNode[];
 }
 
+interface Item {
+  id: number;
+  type: 'groups' | 'devices';
+}
+
 interface TreeProps {
   item: TreeNode;
-  onItemNameClick: (name: string) => void;
+  onItemNameClick: (id: number, type: string, name: string) => void;
   activeNode: string;
   useMonoColor?: boolean;
 }
@@ -31,11 +38,7 @@ const Tree: React.FC<TreeProps> = ({
 
   const handleNameClick = (e: MouseEvent) => {
     e.stopPropagation();
-    if (item.name === activeNode) {
-      onItemNameClick('');
-    } else {
-      onItemNameClick(item.name);
-    }
+    onItemNameClick(item.id, item.type || '', item.name);
   };
 
   return (

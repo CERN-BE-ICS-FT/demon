@@ -9,7 +9,7 @@ import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { loadTreeData } from '../../utils/loadTreeData';
 import { convertDataToTreeNode } from '../../utils/convertDataToTreeNode';
 
-const DEFAULT_LEFT_PANEL_SIZE = 15;
+const DEFAULT_LEFT_PANEL_SIZE = 17;
 
 import React from 'react';
 
@@ -54,6 +54,8 @@ export default function RootLayout() {
   const [leftSize, setLeftSize] = useState(DEFAULT_LEFT_PANEL_SIZE);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedItem, setSelectedItem] = useState('');
+  const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
+  const [selectedNodeType, setSelectedNodeType] = useState<string | null>(null);
 
   const panelRef = useRef<any>(null);
 
@@ -65,22 +67,6 @@ export default function RootLayout() {
   const isInSettings = location.pathname.startsWith('/settings');
 
   const [treeData, setTreeData] = useState<TreeNode | null>(null);
-
-  async function fetchDataAndSetTree() {
-    const rawData = await loadTreeData();
-
-    let parsedData;
-    if (typeof rawData !== 'string') {
-      parsedData = rawData;
-      console.log(rawData);
-    } else {
-      parsedData = JSON.parse(rawData);
-    }
-
-    const convertedData = convertDataToTreeNode(parsedData.tree);
-
-    setTreeData(convertedData);
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,19 +90,21 @@ export default function RootLayout() {
     }
   }, [location.pathname]);
 
-  const handleItemClick = (itemName: string) => {
-    const encodedItemName = encodeURIComponent(itemName);
+  const handleItemClick = (id: number, type: string, itemName: string) => {
+    setSelectedNodeId(id);
+    setSelectedNodeType(type);
 
+    let newPath = '';
     if (pathParts[1] === 'monitor' || !pathParts[1]) {
-      navigate(`/monitor/${encodedItemName}`);
-      setSelectedItem(itemName);
+      newPath = `/monitor/${type}/${id}`;
     } else if (pathParts[2] === 'rules') {
-      navigate(`configure/rules/${encodedItemName}`);
-      setSelectedItem(itemName);
+      newPath = `/configure/rules/${type}/${id}`;
     } else if (pathParts[2] === 'nodes') {
-      navigate(`/configure/nodes/${encodedItemName}`);
-      setSelectedItem(itemName);
+      newPath = `/configure/nodes/${type}/${id}`;
     }
+
+    navigate(newPath);
+    setSelectedItem(itemName);
   };
 
   const handleExpandPanel = () => {
@@ -172,8 +160,11 @@ export default function RootLayout() {
                 ) : treeData ? (
                   <Tree
                     item={treeData}
-                    onItemNameClick={handleItemClick}
+                    onItemNameClick={(id, type, name) =>
+                      handleItemClick(id, type, name)
+                    }
                     activeNode={selectedItem}
+                    useMonoColor={pathParts[1] !== 'monitor'}
                   />
                 ) : null}
               </h1>

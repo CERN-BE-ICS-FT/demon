@@ -21,8 +21,8 @@ const DeletePopup: React.FC<DeletePopupProps> = ({
         {/* <img src={warningIcon} alt="warning" className="mx-auto mb-4 w-8 h-8" /> */}
         <h1 className="font-bold text-3xl pt-3">Note!</h1>
         <p className="mt-4">
-          This action is permanent and cannot be reversed. You will lose the{' '}
-          {treeName} tree forever.
+          You are about to remove {treeName} from this tree. Do you want to
+          proceed?
         </p>
         <div className="flex justify-center mt-4 pb-2 space-x-1">
           <button

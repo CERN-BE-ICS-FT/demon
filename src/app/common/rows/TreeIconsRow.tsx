@@ -58,7 +58,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
       <Separator></Separator>
       <div className="min-w-[220px] flex justify-between mx-2 flex-grow">
         <div className="flex space-x-2">
-          <button
+          {/* <button
             onClick={handleFileClick}
             disabled={!isActive}
             className={`p-1 w-6 h-6 bg-zinc-800 rounded text-black ${
@@ -70,7 +70,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
               alt="new file"
               className={isActive ? 'filter-none' : 'filter grayscale'}
             />
-          </button>
+          </button> */}
           <button
             onClick={handleFolderClick}
             disabled={!isActive}
