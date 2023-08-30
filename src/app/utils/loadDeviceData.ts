@@ -1,10 +1,10 @@
 export const loadDeviceData = async () => {
-  localStorage.removeItem('devicesData'); // Not sure about this, without it changes are not seen instantly
+  // localStorage.removeItem('devicesData'); // Not sure about this, without it changes are not seen instantly
   const storedData = localStorage.getItem('devicesData');
 
   if (storedData) {
     try {
-      console.log(storedData);
+      console.log('Already in the localstorage: ', storedData);
       return JSON.parse(storedData);
     } catch (error) {
       console.error('Error parsing stored data:', error);

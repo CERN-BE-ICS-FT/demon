@@ -1,6 +1,7 @@
-export const loadTreeData = async () => {
-  // localStorage.removeItem('treeData'); // Not sure about this, without it changes are not seen instantly
-  const storedData = localStorage.getItem('treeData');
+export const loadRulesData = async () => {
+  localStorage.removeItem('rulesData'); // Not sure about this, without it changes are not seen instantly
+
+  const storedData = localStorage.getItem('rulesData');
 
   if (storedData) {
     try {
@@ -9,13 +10,13 @@ export const loadTreeData = async () => {
       console.error('Error parsing stored data:', error);
     }
   } else {
-    const response = await fetch('/tree.json');
+    const response = await fetch('/rules.json');
     if (!response.ok) {
       console.error('Network response was not ok', response.statusText);
       return null;
     }
     const data = await response.json();
-    localStorage.setItem('treeData', JSON.stringify(data));
+    localStorage.setItem('rulesData', JSON.stringify(data));
     // console.log(data);
     return data;
   }

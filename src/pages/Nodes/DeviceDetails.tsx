@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { loadDeviceData } from '../../app/utils/loadDeviceData';
 
 type Device = {
@@ -13,11 +13,11 @@ type Device = {
 const DeviceDetails = () => {
   const [agent, setAgent] = useState('');
   const [ipAddress, setIpAddress] = useState('');
+  const [labels, setLabels] = useState('');
 
   const location = useLocation();
   const pathParts = location.pathname.split('/');
   const id = pathParts[pathParts.length - 1];
-  //   console.log(id);
 
   useEffect(() => {
     const fetchDeviceDetails = async () => {
@@ -34,6 +34,7 @@ const DeviceDetails = () => {
       if (device) {
         setAgent(device.agent);
         setIpAddress(device.ipaddress);
+        setLabels(device.labels);
       }
     };
 
@@ -64,6 +65,19 @@ const DeviceDetails = () => {
           type="text"
           style={{ width: '50%' }}
           value={ipAddress}
+          onChange={(e) => setIpAddress(e.target.value)}
+          className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
+        />
+      </div>
+      <div className="flex items-center space-x-2">
+        <label htmlFor="ip-address" className="w-24 font-medium">
+          Labels:
+        </label>
+        <input
+          id="ip-address"
+          type="text"
+          style={{ width: '50%' }}
+          value={labels}
           onChange={(e) => setIpAddress(e.target.value)}
           className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
         />

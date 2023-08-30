@@ -10,11 +10,11 @@
     "children": [
       {
         "id": 2,
-        "name": "Group A",
+        "name": "Group ABC",
         "type": 0,
         "rule_id": 2,
         "state": "inactive",
-        "hidden": 0,
+        "hidden": 1,
         "tags": ["PLC", "Automatic", "Vacuum"],
         "children": [
           {

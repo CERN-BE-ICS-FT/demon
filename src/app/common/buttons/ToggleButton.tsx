@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface ToggleButtonProps {
   onChange: (isActive: boolean) => void;
@@ -11,9 +11,14 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 }) => {
   const [isActive, setIsActive] = useState(initialState);
 
+  useEffect(() => {
+    setIsActive(initialState);
+  }, [initialState]);
+
   const toggleActive = () => {
-    setIsActive(!isActive);
-    onChange(!isActive);
+    const newActiveState = !isActive;
+    setIsActive(newActiveState);
+    onChange(newActiveState);
   };
 
   return (

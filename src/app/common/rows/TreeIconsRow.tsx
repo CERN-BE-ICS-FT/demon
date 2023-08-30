@@ -1,6 +1,4 @@
-import newDeviceIcon from '../../../assets/icons/add-device-wh.png';
 import newGroupIcon from '../../../assets/icons/add-group-wh.png';
-import { useNavigate } from 'react-router-dom';
 import Separator from '../elements/Separator';
 import { useState } from 'react';
 import DeletePopup from '../../../pages/Popups/DeletePopup';
@@ -9,6 +7,7 @@ import downloadIcon from '../../../assets/icons/download-wh.png';
 import moveIcon from '../../../assets/icons/box-move-wh.png';
 import removeIcon from '../../../assets/icons/remove-wh.png';
 import UploadDownloadPopup from '../../../pages/Popups/UploadDownloadModal';
+import { uploadData } from '../../utils/uploadData';
 
 interface TreeIconsRowProps {
   isActive: boolean;
@@ -25,9 +24,6 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
   const [showUploadDownloadPopup, setShowUploadDownloadPopup] = useState(false);
   const [isAboutUpload, setIsAboutUpload] = useState<boolean | null>(null);
 
-  const handleFileClick = () => {
-    console.log(`new file in ${activeItem} created`);
-  };
   const handleFolderClick = () => {
     console.log(`new folder in ${activeItem} created`);
   };
@@ -39,6 +35,7 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
   };
   const handleConfirmUpload = () => {
     console.log('Confirmed upload');
+    uploadData();
   };
   const handleConfirmDownload = () => {
     console.log('Confirmed download');

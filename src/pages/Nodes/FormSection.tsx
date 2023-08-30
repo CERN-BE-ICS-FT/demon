@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToggleButton from '../../app/common/buttons/ToggleButton';
 import hideIcon from '../../assets/icons/hide.png';
 import ICSTAGS from './icsTags';
@@ -16,6 +16,10 @@ const suggestions = ICSTAGS.map((tag) => {
 const KeyCodes = {
   comma: 188,
   enter: 13
+};
+
+type TreeData = {
+  tree: Node;
 };
 
 type Node = {
@@ -55,19 +59,51 @@ const FormSection = () => {
     return null;
   };
 
-  const [treeData, setTreeData] = useState(null);
+  const updateLocalStorage = (updatedNode: Partial<Node>) => {
+    const storedData = localStorage.getItem('treeData');
+    if (storedData) {
+      try {
+        const data: TreeData = JSON.parse(storedData);
+        const node = findNodeById(data.tree.children, parseInt(id));
+        if (node) {
+          Object.assign(node, updatedNode); // merge properties from updatedNode into node
+          localStorage.setItem('treeData', JSON.stringify(data));
+        }
+      } catch (error) {
+        console.error('Failed to update local storage:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const nodeToUpdate: Partial<Node> = {
+      id: parseInt(id),
+      name,
+      hidden: isHidden ? 1 : 0,
+      tags: tags.map((tag) => tag.id)
+    };
+
+    updateLocalStorage(nodeToUpdate);
+  }, [name, isHidden, tags]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await loadTreeData();
-      setTreeData(data);
+      const data: TreeData = await loadTreeData();
 
-      // Use the findNodeById function to find the node using the id from the URL
       const node = findNodeById(data.tree.children, parseInt(id));
       if (node) {
         setName(node.name);
         setTags(node.tags.map((tag) => ({ id: tag, text: tag })));
-        // You can also set other fields like 'hidden' and so on...
+        setIsHidden(node.hidden === 1);
+
+        const nodeToUpdate: Partial<Node> = {
+          id: node.id,
+          name: node.name,
+          hidden: node.hidden,
+          tags: node.tags
+        };
+
+        updateLocalStorage(nodeToUpdate);
       }
     };
 
@@ -86,8 +122,8 @@ const FormSection = () => {
     setTags([...tags, tag]);
   };
 
-  const handleToggleChange = (isActive: boolean) => {
-    console.log('Toggle is now', isActive ? 'active' : 'inactive');
+  const handleHiddenStatusChange = (newHiddenStatus: boolean) => {
+    setIsHidden(newHiddenStatus);
   };
 
   return (
@@ -110,7 +146,10 @@ const FormSection = () => {
         <label htmlFor="name" className="w-24 font-medium">
           Disable:
         </label>
-        <ToggleButton onChange={handleToggleChange} initialState={isHidden} />
+        <ToggleButton
+          onChange={handleHiddenStatusChange}
+          initialState={isHidden}
+        />
         <img src={hideIcon} alt="new file" className="w-6 h-6 opacity-75" />
       </div>
 

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DeleteDevicesModal from '../Popups/DeleteDevicesModal';
 import AddDevicesModal from '../Popups/AddDevicesModal';
 import SwitchTab from '../../app/common/buttons/SwitchTab';
 import moveIcon from '../../assets/icons/box-move-wh.png';
 import removeIconWhite from '../../assets/icons/remove-wh.png';
+import { loadDeviceData } from '../../app/utils/loadDeviceData';
 
 const TableSection = () => {
   const [showAddPopup, setShowAddPopup] = useState(false);
@@ -11,42 +12,25 @@ const TableSection = () => {
   const [tagFilter, setTagFilter] = useState<string>('');
   const [tableSearch, setTableSearch] = useState('');
   const [nodeName, setGroupName] = useState('# TODO'); // TODO
+  const [devicesData, setDevicesData] = useState<any[]>([]);
+  const allLabels = devicesData.flatMap((device) => device.labels);
+  const uniqueLabelsSet = new Set(allLabels);
+  const uniqueLabelsArray = Array.from(uniqueLabelsSet);
+
   const [activeTab, setActiveTab] = useState<'members' | 'outsiders'>(
     'members'
   );
 
-  const mockData = [
-    {
-      id: '1',
-      name: 'Device 123',
-      type: 'Device',
-      link: 'https://www.mockurl.com/device-123',
-      tag: 'kryo'
-    },
-    {
-      id: '2',
-      name: 'Device 234',
-      type: 'Device',
-      link: 'https://www.mockurl.com/device-234',
-      tag: 'plc'
-    },
-    {
-      id: '3',
-      name: 'Device 345',
-      type: 'Device',
-      link: 'https://www.mockurl.com/device-345',
-      tag: 'scada'
-    },
-    {
-      id: '4',
-      name: 'Device 456',
-      type: 'Device',
-      link: 'https://www.mockurl.com/device-456',
-      tag: 'automation'
-    }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await loadDeviceData();
+      setDevicesData(data);
+    };
 
-  const filteredData = mockData
+    fetchData();
+  }, []);
+
+  const filteredData = devicesData
     .filter(
       (data) =>
         (activeTab === 'members' && data.name.includes('2')) ||
@@ -55,7 +39,7 @@ const TableSection = () => {
     .filter(
       (data) =>
         data.name.toLowerCase().includes(tableSearch.toLowerCase()) &&
-        (!tagFilter || data.tag === tagFilter)
+        (!tagFilter || data.labels.includes(tagFilter))
     );
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -110,18 +94,17 @@ const TableSection = () => {
             onChange={(e) => setTableSearch(e.target.value)}
             value={tableSearch}
           />
-          <div className="flex space-x-2">
-            <select
-              onChange={(e) => setTagFilter(e.target.value)}
-              className="border rounded px-2 focus:outline-none focus:border-zinc-800 w-48"
-            >
-              <option value="">Filter by tag</option>
-              <option value="kryo">Kryo</option>
-              <option value="plc">PLC</option>
-              <option value="scada">SCADA</option>
-              <option value="automation">Automation</option>
-            </select>
-          </div>
+          <select
+            onChange={(e) => setTagFilter(e.target.value)}
+            className="border rounded px-2 focus:outline-none focus:border-zinc-800 w-48"
+          >
+            <option value="">Filter by label</option>
+            {uniqueLabelsArray.map((label) => (
+              <option key={label} value={label}>
+                {label}
+              </option>
+            ))}
+          </select>
           <div style={{ width: '30%' }}>
             <SwitchTab onChange={setActiveTab} />
           </div>
@@ -150,8 +133,8 @@ const TableSection = () => {
             <tr className="border-b border-zinc-200">
               <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Tag</th>
-              <th className="px-4 py-2">Link</th>
+              <th className="px-4 py-2">Label</th>
+              <th className="px-4 py-2">IP Address</th>
               <th className="px-4 py-2">
                 <div className="mb-2">Selected: {selectedIds.length}</div>
                 <input
@@ -167,8 +150,8 @@ const TableSection = () => {
               <tr key={item.id} className="border-b border-zinc-200">
                 <td className="px-4 py-2">{item.id}</td>
                 <td className="px-4 py-2">{item.name}</td>
-                <td className="px-4 py-2">{item.tag}</td>
-                <td className="px-4 py-2">{item.link}</td>
+                <td className="px-4 py-2">{item.labels.join(', ')}</td>
+                <td className="px-4 py-2">{item.ipaddress}</td>
                 <td className="px-4 py-2">
                   <input
                     type="checkbox"

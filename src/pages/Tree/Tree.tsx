@@ -41,6 +41,11 @@ const Tree: React.FC<TreeProps> = ({
     onItemNameClick(item.id, item.type || '', item.name);
   };
 
+  const textStyle = item.hidden ? 'text-gray-400' : 'text-black';
+  const activeStyle = item.hidden
+    ? 'bg-gray-600 px-1 rounded text-white'
+    : 'bg-zinc-800 px-1 rounded text-white';
+
   return (
     <div className="max-h-screen ">
       <li className="list-none">
@@ -68,10 +73,8 @@ const Tree: React.FC<TreeProps> = ({
           ></span>
           <span
             onClick={handleNameClick}
-            className={`cursor-pointer ${
-              activeNode === item.name
-                ? 'bg-zinc-800 px-1 rounded text-white'
-                : ''
+            className={`cursor-pointer ${textStyle} ${
+              activeNode === item.name ? activeStyle : ''
             }`}
           >
             {item.name}

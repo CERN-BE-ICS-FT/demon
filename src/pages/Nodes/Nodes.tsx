@@ -7,7 +7,7 @@ import DeviceDetails from './DeviceDetails';
 
 const Nodes = () => {
   const location = useLocation();
-  const [nodeName, setGroupName] = useState('');
+  const [nodeName, setGroupName] = useState(''); // Still needed?
   const [type, setType] = useState('Device');
 
   const pathParts = location.pathname.split('/');
@@ -44,7 +44,7 @@ const Nodes = () => {
   return (
     <div>
       {/* <h1 className="text-lg pt-4 font-bold">{nodeName}</h1> */}
-      <div className="text-zinc-600  mb-4">{type}</div>
+      <div className="text-zinc-600  my-4">{type}</div>
 
       <form className="space-y-4">
         {/* Tree fields form */}
