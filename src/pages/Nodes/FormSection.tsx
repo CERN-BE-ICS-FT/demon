@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToggleButton from '../../app/common/buttons/ToggleButton';
 import hideIcon from '../../assets/icons/hide.png';
-import ICSTAGS from './icsTags';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { loadTreeData } from '../../app/utils/loadTreeData';
 import { useLocation } from 'react-router-dom';
 
-const suggestions = ICSTAGS.map((tag) => {
-  return {
-    id: tag,
-    text: tag
-  };
-});
+const ICSTAGS = ['Tag1', 'Tag2'];
 
 const KeyCodes = {
   comma: 188,
   enter: 13
 };
 
-type TreeData = {
-  tree: Node;
-};
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 type Node = {
   id: number;
@@ -33,97 +25,87 @@ type Node = {
   children: Node[];
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+type TreeData = {
+  tree: Node;
+};
 
-const FormSection = () => {
-  const [name, setName] = useState('');
-  const [tags, setTags] = useState([
-    { id: 'PLC', text: 'PLC' },
-    { id: 'SCADA', text: 'SCADA' },
-    { id: 'Siemens', text: 'Siemens' }
-  ]);
+const FormSection: React.FC = () => {
+  const [node, setNode] = useState<Node | null>(null);
+  const [reactTags, setReactTags] = useState<{ id: string; text: string }[]>(
+    []
+  );
   const location = useLocation();
   const pathParts = location.pathname.split('/');
-  const id = pathParts[pathParts.length - 1];
-  const [isHidden, setIsHidden] = useState(false);
-
-  const findNodeById = (tree: Node[], id: number): Node | null => {
-    for (let i = 0; i < tree.length; i++) {
-      if (tree[i].id === id) {
-        return tree[i];
-      } else if (tree[i].children) {
-        const childResult = findNodeById(tree[i].children, id);
-        if (childResult) return childResult;
-      }
-    }
-    return null;
-  };
-
-  const updateLocalStorage = (updatedNode: Partial<Node>) => {
-    const storedData = localStorage.getItem('treeData');
-    if (storedData) {
-      try {
-        const data: TreeData = JSON.parse(storedData);
-        const node = findNodeById(data.tree.children, parseInt(id));
-        if (node) {
-          Object.assign(node, updatedNode); // merge properties from updatedNode into node
-          localStorage.setItem('treeData', JSON.stringify(data));
-        }
-      } catch (error) {
-        console.error('Failed to update local storage:', error);
-      }
-    }
-  };
+  const id = parseInt(pathParts[pathParts.length - 1]);
 
   useEffect(() => {
-    const nodeToUpdate: Partial<Node> = {
-      id: parseInt(id),
-      name,
-      hidden: isHidden ? 1 : 0,
-      tags: tags.map((tag) => tag.id)
-    };
-
-    updateLocalStorage(nodeToUpdate);
-  }, [name, isHidden, tags]);
+    if (node && node.tags) {
+      setReactTags(node.tags.map((tag) => ({ id: tag, text: tag })));
+    }
+  }, [node]);
 
   useEffect(() => {
     const fetchData = async () => {
       const data: TreeData = await loadTreeData();
-
-      const node = findNodeById(data.tree.children, parseInt(id));
-      if (node) {
-        setName(node.name);
-        setTags(node.tags.map((tag) => ({ id: tag, text: tag })));
-        setIsHidden(node.hidden === 1);
-
-        const nodeToUpdate: Partial<Node> = {
-          id: node.id,
-          name: node.name,
-          hidden: node.hidden,
-          tags: node.tags
-        };
-
-        updateLocalStorage(nodeToUpdate);
+      const foundNode = findNodeById(data.tree, id);
+      if (foundNode) {
+        setNode(foundNode);
       }
     };
-
     fetchData();
   }, [id]);
 
-  const handleTagClick = (index: number) => {
-    console.log('The tag at index ' + index + ' was clicked');
+  const findNodeById = (tree: Node, id: number): Node | null => {
+    if (tree.id === id) return tree;
+    for (const child of tree.children || []) {
+      const found = findNodeById(child, id);
+      if (found) return found;
+    }
+    return null;
   };
 
+  const handleFieldChange = (
+    field: keyof Node,
+    value: string | number | string[]
+  ) => {
+    if (node) {
+      setNode({ ...node, [field]: value });
+    }
+  };
+
+  useEffect(() => {
+    const updateLocalStorage = async () => {
+      const currentTreeData: TreeData = await loadTreeData();
+      const foundNode = findNodeById(currentTreeData.tree, id);
+      if (foundNode && node) {
+        Object.assign(foundNode, node);
+        localStorage.setItem('treeData', JSON.stringify(currentTreeData));
+      }
+    };
+
+    if (node) {
+      updateLocalStorage();
+    }
+  }, [node, id]);
+
   const handleDelete = (i: number) => {
-    setTags(tags.filter((tag, index) => index !== i));
+    const newTags = reactTags.slice(0);
+    newTags.splice(i, 1);
+    setReactTags(newTags);
+    if (node) {
+      setNode({ ...node, tags: newTags.map((tag) => tag.id) });
+    }
   };
 
   const handleAddition = (tag: { id: string; text: string }) => {
-    setTags([...tags, tag]);
+    setReactTags([...reactTags, tag]);
+    if (node) {
+      setNode({ ...node, tags: [...node.tags, tag.id] });
+    }
   };
 
-  const handleHiddenStatusChange = (newHiddenStatus: boolean) => {
-    setIsHidden(newHiddenStatus);
+  const handleTagClick = (index: number) => {
+    console.log('The tag at index ' + index + ' was clicked');
   };
 
   return (
@@ -136,8 +118,8 @@ const FormSection = () => {
           id="name"
           type="text"
           style={{ width: '25%' }}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={node ? node.name : ''}
+          onChange={(e) => handleFieldChange('name', e.target.value)}
           className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
         />
       </div>
@@ -147,8 +129,8 @@ const FormSection = () => {
           Disable:
         </label>
         <ToggleButton
-          onChange={handleHiddenStatusChange}
-          initialState={isHidden}
+          onChange={(hidden) => handleFieldChange('hidden', hidden ? 1 : 0)}
+          initialState={node ? node.hidden === 1 : false}
         />
         <img src={hideIcon} alt="new file" className="w-6 h-6 opacity-75" />
       </div>
@@ -156,8 +138,8 @@ const FormSection = () => {
       <div className="flex mt-5 space-x-2">
         <label className="w-24 mt-1 font-medium">Tags:</label>
         <ReactTags
-          tags={tags}
-          suggestions={suggestions}
+          tags={reactTags}
+          suggestions={ICSTAGS.map((tag) => ({ id: tag, text: tag }))}
           delimiters={delimiters}
           handleDelete={handleDelete}
           handleAddition={handleAddition}

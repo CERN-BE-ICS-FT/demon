@@ -11,6 +11,11 @@
               "input": "All of inputs",
               "operator": "==",
               "state": "0"
+            },
+            {
+              "input": "All of inputs",
+              "operator": "==",
+              "state": "0"
             }
           ],
           "subGroups": [

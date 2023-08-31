@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { loadDeviceData } from '../../app/utils/loadDeviceData';
 
@@ -11,35 +11,54 @@ type Device = {
 };
 
 const DeviceDetails = () => {
-  const [agent, setAgent] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
-  const [labels, setLabels] = useState('');
-
   const location = useLocation();
   const pathParts = location.pathname.split('/');
-  const id = pathParts[pathParts.length - 1];
+  const id = parseInt(pathParts[pathParts.length - 1]);
+
+  const [device, setDevice] = useState<Device | null>(null);
+
+  const updateDeviceData = async (updatedDevices: Device[]) => {
+    localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
+  };
 
   useEffect(() => {
     const fetchDeviceDetails = async () => {
       const devices = await loadDeviceData();
 
-      if (!Array.isArray(devices)) {
-        console.error('Expected an array of devices, but got:', devices);
-        return;
-      }
+      const foundDevice = devices.find((d: Device) => d.id === id);
 
-      const device = devices.find(
-        (device: Device) => device.id === parseInt(id)
-      );
-      if (device) {
-        setAgent(device.agent);
-        setIpAddress(device.ipaddress);
-        setLabels(device.labels);
+      if (foundDevice) {
+        setDevice(foundDevice);
       }
     };
 
     fetchDeviceDetails();
   }, [id]);
+
+  const handleFieldChange = (
+    field: keyof Device,
+    value: string | number | string[]
+  ) => {
+    if (device) {
+      setDevice({
+        ...device,
+        [field]: value
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (device) {
+      (async () => {
+        const devices = await loadDeviceData();
+        const index = devices.findIndex((d: Device) => d.id === id);
+        if (index > -1) {
+          devices[index] = device;
+          await updateDeviceData(devices);
+        }
+      })();
+    }
+  }, [device, id]);
 
   return (
     <>
@@ -51,8 +70,8 @@ const DeviceDetails = () => {
           id="agent"
           type="text"
           style={{ width: '50%' }}
-          value={agent}
-          onChange={(e) => setAgent(e.target.value)}
+          value={device ? device.agent : ''}
+          onChange={(e) => handleFieldChange('agent', e.target.value)}
           className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
         />
       </div>
@@ -64,8 +83,8 @@ const DeviceDetails = () => {
           id="ip-address"
           type="text"
           style={{ width: '50%' }}
-          value={ipAddress}
-          onChange={(e) => setIpAddress(e.target.value)}
+          value={device ? device.ipaddress : ''}
+          onChange={(e) => handleFieldChange('ipaddress', e.target.value)}
           className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
         />
       </div>
@@ -74,11 +93,10 @@ const DeviceDetails = () => {
           Labels:
         </label>
         <input
-          id="ip-address"
+          id="labels"
           type="text"
           style={{ width: '50%' }}
-          value={labels}
-          onChange={(e) => setIpAddress(e.target.value)}
+          value={device ? device.labels.join(', ') : ''}
           className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"
         />
       </div>
