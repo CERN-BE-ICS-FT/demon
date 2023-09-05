@@ -34,7 +34,9 @@ const FormSection: React.FC = () => {
   const [reactTags, setReactTags] = useState<{ id: string; text: string }[]>(
     []
   );
+
   const location = useLocation();
+  console.log('location: ', location);
   const pathParts = location.pathname.split('/');
   const id = parseInt(pathParts[pathParts.length - 1]);
 
@@ -59,8 +61,9 @@ const FormSection: React.FC = () => {
     if (tree.id === id) return tree;
     for (const child of tree.children || []) {
       const found = findNodeById(child, id);
-      console.log('Found node: ', found);
-      if (found) return found;
+      if (found) {
+        return found;
+      }
     }
     return null;
   };
@@ -74,20 +77,28 @@ const FormSection: React.FC = () => {
     }
   };
 
+  const updateNodeInTree = (tree: Node, updatedNode: Node): Node => {
+    if (tree.id === updatedNode.id) {
+      return { ...updatedNode };
+    }
+    if (!tree.children) {
+      return { ...tree };
+    }
+    return {
+      ...tree,
+      children: tree.children.map((child) =>
+        updateNodeInTree(child, updatedNode)
+      )
+    };
+  };
+
   useEffect(() => {
     const updateLocalStorage = async () => {
-      // const currentTreeData: TreeData = await loadTreeData();
-      // const foundNode = findNodeById(currentTreeData.tree, id);
-      // if (foundNode && node) {
-      //   const newTreeData: TreeData = JSON.parse(
-      //     JSON.stringify(currentTreeData)
-      //   );
-      //   const newNode = findNodeById(newTreeData.tree, id);
-      //   if (newNode) {
-      //     Object.assign(newNode, node);
-      //     localStorage.setItem('treeData', JSON.stringify(newTreeData));
-      //   }
-      // }
+      const currentTreeData: TreeData = await loadTreeData();
+      if (node) {
+        const updatedTree = updateNodeInTree(currentTreeData.tree, node);
+        localStorage.setItem('treeData', JSON.stringify({ tree: updatedTree }));
+      }
     };
 
     if (node) {

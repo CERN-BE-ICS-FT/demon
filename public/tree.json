@@ -38,13 +38,24 @@
         "tags": ["S7-900", "Automatic", "Kryo"],
         "children": [
           {
-            "id": 11,
-            "name": "Device B1",
-            "type": 1,
-            "rule_id": 11,
-            "state": "active",
+            "id": 100,
+            "name": "Group B1",
+            "type": 0,
+            "rule_id": 10,
+            "state": "inactive",
             "hidden": 0,
-            "tags": ["S4-400", " SCADA"]
+            "tags": ["S7-900", "Automatic", "Kryo"],
+            "children": [
+              {
+                "id": 11,
+                "name": "Device B11",
+                "type": 1,
+                "rule_id": 11,
+                "state": "active",
+                "hidden": 0,
+                "tags": ["S4-400", " SCADA"]
+              }
+            ]
           }
         ]
       },

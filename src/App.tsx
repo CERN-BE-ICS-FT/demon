@@ -12,10 +12,15 @@ import RootLayout from './app/global/layouts/RootLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Settings from './pages/Settings/Settings';
 import Configure from './pages/Configure/Configure';
+import { useEffect } from 'react';
 
 const RedirectToMonitor = () => {
   const navigate = useNavigate();
-  navigate('/monitor');
+
+  useEffect(() => {
+    navigate('/monitor');
+  }, [navigate]);
+
   return null;
 };
 

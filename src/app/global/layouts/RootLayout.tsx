@@ -68,6 +68,8 @@ export default function RootLayout() {
   const typeFromPath = pathParts[3];
   const tabFromPath = pathParts[2];
 
+  console.log('Rootlayout is being rendred');
+
   useEffect(() => {
     const fetchData = async () => {
       const rawData = await loadTreeData();
