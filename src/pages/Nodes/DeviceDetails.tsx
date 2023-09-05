@@ -57,13 +57,13 @@ const DeviceDetails = () => {
   useEffect(() => {
     if (device) {
       const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
-      const updatedDevices = devices.map((d: Device) => {
-        if (d.id === id) {
-          return { ...d, ...device };
-        }
-        return d;
-      });
-      localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
+      // const updatedDevices = devices.map((d: Device) => {
+      //   if (d.id === id) {
+      //     return { ...d, ...device };
+      //   }
+      //   return d;
+      // });
+      // localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
     }
   }, [device, id]);
 

@@ -76,20 +76,18 @@ const FormSection: React.FC = () => {
 
   useEffect(() => {
     const updateLocalStorage = async () => {
-      const currentTreeData: TreeData = await loadTreeData();
-      const foundNode = findNodeById(currentTreeData.tree, id);
-
-      if (foundNode && node) {
-        const newTreeData: TreeData = JSON.parse(
-          JSON.stringify(currentTreeData)
-        );
-        const newNode = findNodeById(newTreeData.tree, id);
-
-        if (newNode) {
-          Object.assign(newNode, node);
-          localStorage.setItem('treeData', JSON.stringify(newTreeData));
-        }
-      }
+      // const currentTreeData: TreeData = await loadTreeData();
+      // const foundNode = findNodeById(currentTreeData.tree, id);
+      // if (foundNode && node) {
+      //   const newTreeData: TreeData = JSON.parse(
+      //     JSON.stringify(currentTreeData)
+      //   );
+      //   const newNode = findNodeById(newTreeData.tree, id);
+      //   if (newNode) {
+      //     Object.assign(newNode, node);
+      //     localStorage.setItem('treeData', JSON.stringify(newTreeData));
+      //   }
+      // }
     };
 
     if (node) {
