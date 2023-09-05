@@ -9,7 +9,7 @@ import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { loadTreeData } from '../../utils/loadTreeData';
 import { convertDataToTreeNode } from '../../utils/convertDataToTreeNode';
 
-const DEFAULT_LEFT_PANEL_SIZE = 17;
+const DEFAULT_LEFT_PANEL_SIZE = 22;
 
 import React from 'react';
 
@@ -56,6 +56,7 @@ export default function RootLayout() {
   const [selectedItem, setSelectedItem] = useState('');
   const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
   const [selectedNodeType, setSelectedNodeType] = useState<string | null>(null);
+  const [treeData, setTreeData] = useState<TreeNode | null>(null);
 
   const panelRef = useRef<any>(null);
 
@@ -63,10 +64,9 @@ export default function RootLayout() {
   const location = useLocation();
 
   const pathParts = location.pathname.split('/');
-
-  const isInSettings = location.pathname.startsWith('/settings');
-
-  const [treeData, setTreeData] = useState<TreeNode | null>(null);
+  const idFromPath = parseInt(pathParts[4], 10);
+  const typeFromPath = pathParts[3];
+  const tabFromPath = pathParts[2];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,16 +79,31 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (
-      (pathParts[2] === 'rules' || pathParts[2] === 'nodes') &&
-      !pathParts[3]
-    ) {
-      setSelectedItem('');
-    }
-    if (pathParts[1] === 'monitor' && !pathParts[2]) {
-      setSelectedItem('');
+    console.log(tabFromPath, typeFromPath, idFromPath);
+
+    if (idFromPath && typeFromPath) {
+      setSelectedNodeId(idFromPath);
+      setSelectedNodeType(typeFromPath);
     }
   }, [location.pathname]);
+
+  // useEffect(() => {
+  //   if (
+  //     (pathParts[2] === 'rules' || pathParts[2] === 'nodes') &&
+  //     !pathParts[3]
+  //   ) {
+  //     setSelectedItem('');
+  //   }
+  //   if (pathParts[1] === 'monitor' && !pathParts[2]) {
+  //     setSelectedItem('');
+  //   }
+  // }, [location.pathname]);
+
+  useEffect(() => {
+    if (idFromPath && typeFromPath) {
+      navigate(`${pathParts[1]}/${tabFromPath}/${typeFromPath}/${idFromPath}`);
+    }
+  }, [idFromPath, typeFromPath, navigate]);
 
   const handleItemClick = (id: number, type: string, itemName: string) => {
     setSelectedNodeId(id);
@@ -150,10 +165,18 @@ export default function RootLayout() {
               <h1 className="pl-2 w-fit">
                 {pathParts[1] !== 'monitor' ? (
                   treeData && (
+                    // <Tree
+                    //   item={treeData}
+                    //   onItemNameClick={handleItemClick}
+                    //   activeNode={selectedItem}
+                    //   useMonoColor={true}
+                    // />
                     <Tree
                       item={treeData}
                       onItemNameClick={handleItemClick}
-                      activeNode={selectedItem}
+                      activeNode={
+                        selectedNodeId ? selectedNodeId.toString() : ''
+                      }
                       useMonoColor={true}
                     />
                   )

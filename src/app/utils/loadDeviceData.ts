@@ -4,7 +4,7 @@ export const loadDeviceData = async () => {
 
   if (storedData) {
     try {
-      console.log('Already in the localstorage: ', storedData);
+      // console.log('Already in the localstorage: ', storedData);
       return JSON.parse(storedData);
     } catch (error) {
       console.error('Error parsing stored data:', error);

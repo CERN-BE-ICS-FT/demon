@@ -17,21 +17,27 @@ const DeviceDetails = () => {
 
   const [device, setDevice] = useState<Device | null>(null);
 
-  const updateDeviceData = async (updatedDevices: Device[]) => {
+  const updateDeviceData = (updatedDevice: Device) => {
+    const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
+    const updatedDevices = devices.map((d: Device) => {
+      if (d.id === id) {
+        return updatedDevice;
+      }
+      return d;
+    });
     localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
   };
 
   useEffect(() => {
-    const fetchDeviceDetails = async () => {
-      const devices = await loadDeviceData();
-
+    const fetchDeviceDetails = () => {
+      const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
       const foundDevice = devices.find((d: Device) => d.id === id);
-
       if (foundDevice) {
         setDevice(foundDevice);
+      } else {
+        console.log('Device not found');
       }
     };
-
     fetchDeviceDetails();
   }, [id]);
 
@@ -40,23 +46,24 @@ const DeviceDetails = () => {
     value: string | number | string[]
   ) => {
     if (device) {
-      setDevice({
+      const updatedDevice = {
         ...device,
         [field]: value
-      });
+      };
+      setDevice(updatedDevice);
     }
   };
 
   useEffect(() => {
     if (device) {
-      (async () => {
-        const devices = await loadDeviceData();
-        const index = devices.findIndex((d: Device) => d.id === id);
-        if (index > -1) {
-          devices[index] = device;
-          await updateDeviceData(devices);
+      const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
+      const updatedDevices = devices.map((d: Device) => {
+        if (d.id === id) {
+          return { ...d, ...device };
         }
-      })();
+        return d;
+      });
+      localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
     }
   }, [device, id]);
 
@@ -95,6 +102,7 @@ const DeviceDetails = () => {
         <input
           id="labels"
           type="text"
+          readOnly
           style={{ width: '50%' }}
           value={device ? device.labels.join(', ') : ''}
           className="px-2 py-0 border rounded focus:outline-none focus:border-zinc-800"

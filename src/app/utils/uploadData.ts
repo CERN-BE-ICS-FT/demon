@@ -1,9 +1,9 @@
 export const uploadData = async () => {
   const treeData = localStorage.getItem('treeData');
-  const deviceData = localStorage.getItem('deviceData');
+  const deviceData = localStorage.getItem('devicesData');
 
   console.log('Current treeData:', treeData);
-  console.log('Current deviceData:', deviceData);
+  console.log('Current devicesData:', deviceData);
 
   const payload: any = {};
   if (treeData) payload.treeData = treeData;

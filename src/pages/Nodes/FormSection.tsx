@@ -59,6 +59,7 @@ const FormSection: React.FC = () => {
     if (tree.id === id) return tree;
     for (const child of tree.children || []) {
       const found = findNodeById(child, id);
+      console.log('Found node: ', found);
       if (found) return found;
     }
     return null;
@@ -77,9 +78,17 @@ const FormSection: React.FC = () => {
     const updateLocalStorage = async () => {
       const currentTreeData: TreeData = await loadTreeData();
       const foundNode = findNodeById(currentTreeData.tree, id);
+
       if (foundNode && node) {
-        Object.assign(foundNode, node);
-        localStorage.setItem('treeData', JSON.stringify(currentTreeData));
+        const newTreeData: TreeData = JSON.parse(
+          JSON.stringify(currentTreeData)
+        );
+        const newNode = findNodeById(newTreeData.tree, id);
+
+        if (newNode) {
+          Object.assign(newNode, node);
+          localStorage.setItem('treeData', JSON.stringify(newTreeData));
+        }
       }
     };
 

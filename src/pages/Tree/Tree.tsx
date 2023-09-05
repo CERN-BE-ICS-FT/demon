@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import React, { useState, MouseEvent } from 'react';
-import { useNavigate, useNavigation } from 'react-router-dom';
 
 export interface TreeNode {
   id: number;
@@ -9,11 +8,6 @@ export interface TreeNode {
   hidden: boolean;
   type?: string;
   children?: TreeNode[];
-}
-
-interface Item {
-  id: number;
-  type: 'groups' | 'devices';
 }
 
 interface TreeProps {
@@ -29,7 +23,7 @@ const Tree: React.FC<TreeProps> = ({
   activeNode,
   useMonoColor = false
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleSymbolClick = (e: MouseEvent) => {
     e.stopPropagation();
@@ -45,6 +39,8 @@ const Tree: React.FC<TreeProps> = ({
   const activeStyle = item.hidden
     ? 'bg-gray-600 px-1 rounded text-white'
     : 'bg-zinc-800 px-1 rounded text-white';
+
+  const isActiveNode = activeNode === item.id.toString();
 
   return (
     <div className="max-h-screen ">
@@ -74,7 +70,7 @@ const Tree: React.FC<TreeProps> = ({
           <span
             onClick={handleNameClick}
             className={`cursor-pointer ${textStyle} ${
-              activeNode === item.name ? activeStyle : ''
+              isActiveNode ? activeStyle : ''
             }`}
           >
             {item.name}

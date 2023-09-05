@@ -1,0 +1,194 @@
+{
+  "tree": {
+    "id": 1,
+    "name": "Root Group",
+    "type": 0,
+    "rule_id": 2,
+    "state": "active",
+    "hidden": 0,
+    "tags": ["S4-400", "SCADA", "Kryo"],
+    "children": [
+      {
+        "id": 2,
+        "name": "Group ABC",
+        "type": 0,
+        "rule_id": 2,
+        "state": "inactive",
+        "hidden": 1,
+        "tags": ["PLC", "Automatic", "Vacuum"],
+        "children": [
+          {
+            "id": 3,
+            "name": "Device A1",
+            "type": 1,
+            "rule_id": 3,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["S7-900", "Kryo"]
+          },
+          {
+            "id": 4,
+            "name": "Device A2",
+            "type": 1,
+            "rule_id": 4,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["SCADA", "Automatic"]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Group B",
+        "type": 0,
+        "rule_id": 5,
+        "state": "inactive",
+        "hidden": 0,
+        "tags": ["PLC", "S7-900", "Kryo"],
+        "children": [
+          {
+            "id": 6,
+            "name": "Device B1",
+            "type": 1,
+            "rule_id": 6,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["SCADA", "Vacuum"]
+          },
+          {
+            "id": 7,
+            "name": "Group B2",
+            "type": 0,
+            "rule_id": 7,
+            "state": "inactive",
+            "hidden": 0,
+            "tags": ["S4-400", "PLC"],
+            "children": [
+              {
+                "id": 8,
+                "name": "Device B2A",
+                "type": 1,
+                "rule_id": 8,
+                "state": "active",
+                "hidden": 0,
+                "tags": ["SCADA", "Kryo"]
+              },
+              {
+                "id": 9,
+                "name": "Device B2B",
+                "type": 1,
+                "rule_id": 9,
+                "state": "active",
+                "hidden": 1,
+                "tags": ["Automatic", "Vacuum"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Group C",
+        "type": 0,
+        "rule_id": 10,
+        "state": "inactive",
+        "hidden": 0,
+        "tags": ["S7-900", "Automatic", "Kryo"],
+        "children": [
+          {
+            "id": 11,
+            "name": "Device C1",
+            "type": 1,
+            "rule_id": 11,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["S4-400", "SCADA"]
+          },
+          {
+            "id": 12,
+            "name": "Device C2",
+            "type": 1,
+            "rule_id": 12,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["PLC", "Vacuum"]
+          },
+          {
+            "id": 13,
+            "name": "Device C3",
+            "type": 1,
+            "rule_id": 13,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["S7-900", "Kryo"]
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Device D",
+        "type": 1,
+        "rule_id": 14,
+        "state": "active",
+        "hidden": 0,
+        "tags": ["SCADA", "Automatic"]
+      },
+      {
+        "id": 15,
+        "name": "Device E",
+        "type": 1,
+        "rule_id": 15,
+        "state": "active",
+        "hidden": 0,
+        "tags": ["PLC", "Vacuum"]
+      },
+      {
+        "id": 16,
+        "name": "Group F",
+        "type": 0,
+        "rule_id": 16,
+        "state": "inactive",
+        "hidden": 1,
+        "tags": ["S4-400", "SCADA", "Kryo"],
+        "children": [
+          {
+            "id": 17,
+            "name": "Device F1",
+            "type": 1,
+            "rule_id": 17,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["PLC", "Automatic"]
+          },
+          {
+            "id": 18,
+            "name": "Device F2",
+            "type": 1,
+            "rule_id": 18,
+            "state": "active",
+            "hidden": 0,
+            "tags": ["SCADA", "Vacuum"]
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Device G",
+        "type": 1,
+        "rule_id": 19,
+        "state": "active",
+        "hidden": 0,
+        "tags": ["S4-400", "PLC"]
+      },
+      {
+        "id": 20,
+        "name": "Device H",
+        "type": 1,
+        "rule_id": 20,
+        "state": "active",
+        "hidden": 0,
+        "tags": ["SCADA", "Kryo", "Automatic"]
+      }
+    ]
+  }
+}

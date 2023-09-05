@@ -24,6 +24,28 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
   const [showUploadDownloadPopup, setShowUploadDownloadPopup] = useState(false);
   const [isAboutUpload, setIsAboutUpload] = useState<boolean | null>(null);
 
+  const fetchAndStoreTreeData = async () => {
+    const response = await fetch('/tree.json');
+    if (!response.ok) {
+      console.error('Network response was not ok', response.statusText);
+      return null;
+    }
+    const data = await response.json();
+    localStorage.setItem('treeData', JSON.stringify(data));
+    return data;
+  };
+
+  const fetchAndStoreDevicesData = async () => {
+    const response = await fetch('/devices.json');
+    if (!response.ok) {
+      console.error('Network response was not ok', response.statusText);
+      return null;
+    }
+    const data = await response.json();
+    localStorage.setItem('devicesData', JSON.stringify(data));
+    return data;
+  };
+
   const handleFolderClick = () => {
     console.log(`new folder in ${activeItem} created`);
   };
@@ -37,8 +59,10 @@ const TreeIconsRow: React.FC<TreeIconsRowProps> = ({
     console.log('Confirmed upload');
     uploadData();
   };
-  const handleConfirmDownload = () => {
+  const handleConfirmDownload = async () => {
     console.log('Confirmed download');
+    await fetchAndStoreDevicesData();
+    await fetchAndStoreTreeData();
   };
   const handleUploadClick = () => {
     setIsAboutUpload(true);
