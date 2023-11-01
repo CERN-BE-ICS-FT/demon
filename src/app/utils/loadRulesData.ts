@@ -1,13 +1,12 @@
 export const loadRulesData = async () => {
-  localStorage.removeItem('rulesData'); // Not sure about this, without it changes are not seen instantly
-
   const storedData = localStorage.getItem('rulesData');
 
   if (storedData) {
     try {
       return JSON.parse(storedData);
     } catch (error) {
-      console.error('Error parsing stored data:', error);
+      console.error('Error parsing stored rules data:', error);
+      return null;
     }
   } else {
     const response = await fetch('/rules.json');
@@ -17,7 +16,6 @@ export const loadRulesData = async () => {
     }
     const data = await response.json();
     localStorage.setItem('rulesData', JSON.stringify(data));
-    // console.log(data);
     return data;
   }
 };

@@ -1,13 +1,16 @@
 export const uploadData = async () => {
   const treeData = localStorage.getItem('treeData');
   const deviceData = localStorage.getItem('devicesData');
+  const rulesData = localStorage.getItem('rulesData');
 
   console.log('Current treeData:', treeData);
   console.log('Current devicesData:', deviceData);
+  console.log('Current rulesData:', rulesData);
 
   const payload: any = {};
   if (treeData) payload.treeData = treeData;
   if (deviceData) payload.deviceData = deviceData;
+  if (rulesData) payload.rulesData = rulesData;
 
   fetch('/save-to-json', {
     method: 'POST',

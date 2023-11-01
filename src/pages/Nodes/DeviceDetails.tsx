@@ -17,55 +17,38 @@ const DeviceDetails = () => {
 
   const [device, setDevice] = useState<Device | null>(null);
 
-  const updateDeviceData = (updatedDevice: Device) => {
-    const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
-    const updatedDevices = devices.map((d: Device) => {
-      if (d.id === id) {
-        return updatedDevice;
-      }
-      return d;
-    });
-    localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
-  };
-
+  // Init
   useEffect(() => {
-    const fetchDeviceDetails = () => {
-      const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
-      const foundDevice = devices.find((d: Device) => d.id === id);
+    const fetchData = async () => {
+      const devices: Device[] = await loadDeviceData();
+      const foundDevice = devices.find((d) => d.id === id);
       if (foundDevice) {
         setDevice(foundDevice);
-      } else {
-        console.log('Device not found');
       }
     };
-    fetchDeviceDetails();
+    fetchData();
   }, [id]);
 
+  // Updating device in local storage
+  useEffect(() => {
+    if (device) {
+      const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
+      const updatedDevices = devices.map((d: Device) =>
+        d.id === device.id ? device : d
+      );
+      localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
+    }
+  }, [device]);
+
+  // Handling input change
   const handleFieldChange = (
     field: keyof Device,
     value: string | number | string[]
   ) => {
     if (device) {
-      const updatedDevice = {
-        ...device,
-        [field]: value
-      };
-      setDevice(updatedDevice);
+      setDevice({ ...device, [field]: value });
     }
   };
-
-  useEffect(() => {
-    if (device) {
-      const devices = JSON.parse(localStorage.getItem('devicesData') || '[]');
-      // const updatedDevices = devices.map((d: Device) => {
-      //   if (d.id === id) {
-      //     return { ...d, ...device };
-      //   }
-      //   return d;
-      // });
-      // localStorage.setItem('devicesData', JSON.stringify(updatedDevices));
-    }
-  }, [device, id]);
 
   return (
     <>

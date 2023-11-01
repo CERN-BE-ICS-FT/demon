@@ -4,6 +4,7 @@ import hideIcon from '../../assets/icons/hide.png';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { loadTreeData } from '../../app/utils/loadTreeData';
 import { useLocation } from 'react-router-dom';
+import Button from '../../app/common/buttons/Button';
 
 const ICSTAGS = ['Tag1', 'Tag2'];
 
@@ -126,8 +127,14 @@ const FormSection: React.FC = () => {
     console.log('The tag at index ' + index + ' was clicked');
   };
 
+  const handleApply = () => {
+    console.log('Applying');
+  };
+
   return (
     <div>
+      <Button onClick={handleApply}>{'Apply/Compile'}</Button>
+
       <div className="flex items-center space-x-2 mb-4">
         <label htmlFor="name" className="w-24 font-medium">
           Name:

@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react';
 import Button from '../../app/common/buttons/Button';
 import PropositionGroup from '../../app/common/cards/PropositionGroup';
 import ImportRulesModal from '../Popups/ImportRulesModal';
-import { useParams, matchRoutes, useLocation } from 'react-router-dom';
-
-interface PropositionGroupProps {
-  id: number;
-  handleDelete: (id: number) => void;
-}
+import { useLocation } from 'react-router-dom';
+import { loadRulesData } from '../../app/utils/loadRulesData'; // import the function
 
 const Rules = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [propositionGroups, setPropositionGroups] = useState<number[]>([0]);
   const [propositionGroupCount, setPropositionGroupCount] = useState<number>(1);
   const [groupName, setGroupName] = useState('');
+
+  const [rulesData, setRulesData] = useState(null);
 
   const location = useLocation();
 
@@ -32,6 +30,24 @@ const Rules = () => {
       </div>
     );
   }
+
+  // Load rules data
+  useEffect(() => {
+    const fetchData = async () => {
+      const rules = await loadRulesData();
+      if (rules) {
+        setRulesData(rules);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Update local storage when rules data changes
+  useEffect(() => {
+    if (rulesData) {
+      localStorage.setItem('rulesData', JSON.stringify(rulesData));
+    }
+  }, [rulesData]);
 
   const handleDeletePropositionGroup = (id: number) => {
     setPropositionGroups((currentPropositionGroups) =>
