@@ -1,9 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from '../../app/common/buttons/Button';
 import PropositionGroup from '../../app/common/cards/PropositionGroup';
 import ImportRulesModal from '../Popups/ImportRulesModal';
-import { useLocation } from 'react-router-dom';
-import { loadRulesData } from '../../app/utils/loadRulesData'; // import the function
+import { useLocation, useOutletContext } from 'react-router-dom';
+import { loadRulesData } from '../../app/utils/loadRulesData';
+import { TreeContext } from '../../app/contexts/TreeContext';
+
+interface TreeNode {
+  id: number;
+  rule_id: number;
+  children?: TreeNode[];
+}
 
 const Rules = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,6 +23,37 @@ const Rules = () => {
   const location = useLocation();
 
   const pathParts = location.pathname.split('/');
+
+  const [ruleId, setRuleId] = useState<number | null>(null);
+
+  const { currentId } = useContext(TreeContext);
+
+  const findRuleId = (
+    node: TreeNode,
+    currentId: number | null
+  ): number | null => {
+    if (currentId !== null && node.id === currentId) {
+      return node.rule_id;
+    }
+    if (node.children) {
+      for (const child of node.children) {
+        const foundId = findRuleId(child, currentId);
+        if (foundId !== null) return foundId;
+      }
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const treeDataString = localStorage.getItem('treeData');
+    if (treeDataString && currentId !== null) {
+      const treeDataObj = JSON.parse(treeDataString);
+      const treeData: TreeNode = treeDataObj.tree; // Access the 'tree' property
+      const foundRuleId = findRuleId(treeData, currentId);
+      console.log(`Found Rule ID: ${foundRuleId}`); // Debugging log
+      setRuleId(foundRuleId);
+    }
+  }, [currentId]);
 
   useEffect(() => {
     const pathParts = location.pathname.split('/');

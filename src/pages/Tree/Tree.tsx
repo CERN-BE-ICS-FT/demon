@@ -2,6 +2,7 @@
 import React, { useState, MouseEvent } from 'react';
 
 export interface TreeNode {
+  rule_id?: number;
   id: number;
   name: string;
   status: string;

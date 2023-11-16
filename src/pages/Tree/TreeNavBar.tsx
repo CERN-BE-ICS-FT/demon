@@ -9,7 +9,7 @@ const TreeNavBar: React.FC = () => {
   const [selectedTree, setSelectedTree] = useState(treeData.name);
 
   useEffect(() => {
-    console.log('Active tree:', selectedTree);
+    // console.log('Active tree:', selectedTree);
   }, [selectedTree]);
 
   const handleAddTree = (tree: string) => {

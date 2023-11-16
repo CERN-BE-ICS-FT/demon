@@ -18,8 +18,6 @@ const Configure = () => {
     }
   };
 
-  // console.log('Configure is being rendered');
-
   return (
     <div>
       <div className="flex border-b ">

@@ -12,6 +12,7 @@ import { convertDataToTreeNode } from '../../utils/convertDataToTreeNode';
 const DEFAULT_LEFT_PANEL_SIZE = 22;
 
 import React from 'react';
+import { TreeContext } from '../../contexts/TreeContext';
 
 interface ResizeHandleProps {
   collapsed: boolean;
@@ -67,8 +68,6 @@ export default function RootLayout() {
   const idFromPath = parseInt(pathParts[4], 10);
   const typeFromPath = pathParts[3];
   const tabFromPath = pathParts[2];
-
-  console.log('Rootlayout is being rendred');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -132,92 +131,95 @@ export default function RootLayout() {
   };
 
   return (
-    <div
-      className="root-layout min-h-screen min-w-screen bg-white h-full w-full"
-      style={{ height: '100vh' }}
-    >
-      <Navbar />
+    <TreeContext.Provider value={{ currentId: selectedNodeId }}>
       <div
-        className="container flex-grow flex flex-col h-full min-w-full"
-        style={{ height: 'calc(100vh - 80px)' }}
+        className="root-layout min-h-screen min-w-screen bg-white h-full w-full"
+        style={{ height: '100vh' }}
       >
-        <PanelGroup direction="horizontal" className="relative">
-          <Panel
-            ref={panelRef}
-            defaultSize={DEFAULT_LEFT_PANEL_SIZE}
-            order={1}
-            minSize={10}
-            onResize={setLeftSize}
-            collapsible={true}
-            collapsedSize={0}
-            onCollapse={setIsCollapsed}
-            className="bg-zinc-200 flex-grow"
-          >
-            <TreeNavBar />
-            {pathParts[1] !== 'monitor' ? (
-              <TreeIconsRow
-                isActive={selectedItem !== ''}
-                activeItem={selectedItem}
-                resetSelectedItem={() => setSelectedItem('')}
-              />
-            ) : (
-              <br></br>
-            )}
-            <div className="h-[calc(100vh-180px)] overflow-y-auto my-4">
-              <h1 className="pl-2 w-fit">
-                {pathParts[1] !== 'monitor' ? (
-                  treeData && (
-                    // <Tree
-                    //   item={treeData}
-                    //   onItemNameClick={handleItemClick}
-                    //   activeNode={selectedItem}
-                    //   useMonoColor={true}
-                    // />
+        <Navbar />
+        <div
+          className="container flex-grow flex flex-col h-full min-w-full"
+          style={{ height: 'calc(100vh - 80px)' }}
+        >
+          <PanelGroup direction="horizontal" className="relative">
+            <Panel
+              ref={panelRef}
+              defaultSize={DEFAULT_LEFT_PANEL_SIZE}
+              order={1}
+              minSize={10}
+              onResize={setLeftSize}
+              collapsible={true}
+              collapsedSize={0}
+              onCollapse={setIsCollapsed}
+              className="bg-zinc-200 flex-grow"
+            >
+              <TreeNavBar />
+              {pathParts[1] !== 'monitor' ? (
+                <TreeIconsRow
+                  isActive={selectedItem !== ''}
+                  activeItem={selectedItem}
+                  resetSelectedItem={() => setSelectedItem('')}
+                />
+              ) : (
+                <br></br>
+              )}
+              <div className="h-[calc(100vh-180px)] overflow-y-auto my-4">
+                <h1 className="pl-2 w-fit">
+                  {pathParts[1] !== 'monitor' ? (
+                    treeData && (
+                      // <Tree
+                      //   item={treeData}
+                      //   onItemNameClick={handleItemClick}
+                      //   activeNode={selectedItem}
+                      //   useMonoColor={true}
+                      // />
+                      <Tree
+                        item={treeData}
+                        onItemNameClick={handleItemClick}
+                        activeNode={
+                          selectedNodeId ? selectedNodeId.toString() : ''
+                        }
+                        useMonoColor={true}
+                      />
+                    )
+                  ) : treeData ? (
                     <Tree
                       item={treeData}
-                      onItemNameClick={handleItemClick}
-                      activeNode={
-                        selectedNodeId ? selectedNodeId.toString() : ''
+                      onItemNameClick={(id, type, name) =>
+                        handleItemClick(id, type, name)
                       }
-                      useMonoColor={true}
+                      activeNode={selectedItem}
+                      useMonoColor={pathParts[1] !== 'monitor'}
                     />
-                  )
-                ) : treeData ? (
-                  <Tree
-                    item={treeData}
-                    onItemNameClick={(id, type, name) =>
-                      handleItemClick(id, type, name)
-                    }
-                    activeNode={selectedItem}
-                    useMonoColor={pathParts[1] !== 'monitor'}
-                  />
-                ) : null}
-              </h1>
-            </div>
-          </Panel>
+                  ) : null}
+                </h1>
+              </div>
+            </Panel>
 
-          <PanelResizeHandle
-            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{
-              left: `${leftSize}%`
-            }}
-          >
-            <ResizeHandle
-              collapsed={isCollapsed}
-              expandPanel={handleExpandPanel}
-            />
-          </PanelResizeHandle>
-          <Panel order={2}>
-            <main
-              className="p-4 flex-grow bg-white overflow-y-auto w-full"
-              style={{ maxHeight: 'calc(100vh - 83px)', width: '100%' }}
+            <PanelResizeHandle
+              className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{
+                left: `${leftSize}%`
+              }}
             >
-              <Outlet />
-            </main>
-          </Panel>
-        </PanelGroup>
+              <ResizeHandle
+                collapsed={isCollapsed}
+                expandPanel={handleExpandPanel}
+              />
+            </PanelResizeHandle>
+            <Panel order={2}>
+              <main
+                className="p-4 flex-grow bg-white overflow-y-auto w-full"
+                style={{ maxHeight: 'calc(100vh - 83px)', width: '100%' }}
+              >
+                {/* <Outlet /> */}
+                <Outlet context={{ currentId: idFromPath }} />
+              </main>
+            </Panel>
+          </PanelGroup>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </TreeContext.Provider>
   );
 }

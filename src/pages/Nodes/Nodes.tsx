@@ -41,8 +41,6 @@ const Nodes = () => {
     );
   }
 
-  console.log('Nodes.tsx is rendered!');
-
   return (
     <div>
       {/* <h1 className="text-lg pt-4 font-bold">{nodeName}</h1> */}
