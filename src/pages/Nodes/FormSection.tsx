@@ -37,7 +37,6 @@ const FormSection: React.FC = () => {
   );
 
   const location = useLocation();
-  console.log('location: ', location);
   const pathParts = location.pathname.split('/');
   const id = parseInt(pathParts[pathParts.length - 1]);
 

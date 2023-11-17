@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Button from '../../app/common/buttons/Button';
 import PropositionGroup from '../../app/common/cards/PropositionGroup';
 import ImportRulesModal from '../Popups/ImportRulesModal';
-import { useLocation, useOutletContext } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { loadRulesData } from '../../app/utils/loadRulesData';
 import { TreeContext } from '../../app/contexts/TreeContext';
 
@@ -10,6 +10,21 @@ interface TreeNode {
   id: number;
   rule_id: number;
   children?: TreeNode[];
+}
+
+interface RuleGroup {
+  id: number;
+  // other properties of RuleGroup...
+}
+
+interface Rule {
+  id: number;
+  groups: RuleGroup[];
+  // other properties of Rule...
+}
+
+interface RulesData {
+  propositions: Rule[];
 }
 
 const Rules = () => {
@@ -68,6 +83,30 @@ const Rules = () => {
       </div>
     );
   }
+
+  const checkAndLogRule = (ruleId: number) => {
+    const rulesDataString = localStorage.getItem('rulesData');
+    if (rulesDataString) {
+      const rulesData: RulesData = JSON.parse(rulesDataString);
+
+      const foundProposition = rulesData.propositions.find(
+        (proposition) => proposition.id === ruleId
+      );
+
+      if (foundProposition) {
+        console.log('Proposition Found for ID:', ruleId);
+        console.log('Full Proposition:', foundProposition);
+      } else {
+        console.log('Proposition not found for ID:', ruleId);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (ruleId) {
+      checkAndLogRule(ruleId);
+    }
+  }, [ruleId]);
 
   // Load rules data
   useEffect(() => {
